@@ -1,0 +1,16 @@
+{
+    "name": "Internchips",
+    "short_name": "hmmm",
+    "start_url": "view/index.php",
+    "display": "standalone",
+    "background-color": "#FFFF",
+    "theme_color": "#03a9f4",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "assets/images/chips.png",
+            "type": "image/png",
+            "sizes": "462x462"
+        }
+    ]
+}
