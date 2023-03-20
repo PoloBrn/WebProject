@@ -98,7 +98,7 @@ if ($_SESSION['id_role'] == '1') {
 }
 
 if (isset($_GET['id'])) {
-    $users = $user->get(array($_GET['id']));
+    $oneUser = $user->get(array($_GET['id']));
 }
 
 $promos = $promo->getPilotPromos($_SESSION['id_user']);

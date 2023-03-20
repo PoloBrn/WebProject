@@ -19,7 +19,7 @@ abstract class Database implements CRUD
 
         try {
             //$pdo = new PDO($dsn, 'root' , 'cesi'); // Serveur Google Cloud
-            $this->pdo = new PDO($dsn, 'root', ''); // Serveur Localhost
+            $this->pdo = new PDO($dsn, $bdd_config['user'], $bdd_config['password']); // Serveur Localhost
         } catch (Exception $e) {
             die('Une erreur a été trouvée : ' . $e->getMessage());
         }
