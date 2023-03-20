@@ -4,8 +4,7 @@ require_once '../model/CRUD_campus.php';
 require_once '../model/CRUD_promo.php';
 require_once '../model/CRUD_promotype.php';
 require_once '../model/CRUD_address.php';
-require_once
- '../model/CRUD_user.php';
+require_once '../model/CRUD_user.php';
 
 $campus = new \MODELE\CRUD_campus;
 $promo = new \MODELE\CRUD_promo;

@@ -77,8 +77,8 @@ CREATE TABLE company(
    active boolean,
    email VARCHAR(50) NOT NULL,
    nb_student INT NOT NULL,
-   logo VARCHAR(50) NOT NULL,
-   id_user INT NOT NULL,
+   logo VARCHAR(50),
+   id_user INT,
    PRIMARY KEY(id_company),
    FOREIGN KEY(id_user) REFERENCES users(id_user) on delete set null
 );
@@ -98,10 +98,10 @@ CREATE TABLE infos(
    last_name VARCHAR(50) NOT NULL,
    cv VARCHAR(50),
    motivation_letter VARCHAR(50),
-   id_address INT NOT NULL,
+   id_address INT,
    PRIMARY KEY(id_user),
    FOREIGN KEY(id_user) REFERENCES users(id_user) on delete cascade,
-   FOREIGN KEY(id_address) REFERENCES address(id_address) on delete set null
+   FOREIGN KEY(id_address) REFERENCES address(id_address)
 );
 
 CREATE TABLE offer(
@@ -112,9 +112,9 @@ CREATE TABLE offer(
    end_date DATE NOT NULL,
    places INT NOT NULL,
    salary VARCHAR(50) NOT NULL,
-   id_user INT NOT NULL,
-   id_locality INT NOT NULL,
-   id_activity INT NOT NULL,
+   id_user INT,
+   id_locality INT,
+   id_activity INT,
    PRIMARY KEY(id_offer),
    FOREIGN KEY(id_user) REFERENCES users(id_user) on delete set null,
    FOREIGN KEY(id_locality) REFERENCES localities(id_locality) on delete set null,

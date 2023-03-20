@@ -8,8 +8,12 @@
 </head>
 
 <body>
-    <?php require '../includes/navbar.php';?>
-    <div class="ff-el-group ff-custom_html" data-name="custom_html-4_12">
+    <?php
+    require '../includes/navbar.php';
+    require '../includes/scripts.php';
+    ?>
+
+    <div class="container" data-name="custom_html-4_12">
         <p>
         <h2><span id="lwptoc20">1 - Édition du site</span></h2>
         <!-- /wp:heading -->
