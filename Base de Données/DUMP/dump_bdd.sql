@@ -34,9 +34,9 @@ CREATE TABLE campus(
 );
 
 CREATE TABLE promo_type(
-   id_asso_type INT AUTO_INCREMENT,
+   id_type INT AUTO_INCREMENT,
    name VARCHAR(50) NOT NULL,
-   PRIMARY KEY(id_asso_type)
+   PRIMARY KEY(id_type)
 );
 
 CREATE TABLE skills(
@@ -55,8 +55,8 @@ CREATE TABLE role(
 CREATE TABLE users(
    id_user INT auto_increment,
    email VARCHAR(50) NOT NULL,
-   password VARCHAR(50) NOT NULL,
-   id_role INT NOT NULL,
+   password VARCHAR(255) NOT NULL,
+   id_role INT NOT NULL default '3',
    PRIMARY KEY(id_user),
    FOREIGN KEY(id_role) REFERENCES role(id_role)
 );
@@ -64,11 +64,11 @@ CREATE TABLE users(
 CREATE TABLE promo(
    id_promo INT AUTO_INCREMENT,
    name VARCHAR(50),
-   id_asso_type INT NOT NULL,
+   id_type INT NOT NULL,
    id_campus INT NOT NULL,
    PRIMARY KEY(id_promo),
-   FOREIGN KEY(id_asso_type) REFERENCES promo_type(id_asso_type),
-   FOREIGN KEY(id_campus) REFERENCES campus(id_campus)
+   FOREIGN KEY(id_type) REFERENCES promo_type(id_type) on delete cascade,
+   FOREIGN KEY(id_campus) REFERENCES campus(id_campus) on delete cascade
 );
 
 CREATE TABLE company(
@@ -80,7 +80,7 @@ CREATE TABLE company(
    logo VARCHAR(50) NOT NULL,
    id_user INT NOT NULL,
    PRIMARY KEY(id_company),
-   FOREIGN KEY(id_user) REFERENCES users(id_user)
+   FOREIGN KEY(id_user) REFERENCES users(id_user) on delete set null
 );
 
 CREATE TABLE localities(
@@ -88,20 +88,20 @@ CREATE TABLE localities(
    id_company INT NOT NULL,
    id_address INT NOT NULL,
    PRIMARY KEY(id_locality),
-   FOREIGN KEY(id_company) REFERENCES company(id_company),
-   FOREIGN KEY(id_address) REFERENCES address(id_address)
+   FOREIGN KEY(id_company) REFERENCES company(id_company) on delete cascade,
+   FOREIGN KEY(id_address) REFERENCES address(id_address) on delete cascade
 );
 
 CREATE TABLE infos(
-   id_user INT AUTO_INCREMENT,
+   id_user INT,
    first_name VARCHAR(50) NOT NULL,
    last_name VARCHAR(50) NOT NULL,
    cv VARCHAR(50),
    motivation_letter VARCHAR(50),
    id_address INT NOT NULL,
    PRIMARY KEY(id_user),
-   FOREIGN KEY(id_user) REFERENCES users(id_user),
-   FOREIGN KEY(id_address) REFERENCES address(id_address)
+   FOREIGN KEY(id_user) REFERENCES users(id_user) on delete cascade,
+   FOREIGN KEY(id_address) REFERENCES address(id_address) on delete set null
 );
 
 CREATE TABLE offer(
@@ -116,25 +116,25 @@ CREATE TABLE offer(
    id_locality INT NOT NULL,
    id_activity INT NOT NULL,
    PRIMARY KEY(id_offer),
-   FOREIGN KEY(id_user) REFERENCES users(id_user),
-   FOREIGN KEY(id_locality) REFERENCES localities(id_locality),
-   FOREIGN KEY(id_activity) REFERENCES activity(id_activity)
+   FOREIGN KEY(id_user) REFERENCES users(id_user) on delete set null,
+   FOREIGN KEY(id_locality) REFERENCES localities(id_locality) on delete set null,
+   FOREIGN KEY(id_activity) REFERENCES activity(id_activity) on delete set null
 );
 
 CREATE TABLE affiliated(
-   id_user INT AUTO_INCREMENT,
+   id_user INT,
    id_promo INT ,
    PRIMARY KEY(id_user, id_promo),
-   FOREIGN KEY(id_user) REFERENCES users(id_user),
-   FOREIGN KEY(id_promo) REFERENCES promo(id_promo)
+   FOREIGN KEY(id_user) REFERENCES users(id_user) on delete cascade,
+   FOREIGN KEY(id_promo) REFERENCES promo(id_promo) on delete cascade
 );
 
 CREATE TABLE sector(
-   id_company INT AUTO_INCREMENT,
+   id_company INT,
    id_activity INT ,
    PRIMARY KEY(id_company, id_activity),
-   FOREIGN KEY(id_company) REFERENCES company(id_company),
-   FOREIGN KEY(id_activity) REFERENCES activity(id_activity)
+   FOREIGN KEY(id_company) REFERENCES company(id_company) on delete cascade,
+   FOREIGN KEY(id_activity) REFERENCES activity(id_activity) on delete cascade
 );
 
 CREATE TABLE postulate(
@@ -142,38 +142,38 @@ CREATE TABLE postulate(
    id_offer INT ,
    progress VARCHAR(50) NOT NULL,
    PRIMARY KEY(id_user, id_offer),
-   FOREIGN KEY(id_user) REFERENCES users(id_user),
-   FOREIGN KEY(id_offer) REFERENCES offer(id_offer)
+   FOREIGN KEY(id_user) REFERENCES users(id_user) on delete cascade,
+   FOREIGN KEY(id_offer) REFERENCES offer(id_offer) on delete cascade
 );
 
 CREATE TABLE wish(
-   id_user INT AUTO_INCREMENT,
+   id_user INT,
    id_offer INT ,
    PRIMARY KEY(id_user, id_offer),
-   FOREIGN KEY(id_user) REFERENCES users(id_user),
-   FOREIGN KEY(id_offer) REFERENCES offer(id_offer)
+   FOREIGN KEY(id_user) REFERENCES users(id_user) on delete cascade,
+   FOREIGN KEY(id_offer) REFERENCES offer(id_offer) on delete cascade
 );
 
 CREATE TABLE feedback(
-   id_user INT AUTO_INCREMENT,
+   id_user INT,
    id_company INT ,
    rate INT,
    comment VARCHAR(50),
    PRIMARY KEY(id_user, id_company),
-   FOREIGN KEY(id_user) REFERENCES users(id_user),
-   FOREIGN KEY(id_company) REFERENCES company(id_company)
+   FOREIGN KEY(id_user) REFERENCES users(id_user) on delete cascade,
+   FOREIGN KEY(id_company) REFERENCES company(id_company) on delete cascade
 );
 
 CREATE TABLE which_promo(
-   id_offer INT AUTO_INCREMENT,
-   id_asso_type INT ,
-   PRIMARY KEY(id_offer, id_asso_type),
-   FOREIGN KEY(id_offer) REFERENCES offer(id_offer),
-   FOREIGN KEY(id_asso_type) REFERENCES promo_type(id_asso_type)
+   id_offer INT,
+   id_type INT ,
+   PRIMARY KEY(id_offer, id_type),
+   FOREIGN KEY(id_offer) REFERENCES offer(id_offer) on delete cascade,
+   FOREIGN KEY(id_type) REFERENCES promo_type(id_type) on delete cascade
 );
 
 CREATE TABLE need_skill(
-   id_offer INT AUTO_INCREMENT,
+   id_offer INT,
    id_skill INT ,
    PRIMARY KEY(id_offer, id_skill),
    FOREIGN KEY(id_offer) REFERENCES offer(id_offer),
