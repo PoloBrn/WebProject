@@ -20,117 +20,7 @@ if ($_SESSION['id_role'] == 3) {
     <?php include '../includes/scripts.php'; ?>
     <?php include '../includes/navbar.php' ?>
 
-    <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form class="container" method="POST" action="#">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nouvel utilisateur</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <?php if (isset($errorMsg)) {
-                            echo '<p>' . $errorMsg . '</p>';
-                        } ?>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Prénom :</label>
-                            <input type="text" class="form-control" name="first_name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Nom :</label>
-                            <input type="text" class="form-control" name="last_name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Adresse e-mail :</label>
-                            <input type="email" class="form-control" name="email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Mot de passe :</label>
-                            <input type="password" class="form-control" name="password">
-                        </div>
-                        <br>
-                        <div class="mb-3">
-                            <label for="" class="form-label">Role :</label>
-                            <select name="role" id="role" class="mb-3 form-select">
-                                <?php
-                                if ($_SESSION['id_role'] == '1') {
-                                    echo '<option value="2">Pilote</option>
-                        <option value="3">Etudiant</option>';
-                                } else {
-                                    echo ' <option value="3">Etudiant</option>';
-                                } ?>
-                            </select>
-                        </div><br>
-                        <div class="mb-3" id="promodiv">
-                            <label for="" class="form-label">Promotion :</label>
-                            <select name="promo" class="mb-3 form-select">
-                                <?php foreach ($campuses as $onecampus) { ?>
-                                    <optgroup label="<?= $onecampus[1] ?>">
-                                        <?php if ($_SESSION['id_role'] == 1) { ?>
-                                            <?php foreach (getPromoByIDcampus($onecampus['id_campus']) as $onepromo) { ?>
-                                                <option value="<?= $onepromo['id_promo'] ?>"><?= $onepromo[1] ?></option>
-                                            <?php }
-                                        } else { ?>
-                                            <?php foreach (getPromoByIDcampusAndPilot($onecampus['id_campus']) as $onepromo) { ?>
-                                                <option value="<?= $onepromo['id_promo'] ?>"><?= $onepromo['name'] ?></option>
-                                        <?php }
-                                        } ?>
 
-                                    </optgroup>
-                                <?php } ?>
-                            </select>
-                            <script>
-                                $(document).ready(function() {
-
-                                    if ($('#role').val() == 3) {
-                                        document.getElementById('promodiv').hidden = false;
-                                        //$('#promodiv').(false);
-                                    } else {
-                                        document.getElementById('promodiv').hidden = true;
-                                        //$('#promodiv').hidden(true);
-                                    }
-                                    $('#role').change(function() {
-
-                                        if ($('#role').val() == 3) {
-                                            document.getElementById('promodiv').hidden = false;
-                                            //$('#promodiv').(false);
-                                        } else {
-                                            document.getElementById('promodiv').hidden = true;
-                                            //$('#promodiv').hidden(true);
-                                        }
-                                    });
-                                });
-                            </script>
-                        </div>
-
-
-
-
-                        <div class="mb-3">
-                            <label class="form-label">Libellé :</label>
-                            <input type="text" class="form-control" name="label" id="label" value>
-
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Code postal :</label>
-                            <input type="text" class="form-control" name="postal_code" id="postal_code">
-                        </div>
-                        <label class="form-label">Ville :</label>
-                        <select name="city" id="city" class="mb-3 form-select">
-
-                        </select><br>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary" name="create">Créer</button>
-                    </div>
-
-                </form>
-
-            </div>
-        </div>
-    </div>
 
 
 
@@ -202,7 +92,117 @@ if ($_SESSION['id_role'] == 3) {
 
         <br><br>
         <div class="container">
+            <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form class="container" method="POST" action="#">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Nouvel utilisateur</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <?php if (isset($errorMsg)) {
+                                    echo '<p>' . $errorMsg . '</p>';
+                                } ?>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Prénom :</label>
+                                    <input type="text" class="form-control" name="first_name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Nom :</label>
+                                    <input type="text" class="form-control" name="last_name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Adresse e-mail :</label>
+                                    <input type="email" class="form-control" name="email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Mot de passe :</label>
+                                    <input type="password" class="form-control" name="password">
+                                </div>
+                                <br>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Role :</label>
+                                    <select name="role" id="role" class="mb-3 form-select">
+                                        <?php
+                                        if ($_SESSION['id_role'] == '1') {
+                                            echo '<option value="2">Pilote</option>
+                        <option value="3">Etudiant</option>';
+                                        } else {
+                                            echo ' <option value="3">Etudiant</option>';
+                                        } ?>
+                                    </select>
+                                </div><br>
+                                <div class="mb-3" id="promodiv">
+                                    <label for="" class="form-label">Promotion :</label>
+                                    <select name="promo" class="mb-3 form-select">
+                                        <?php foreach ($campuses as $onecampus) { ?>
+                                            <optgroup label="<?= $onecampus[1] ?>">
+                                                <?php if ($_SESSION['id_role'] == 1) { ?>
+                                                    <?php foreach (getPromoByIDcampus($onecampus['id_campus']) as $onepromo) { ?>
+                                                        <option value="<?= $onepromo['id_promo'] ?>"><?= $onepromo[1] ?></option>
+                                                    <?php }
+                                                } else { ?>
+                                                    <?php foreach (getPromoByIDcampusAndPilot($onecampus['id_campus']) as $onepromo) { ?>
+                                                        <option value="<?= $onepromo['id_promo'] ?>"><?= $onepromo['name'] ?></option>
+                                                <?php }
+                                                } ?>
 
+                                            </optgroup>
+                                        <?php } ?>
+                                    </select>
+                                    <script>
+                                        $(document).ready(function() {
+
+                                            if ($('#role').val() == 3) {
+                                                document.getElementById('promodiv').hidden = false;
+                                                //$('#promodiv').(false);
+                                            } else {
+                                                document.getElementById('promodiv').hidden = true;
+                                                //$('#promodiv').hidden(true);
+                                            }
+                                            $('#role').change(function() {
+
+                                                if ($('#role').val() == 3) {
+                                                    document.getElementById('promodiv').hidden = false;
+                                                    //$('#promodiv').(false);
+                                                } else {
+                                                    document.getElementById('promodiv').hidden = true;
+                                                    //$('#promodiv').hidden(true);
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                </div>
+
+
+
+
+                                <div class="mb-3">
+                                    <label class="form-label">Libellé :</label>
+                                    <input type="text" class="form-control" name="label" id="label" value>
+
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Code postal :</label>
+                                    <input type="text" class="form-control" name="postal_code" id="postal_code">
+                                </div>
+                                <label class="form-label">Ville :</label>
+                                <select name="city" id="city" class="mb-3 form-select">
+
+                                </select><br>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-primary" name="create">Créer</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
             <?php if (isset($errorMsg)) { ?>
                 <p><?= $errorMsg ?></p>
             <?php } ?>

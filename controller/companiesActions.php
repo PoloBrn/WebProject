@@ -3,10 +3,13 @@ if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 require '../model/CRUD_company.php';
 require '../model/CRUD_address.php';
 require '../model/CRUD_localities.php';
+require '../model/CRUD_activities.php';
 
 $company = new \MODELE\CRUD_company();
 $address = new \MODELE\CRUD_address();
 $localities = new \MODELE\CRUD_localities();
+
+$activity = new \MODELE\CRUD_activities();
 
 
 // Validation du formulaire
@@ -58,9 +61,12 @@ if (isset($_POST['createAddress'])) {
     $address_postal_code = htmlspecialchars($_POST['postal_code']);
     $address_city = htmlspecialchars($_POST['city']);
 
-    $address_id = $address->create(array($address_label, $address_postal_code, $address_city));
+    if (count($address->getFromCompanyAndInfos($_GET['id'], $address_label, $address_postal_code, $address_city)) == 0) {
 
-    $localities->create(array($address_id, $_GET['id']));
+        $address_id = $address->create(array($address_label, $address_postal_code, $address_city));
+
+        $localities->create(array($address_id, $_GET['id']));
+    }
 }
 
 if (isset($_POST['deleteAddress']) && isset($_POST['address'])) {
@@ -71,7 +77,52 @@ if (isset($_POST['deleteAddress']) && isset($_POST['address'])) {
     $address->delete(array($address_id));
 }
 
+if (isset($_POST['create_activity'])) {
 
+    $activity_name = htmlspecialchars($_POST['create_activity_name']);
+
+    if (count($activity->getByName($activity_name)) == 0) {
+
+        $activity_id = $activity->create(array($activity_name));
+
+        header('Location: companies.php?activity#activity' . $activity_id);
+    }
+}
+
+if (isset($_POST['update_activity'])) {
+
+    $activity_id = htmlspecialchars($_POST['id_activity']);
+    $activity_name = htmlspecialchars($_POST['name_activity']);
+
+    $activity->update(array($activity_id, $activity_name));
+
+    header('Location: companies.php?activity#activity' . $activity_id);
+}
+
+if (isset($_POST['delete_activity'])) {
+
+    $activity_id = htmlspecialchars($_POST['id_activity']);
+
+    $activity->delete(array($activity_id));
+
+    header('Location: companies.php?activity');
+}
+
+if (isset($_POST['add_activity'])) {
+
+    $activity_id = htmlspecialchars($_POST['activity']);
+
+    if (count($activity->getRelation($activity_id, $_GET['id'])) == 0) {
+        $activity->addToCompany($activity_id, $_GET['id']);
+    }
+}
+
+if (isset($_POST['remove_activity'])) {
+
+    $activity_id = htmlspecialchars($_POST['id_activity']);
+
+    $activity->removeFromCompany($activity_id, $_GET['id']);
+}
 
 $allCompanies = $company->get(0);
 
@@ -79,4 +130,11 @@ if (isset($_GET['id'])) {
     $company_infos = $company->getById($_GET['id']);
 
     $addresses = $localities->get(array($_GET['id']));
+
+    $company_activities = $activity->getCompanyActivities($_GET['id']);
 }
+
+if (isset($_GET['activity'])) {
+}
+
+$allActivities = $activity->get(0);

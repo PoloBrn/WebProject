@@ -144,8 +144,8 @@ if ($_SESSION['id_role'] != 1) {
             if (count($promo_infos) != 0) {
                 $promo = $promo_infos[0]; ?>
                 <a href="campus.php#promo<?= $promo['id_promo'] ?>" class="btn btn-primary">back</a>
-                <h1><?= $promo[1] ?></h1>
                 <form class="container" method="POST">
+                    <h5>Informations :</h5>
                     <div class="mb-3">
                         <label class="form-label">Nom de la promotion :</label>
                         <input type="text" class="form-control" name="update_promo_name" value="<?= $promo[1] ?>">
@@ -163,24 +163,24 @@ if ($_SESSION['id_role'] != 1) {
                         </script>
                     </div>
                     </div>
-
-                    <button type="submit" class="btn btn-primary" name="update">Enregistrer</button>
                     <a href="campus.php#promo=<?= $promo['id_promo'] ?>" class="btn btn-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-primary" name="update">Enregistrer</button>
                     <button type="submit" class="btn btn-danger" name="delete">Supprimer</button>
                 </form>
-
-                <br><br>
-                <h5>Pilote(s) :</h5>
+                <hr>
                 <br>
                 <form class="container" method="post">
-                    <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal" data-bs-target="#newPilotModal">
-                        Ajouter un pilote
-                    </button>
-                    <button type="submit" class="btn btn-danger" name="deletePilotStudent">
-                        Supprimer un pilote
-                    </button>
-                    <br><br>
-                    <select name='user' id="tutor" class="form-control" size="5">
+                    <h5>Pilote(s) :</h5>
+                    <br>
+                    <select name='user' id="tutor" class="form-control" size="
+                            <?php if (count($promo_pilots) < 2) {
+                                echo "2";
+                            } elseif (count($promo_pilots) > 8) {
+                                echo "8";
+                            } else {
+                                echo count($promo_pilots);
+                            }
+                            ?>">
                         <?php
 
                         foreach ($promo_pilots as $pilot) {
@@ -192,19 +192,28 @@ if ($_SESSION['id_role'] != 1) {
                         }
                         ?>
                     </select>
-                </form>
-                <br>
-                <h5>Etudiant(s) :</h5>
-                <br>
-                <form class="container" method="post">
-                    <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal" data-bs-target="#newStudentModal">
-                        Ajouter un étudiant
+                    <br>
+                    <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal" data-bs-target="#newPilotModal">
+                        Ajouter un pilote
                     </button>
                     <button type="submit" class="btn btn-danger" name="deletePilotStudent">
-                        Supprimer un étudiant
+                        Supprimer un pilote
                     </button>
-                    <br><br>
-                    <select name='user' id="tutor" class="form-control" size="5">
+                </form>
+                <hr>
+                <br>
+                <form class="container" method="post">
+                    <h5>Etudiant(s) :</h5>
+                    <br>
+                    <select name='user' id="tutor" class="form-control" size="
+                            <?php if (count($promo_students) < 2) {
+                                echo "2";
+                            } elseif (count($promo_students) > 8) {
+                                echo "8";
+                            } else {
+                                echo count($promo_students);
+                            }
+                            ?>">
                         <?php
 
                         foreach ($promo_students as $student) {
@@ -216,6 +225,13 @@ if ($_SESSION['id_role'] != 1) {
                         }
                         ?>
                     </select>
+                    <br>
+                    <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal" data-bs-target="#newStudentModal">
+                        Ajouter un étudiant
+                    </button>
+                    <button type="submit" class="btn btn-danger" name="deletePilotStudent">
+                        Supprimer un étudiant
+                    </button>
                 </form>
 
 
@@ -247,7 +263,7 @@ if ($_SESSION['id_role'] != 1) {
                         <input type="text" name="name_type" class="card-title form-control" id="" value='<?= $promoType['name'] ?>'>
                         <input type="hidden" name="id_asso" value="<?= $promoType['id_type'] ?>">
                         <input type="submit" name='update_type' class="btn btn-primary" value="Modifier">
-                        <input type="submit" name='delete_type' class="btn btn-danger" value="Supprmer">
+                        <input type="submit" name='delete_type' class="btn btn-danger" value="Supprimer">
                     </div>
                 </form>
                 <br>
@@ -344,5 +360,6 @@ if ($_SESSION['id_role'] != 1) {
     <?php } ?>
 
 </body>
-<?php include '../includes/footer.php';?>
+<?php include '../includes/footer.php'; ?>
+
 </html>
