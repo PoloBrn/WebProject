@@ -6,9 +6,9 @@ require('../controller/securityAction.php');
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include '../includes/head.php'; ?>
+    <link rel="stylesheet" href="../assets/CSS/index.css">
 </head>
 
 <body>
