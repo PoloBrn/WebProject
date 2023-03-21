@@ -10,7 +10,7 @@ $(function () {
 })
 function startCity(value) {
     $('#city').html(getCity($('#postal_code').val()));
-    $('#city').val(value);
+    //$('#city').val(value);
 }
 
 function getCity(postalCode) {

@@ -45,16 +45,16 @@
 
                     case 3: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Les offres</a>
+                            <a class="nav-link active" href="#">Les offres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="companies.php">Les entreprises</a>
+                            <a class="nav-link active" href="companies.php">Les entreprises</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Mon profil</a>
+                            <a class="nav-link active" href="#">Mon profil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">A propos</a>
+                            <a class="nav-link active" href="#">A propos</a>
                         </li>
                 <?php break;
                 }

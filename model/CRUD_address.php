@@ -47,5 +47,12 @@ class CRUD_address extends Database
         return $request->fetchAll();
     }
 
+    function getFromCompanyAndInfos($company_id, $address_label, $address_postal_code, $address_city) {
+        $request = $this->pdo->prepare('SELECT * FROM address join localities on address.id_address = localities.id_address WHERE id_company =? and address.name =? and postal_code =? and city_name =?');
+        $request->execute(array($company_id, $address_label, $address_postal_code, $address_city));
+        
+        return $request->fetchAll();
+    }
+
 
 }
