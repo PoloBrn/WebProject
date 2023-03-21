@@ -39,6 +39,9 @@
                             <a class="nav-link active" href="users.php">Gestion des étudiants</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link active" href="users.php?id=<?= $_SESSION['id_user']?>">Mon profil</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" href="#">A propos</a>
                         </li>
                     <?php break;
@@ -51,10 +54,7 @@
                             <a class="nav-link active" href="companies.php">Les entreprises</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Mon profil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">A propos</a>
+                            <a class="nav-link active" href="users.php?id=<?= $_SESSION['id_user']?>">Mon profil</a>
                         </li>
                 <?php break;
                 }
