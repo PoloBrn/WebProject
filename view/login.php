@@ -1,9 +1,24 @@
 <?php
-require('../controller/authActions.php');
 
-if (isset($_SESSION['auth'])) {
-    header('Location: index.php');
+require_once '../assets/smarty/Smarty.class.php';
+
+Class Login{
+    
+    private $smarty;
+
+    function __construct() {
+        $this->smarty = new Smarty();
+    }
+    function display($msg){
+        
+        if ($msg !="0")$this->smarty->assign('errorMsg',$msg);
+        $this->smarty->display('../view/templates/login.tpl');
+
+    }
+
 }
+
+/*
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,3 +48,4 @@ if (isset($_SESSION['auth'])) {
 </body>
 
 </html>
+*/

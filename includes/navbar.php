@@ -11,20 +11,19 @@
             <ul class="navbar-nav">
                 <?php
 
-
                 switch ($_SESSION['id_role']) {
                     case 1: ?>
                         <li class="nav-item">
                             <a class="nav-link active" href="#">Gestion des offres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="companies.php">Gestion des entreprises</a>
+                            <a class="nav-link active" href="../test.php">Gestion des entreprises</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="users.php">Gestion des utilisateurs</a>
+                            <a class="nav-link active" href="../view/users.php">Gestion des utilisateurs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="campus.php">Gestion des campus</a>
+                            <a class="nav-link active" href="../view/campus.php">Gestion des campus</a>
                         </li>
                     <?php break;
 
@@ -33,13 +32,13 @@
                             <a class="nav-link active" href="#">Gestion des offres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="companies.php">Gestion des entreprises</a>
+                            <a class="nav-link active" href="../view/companies.php">Gestion des entreprises</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="users.php">Gestion des étudiants</a>
+                            <a class="nav-link active" href="../view/users.php">Gestion des étudiants</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="users.php?id=<?= $_SESSION['id_user']?>">Mon profil</a>
+                            <a class="nav-link active" href="../view/users.php?id=<?= $_SESSION['id_user']?>">Mon profil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="#">A propos</a>
@@ -51,10 +50,10 @@
                             <a class="nav-link active" href="#">Les offres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="companies.php">Les entreprises</a>
+                            <a class="nav-link active" href=../view/companies.php>Les entreprises</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="users.php?id=<?= $_SESSION['id_user']?>">Mon profil</a>
+                            <a class="nav-link active" href="../view/users.php?id=<?= $_SESSION['id_user']?>">Mon profil</a>
                         </li>
                 <?php break;
                 }

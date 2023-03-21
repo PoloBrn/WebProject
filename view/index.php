@@ -27,5 +27,7 @@ require('../controller/securityAction.php');
     <h1>Prénom : <?= $_SESSION['first_name'] ?></h1>
 
 </body>
-<?php include '../includes/footer.php';?>
+<?php include '../includes/footer.php';
+
+?>
 </html>
