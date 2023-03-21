@@ -4,4 +4,5 @@
 <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css">
 <link rel="shortcut icon" href="../assets/images/chips.png" />
 <link rel="manifest" href="../manifest.json">
+<link rel="stylesheet" href="../assets/CSS/style.css">
 <title>INTERNCHIPS</title>
