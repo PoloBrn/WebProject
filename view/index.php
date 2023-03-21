@@ -14,10 +14,14 @@ require('../controller/securityAction.php');
 <body>
     <?php include '../includes/navbar.php'; ?>
     <?php include '../includes/scripts.php'; ?>
+    <link rel="stylesheet" href="manifest.json">
     <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js');
-        }
+        window.addEventListener("load",()=> {
+           if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        } 
+        });
+        
     </script>
     <h1>Nom : <?= $_SESSION['last_name'] ?></h1>
     <h1>Prénom : <?= $_SESSION['first_name'] ?></h1>
