@@ -19,7 +19,7 @@ label {
 
 .color-white {
     color: white;
-}
+
 h1 {
     font-family: 'Roboto', sans-serif;
 }
@@ -52,4 +52,5 @@ footer a {
 
 p {
     color: rgb(74, 73, 73);
+
 }

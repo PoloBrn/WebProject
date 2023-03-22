@@ -95,7 +95,10 @@ if ($_SESSION['id_role'] == '1') {
     $users = $user->getStudentsAndPilots();
 } elseif ($_SESSION['id_role'] == '2') {
     $users = $promo->getStudentsOfPilot($_SESSION['id_user']);
+} else {
+    $users = array();
 }
+
 
 if (isset($_GET['id'])) {
     $oneUser = $user->get(array($_GET['id']));
