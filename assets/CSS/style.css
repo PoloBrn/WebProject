@@ -1,11 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap%27');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap%27');
+
+@media screen and (max-width: 480px) {
+    .logo_company {
+        display: none !important;
+    }
+
+    .card_company {
+        max-height: 150px !important;
+        min-height: 120px !important;
+    }
+
+}
+
 body {
     background-image: url("../images/background.png");
 }
 
 .card {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .nav {
@@ -19,8 +32,9 @@ label {
 
 .color-white {
     color: white;
+}
 
-h1 {
+html {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -53,4 +67,34 @@ footer a {
 p {
     color: rgb(74, 73, 73);
 
+}
+
+h5 {
+    color: white !important;
+}
+
+.card h5 {
+    color: black !important;
+}
+
+.modal label {
+    color: black !important;
+}
+
+.modal-content {
+    background-color: rgb(194, 194, 194);
+}
+
+.errorMsg {
+    color: red;
+}
+
+.logo_company {
+    height: 100% !important;
+    border-radius: 20px !important;
+}
+
+.card_company {
+    border-radius: 20px !important;
+    height: 150px !important;
 }
