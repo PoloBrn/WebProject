@@ -14,16 +14,9 @@ $activity = new \MODELE\CRUD_activities();
 
 // Validation du formulaire
 if (isset($_POST['create'])) {
-    if (isset($_FILES['logo']) and !empty($_FILES['logo']['name'])) {
-        header('Location: index.php');
-        // Si le logo est renvoyé
-
-
-    }
-
 
     // Vérifiersi l'user a bien complété tous les champs
-    if (!(empty($_POST['company_name']) && empty($_POST['email']) && empty($_POST['nb_student']) && empty($_FILES['logo']['name']))) {
+    if (!(empty($_POST['company_name']) && empty($_POST['email']) && empty($_POST['nb_student']) /*&& empty($_POST['logo'])*/)) {
         // Les données que l'utilisateur a entré
         $company_name = htmlspecialchars($_POST['company_name']);
         $company_mail = htmlspecialchars($_POST['email']);
@@ -35,12 +28,6 @@ if (isset($_POST['create'])) {
             //Insérer l'entreprise dans la bdd
             $company_id = $company->create(array($company_name, $company_mail, $company_nb_student, $_SESSION['id_user']));
 
-            $extension = strtolower(pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION));
-            $file_name = 'company_' . $company_id . '_logo' . '.' . $extension;
-            $path = '../assets/company-logos/' . $file_name;
-            $result = move_uploaded_file($_FILES['logo']['tmp_name'], $path);
-
-            $company->updateLogo($file_name, $company_id);
             //Rediriger l'utilisateur sur la page de l'entreprise
             header('Location:companies.php?id=' . $company_id);
         } else {
@@ -58,16 +45,6 @@ if (isset($_POST['update'])) {
     //$company_logo = htmlspecialchars($_POST['logo']);
 
     $company->update(array($company_name, $company_mail, $company_nb_student, $_GET['id']));
-
-    if (isset($_FILES['logo']) and !empty($_FILES['logo']['name'])) {
-        // Si le logo est renvoyé
-        $extension = strtolower(pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION));
-        $file_name = 'company_' . $_GET['id'] . '_logo' . '.' . $extension;
-        $path = '../assets/company-logos/' . $file_name;
-        $result = move_uploaded_file($_FILES['logo']['tmp_name'], $path);
-
-        $company->updateLogo($file_name, $_GET['id']);
-    }
 
     header('Location:companies.php?id=' . $_GET['id']);
 }
