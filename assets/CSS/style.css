@@ -2,15 +2,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap%27');
 body {
     background-image: url("../images/background.png");
-} 
+}
 
 .card {
-    background-color: rgba(255, 255, 255, 0.70);
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .nav {
     background-color: #2C74B3;
 }
+
+
+label {
+    color: white;
+}
+
+.color-white {
+    color: white;
 
 h1 {
     font-family: 'Roboto', sans-serif;
@@ -44,4 +52,5 @@ footer a {
 
 p {
     color: rgb(74, 73, 73);
+
 }

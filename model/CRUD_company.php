@@ -56,4 +56,10 @@ class CRUD_company extends Database
         $request->execute(array($company_id));
         return $request->fetchAll();
     }
+
+    function updateLogo($logo_name, $company_id) {
+
+        $request = $this->pdo->prepare('UPDATE company SET logo =? WHERE id_company =?');
+        $request->execute(array($logo_name, $company_id));
+    }
 }
