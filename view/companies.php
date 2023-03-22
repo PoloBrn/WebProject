@@ -189,7 +189,7 @@ require('../controller/companiesActions.php');
                 if (isset($_GET['edit']) && ($_SESSION['id_user'] == $company['id_user'] || $_SESSION['id_role'] == 1)) { ?>
                     <div class="container">
                         <h5>Informations :</h5>
-                        <form class="container" method="POST">
+                        <form class="container" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label class="form-label">Nom de l'entreprise :</label>
                                 <input type="text" class="form-control" name="company_name" value="<?= $company['name'] ?>">
@@ -205,7 +205,7 @@ require('../controller/companiesActions.php');
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Logo :</label>
-                                <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" name="logo">
+                                <input type="file" accept="image/png, image/gif, image/jpeg" multiple class="form-control" name="logo">
                             </div>
 
                             <a href="companies.php?id=<?= $company['id_company'] ?>" class="btn btn-secondary">Annuler</a>
@@ -306,7 +306,8 @@ require('../controller/companiesActions.php');
                 <?php } ?>
                 <br><br>
                 <?php foreach ($allCompanies as $company) { ?>
-                    <div class="card" id="company<?= $company['id_company'] ?>">
+                    <div class="card flex-row" id="company<?= $company['id_company'] ?>">
+                        <img class="card-img-left example-card-img-responsive" style="height: 150px;" src="../assets/company-logos/<?= $company['logo']?>" />
                         <div class="card-body">
                             <h5 class="card-title"><a class="nav-link" href="companies.php?id=<?= $company['id_company'] ?>"><?= $company['name'] ?></a></h5>
                             <p class="card-text">Contact : <a href="mailto:<?= $company['email'] ?>"><?= $company['email'] ?></a></p>
