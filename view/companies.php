@@ -16,11 +16,10 @@ require('../controller/companiesActions.php');
     <?php include '../includes/scripts.php'; ?>
 
     <?php include '../includes/navbar.php' ?>
-
     <div class="modal fade" id="newCompanyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form class="container" method="POST" action="#">
+                <form class="container" method="POST" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Nouvelle entreprise</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -40,9 +39,8 @@ require('../controller/companiesActions.php');
                             <input type="number" class="form-control" name="nb_student">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Logo</label>
-                            <input type="file" accept="image/png, image/gif, image/jpeg" class="form-control" name="logo">
-
+                            <label for="exampleInputPassword1" class="form-label">Logo :</label>
+                            <input type="file" accept="image/png, image/gif, image/jpeg" multiple class="form-control" name="logo">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -93,7 +91,7 @@ require('../controller/companiesActions.php');
     <div class="modal fade" id="newActivityModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form class="container" method="POST" action="#">
+                <form class="container" method="POST" action="">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Nouveau secteur d'activité</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -293,21 +291,23 @@ require('../controller/companiesActions.php');
             <!-- Modal -->
 
             <br><br>
-            <div class="container">
+            <div class="container" id="">
 
                 <?php if (isset($errorMsg)) { ?>
-                    <p><?= $errorMsg ?></p>
+                    <p class="errorMsg"><?= $errorMsg ?></p>
                 <?php } ?>
                 <?php if ($_SESSION['id_role'] != 3) { ?>
-                    <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal" data-bs-target="#newCompanyModal">
-                        Ajouter une entreprise
-                    </button>
-                    <a href="companies.php?activity" class="btn btn-primary">Gérer les secteurs d'activité</a>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal" data-bs-target="#newCompanyModal">
+                            Ajouter une entreprise
+                        </button>
+                        <a href="companies.php?activity" class="btn btn-primary">Gérer les secteurs d'activité</a>
+                    </div>
                 <?php } ?>
                 <br><br>
                 <?php foreach ($allCompanies as $company) { ?>
-                    <div class="card flex-row" id="company<?= $company['id_company'] ?>">
-                        <img class="card-img-left example-card-img-responsive" style="height: 150px;" src="../assets/company-logos/<?= $company['logo']?>" />
+                    <div class="card flex-row card_company" id="company<?= $company['id_company'] ?>">
+                        <img alt="logo" class="card-img-left example-card-img-responsive logo_company" src="../assets/company-logos/<?= $company['logo'] ?>" />
                         <div class="card-body">
                             <h5 class="card-title"><a class="nav-link" href="companies.php?id=<?= $company['id_company'] ?>"><?= $company['name'] ?></a></h5>
                             <p class="card-text">Contact : <a href="mailto:<?= $company['email'] ?>"><?= $company['email'] ?></a></p>
