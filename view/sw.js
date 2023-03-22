@@ -1,32 +1,53 @@
+const NomDuCache = 'v1';
+/*const assets = [
+  '/index.php',
+  '/styles.css',
+  '/manifest.json',
+  '/image/chips.png',
+];*/
+
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
 
 workbox.routing.registerRoute(
-    ({ request }) => request.destination === 'image',
-    new workbox.strategies.NetworkFirst()
+  ({ request }) => request.destination === 'image',
+  new workbox.strategies.CacheFirst({
+    cacheName: 'images',
+    plugins: [
+      new workbox.expiration.ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+      }),
+    ],
+  })
 );
 
-//Installation du service worker
-self.addEventListener('install', evt => {
-    evt.waitUntil(caches.open(NomDuCache).then(cache => {
-        cache.addAll(assets);
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(NomDuCache).then((cache) => {
+      return cache.addAll(assets);
     })
-    )
+  );
 });
 
-self.addEventListener('activate', evt => {
-    console.log('le Service Worker a été installé ');
+self.addEventListener('activate', (event) => {
+  console.log('Le service worker a été installé.');
 });
 
-//fetch event afin de répondre quand on est en mode hors ligne.
-self.addEventListener('fetch', function (event) {
-    event.respondWith(
-        caches.open('ma_sauvegarde').then(function (cache) {
-            return cache.match(event.request).then(function (response) {
-                return response || fetch(event.request).then(function (response) {
-                    cache.put(event.request, response.clone());
-                    return response;
-                });
-            });
-        })
-    );
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request).then((response) => {
+        if(response.status !== 200 || response.type !== 'basic') {
+          return response;
+        }
+
+        const responseToCache = response.clone();
+        caches.open(NomDuCache).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
+
+        return response;
+      });
+    })
+  );
 });

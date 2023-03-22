@@ -6,9 +6,9 @@ require('../controller/securityAction.php');
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php include '../includes/head.php'; ?>
+    <link rel="stylesheet" href="../assets/CSS/index.css">
 </head>
 
 <body>
@@ -18,7 +18,7 @@ require('../controller/securityAction.php');
     <script>
         window.addEventListener("load",()=> {
            if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
+            navigator.serviceWorker.register('serviceWorker.js');
         } 
         });
         
