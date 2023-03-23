@@ -40,23 +40,23 @@ if ($_SESSION['id_role'] == 3) {
                     <h5>Informations :</h5>
                     <div class="container">
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Prénom :</label>
+                            <label class="form-label">Prénom :</label>
                             <input type="text" class="form-control" name="first_name" value="<?= $oneUser['first_name'] ?>">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Nom :</label>
+                            <label class="form-label">Nom :</label>
                             <input type="text" class="form-control" name="last_name" value="<?= $oneUser['last_name'] ?>">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Adresse e-mail :</label>
+                            <label class="form-label">Adresse e-mail :</label>
                             <input type="email" class="form-control" name="email" value="<?= $oneUser['email'] ?>">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Changer le mot de passe :</label>
+                            <label class="form-label">Changer le mot de passe :</label>
                             <input type="password" class="form-control" name="first_password">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Répéter le mot de passe :</label>
+                            <label class="form-label">Répéter le mot de passe :</label>
                             <input type="password" class="form-control" name="second_password">
                         </div>
                     </div>
@@ -66,7 +66,7 @@ if ($_SESSION['id_role'] == 3) {
                     <div class="container">
                         <div class="mb-3">
                             <label class="form-label">Libellé :</label>
-                            <input type="text" class="form-control" name="label" id="label" value="<?= $oneUser['name'] ?>">
+                            <input type="text" class="form-control" name="label" id="label" value="<?= $oneUser['label'] ?>">
 
                         </div>
                         <div class="mb-3">
@@ -131,35 +131,35 @@ if ($_SESSION['id_role'] == 3) {
                                     echo '<p>' . $errorMsg . '</p>';
                                 } ?>
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Prénom :</label>
+                                    <label class="form-label">Prénom :</label>
                                     <input type="text" class="form-control" name="first_name">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Nom :</label>
+                                    <label class="form-label">Nom :</label>
                                     <input type="text" class="form-control" name="last_name">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Adresse e-mail :</label>
+                                    <label class="form-label">Adresse e-mail :</label>
                                     <input type="email" class="form-control" name="email">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Mot de passe :</label>
+                                    <label class="form-label">Mot de passe :</label>
                                     <input type="password" class="form-control" name="password">
                                 </div>
                                 <br>
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Role :</label>
+                                    <label class="form-label">Role :</label>
                                     <select name="role" id="role" class="mb-3 form-select">
                                         <?php if ($_SESSION['id_role'] == '1') { ?>
                                             <option value="2">Pilote</option>
-                                            <option value="3">Etudiant</option>';
+                                            <option value="3">Etudiant</option>
                                         <?php } else { ?>
-                                            <option value="3">Etudiant</option>';
+                                            <option value="3">Etudiant</option>
                                         <?php } ?>
                                     </select>
                                 </div><br>
                                 <div class="mb-3" id="promodiv">
-                                    <label for="" class="form-label">Promotion :</label>
+                                    <label class="form-label">Promotion :</label>
                                     <select name="promo" class="mb-3 form-select">
                                         <?php foreach ($campuses as $onecampus) { ?>
                                             <optgroup label="<?= $onecampus[1] ?>">
@@ -169,7 +169,7 @@ if ($_SESSION['id_role'] == 3) {
                                                     <?php }
                                                 } else { ?>
                                                     <?php foreach (getPromoByIDcampusAndPilot($onecampus['id_campus']) as $onepromo) { ?>
-                                                        <option value="<?= $onepromo['id_promo'] ?>"><?= $onepromo['name'] ?></option>
+                                                        <option value="<?= $onepromo['id_promo'] ?>"><?= $onepromo['promo_name'] ?></option>
                                                 <?php }
                                                 } ?>
 
