@@ -9,13 +9,11 @@ Class Login{
     function __construct() {
         $this->smarty = new Smarty();
     }
-    function display($msg){
+    function display($msg=0){
         
         if ($msg !="0")$this->smarty->assign('errorMsg',$msg);
         $this->smarty->display('../view/templates/login.tpl');
-
     }
-
 }
 
 /*

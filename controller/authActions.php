@@ -3,9 +3,6 @@
 require_once '../model/CRUD_user.php';
 require '../view/login.php';
 
-
-error_log("test");
-
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
 
@@ -18,6 +15,7 @@ class ControlAuth {
             header('Location: ../view/index.php');
         }
         $this->login = new Login();
+        $this->errorMsg ="0";
     }
 
 
