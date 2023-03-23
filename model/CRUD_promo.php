@@ -13,10 +13,10 @@ class CRUD_promo extends Database
         $type_id = $array[1];
         $campus_id = $array[2];
 
-        $request = $this->pdo->prepare("INSERT into promo (name, id_type, id_campus) values (?, ?, ?)");
+        $request = $this->pdo->prepare("CALL promo_create (?,?,?)");
         $request->execute(array($promo_name, $type_id, $campus_id));
 
-        return $this->pdo->lastInsertId();
+        return $request->fetchAll()[0][0];
     }
     function update($array)
     {
@@ -24,19 +24,19 @@ class CRUD_promo extends Database
         $promo_name = $array[1];
         $type_id = $array[2];
 
-        $request = $this->pdo->prepare("UPDATE promo SET name = ?, id_type =?   WHERE id_promo =?");
+        $request = $this->pdo->prepare("CALL promo_update (?,?, ?)");
         $request->execute(array($promo_name, $type_id, $promo_id));
     }
     function delete($array)
     {
         $promo_id = $array[0];
 
-        $request = $this->pdo->prepare("DELETE FROM promo WHERE id_promo =?");
+        $request = $this->pdo->prepare("CALL promo_delete (?)");
         $request->execute(array($promo_id));
     }
     function get($array)
     {
-        $request = $this->pdo->prepare("SELECT * FROM promo");
+        $request = $this->pdo->prepare("CALL promo_select (?)");
         $request->execute();
 
         return $request->fetchAll();
@@ -45,7 +45,7 @@ class CRUD_promo extends Database
 
     function getByCampusID($campus_id)
     {
-        $request = $this->pdo->prepare("SELECT * FROM promo join promo_type on promo.id_type = promo_type.id_type where id_campus =?");
+        $request = $this->pdo->prepare("CALL promo_getByCampusID (?)");
         $request->execute(array($campus_id));
 
         return $request->fetchAll();
@@ -53,34 +53,34 @@ class CRUD_promo extends Database
 
     function getById($promo_id)
     {
-        $request = $this->pdo->prepare('SELECT * FROM promo join promo_type on promo.id_type = promo_type.id_type WHERE id_promo =?');
+        $request = $this->pdo->prepare('CALL promo_getById (?)');
         $request->execute(array($promo_id));
         return $request->fetchAll();
     }
 
     function getPilotsByPromo($promo_id)
     {
-        $request = $this->pdo->prepare('SELECT * FROM affiliated join infos on affiliated.id_user = infos.id_user join users on affiliated.id_user = users.id_user WHERE id_promo = ? and id_role = 2');
+        $request = $this->pdo->prepare('CALL promo_getPilotsByPromo (?)');
         $request->execute(array($promo_id));
         return $request->fetchAll();
     }
 
     function getStudentsByPromo($promo_id)
     {
-        $request = $this->pdo->prepare('SELECT * FROM affiliated join infos on affiliated.id_user = infos.id_user join users on affiliated.id_user = users.id_user WHERE id_promo = ? and id_role = 3');
+        $request = $this->pdo->prepare('CALL promo_getStudentsByPromo (?)');
         $request->execute(array($promo_id));
         return $request->fetchAll();
     }
 
     function addUserInPromo($promo_id, $user_id)
     {
-        $request = $this->pdo->prepare('INSERT into affiliated(id_user, id_promo) values (?, ?)');
+        $request = $this->pdo->prepare('CALL promo_addUserInPromo (?,?)');
         $request->execute(array($user_id, $promo_id));
     }
 
     function getAffiliation($promo_id, $user_id)
     {
-        $request = $this->pdo->prepare('SELECT * FROM affiliated where id_promo =? and id_user =?');
+        $request = $this->pdo->prepare('CALL promo_getAffiliation (?,?)');
         $request->execute(array($promo_id, $user_id));
 
         return $request->fetchAll();
@@ -88,13 +88,13 @@ class CRUD_promo extends Database
 
     function deleteAffiliation($promo_id, $user_id)
     {
-        $request = $this->pdo->prepare('DELETE FROM affiliated where id_promo =? and id_user =?');
+        $request = $this->pdo->prepare('CALL promo_deleteAffiliation (?,?)');
         $request->execute(array($promo_id, $user_id));
     }
 
     function getPilotPromos($pilot_id)
     {
-        $request = $this->pdo->prepare("SELECT id_promo FROM affiliated where id_user = ? ");
+        $request = $this->pdo->prepare("CALL promo_getPilotPromos (?) ");
         $request->execute(array($pilot_id));
 
         $array = array();
@@ -118,7 +118,7 @@ class CRUD_promo extends Database
     }
 
     function getPromoByIDcampusAndPilot($campus_id, $pilot_id) {
-        $request = $this->pdo->prepare("SELECT * FROM promo join affiliated on promo.id_promo = affiliated.id_promo where id_campus =? and id_user =?");
+        $request = $this->pdo->prepare("CALL promo_getPromoByIDcampusAndPilot (?,?)");
         $request->execute(array($campus_id, $pilot_id));
 
         return $request->fetchAll();
