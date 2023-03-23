@@ -16,6 +16,9 @@ require('../controller/companiesActions.php');
     <?php include '../includes/scripts.php'; ?>
 
     <?php include '../includes/navbar.php' ?>
+    <?php if (isset($errorMsg)) { ?>
+        <p class="errorMsg"><?= $errorMsg ?></p>
+    <?php } ?>
     <div class="modal fade" id="newCompanyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -127,7 +130,7 @@ require('../controller/companiesActions.php');
                             <label for="exampleInputEmail1" class="form-label">Secteur d'activité :</label>
                             <select name="activity" class="mb-3 form-select">
                                 <?php foreach ($allActivities as $oneactivity) { ?>
-                                    <option value="<?= $oneactivity['id_activity']; ?>"><?= $oneactivity['name']; ?></option>
+                                    <option value="<?= $oneactivity['id_activity']; ?>"><?= $oneactivity['activity_name']; ?></option>
                                 <?php } ?>
 
                             </select><br>
@@ -163,7 +166,7 @@ require('../controller/companiesActions.php');
             <?php foreach ($allActivities as $oneActivity) { ?>
                 <form class="card" method="POST" id="activity<?= $oneActivity['id_activity'] ?>">
                     <div class="card-body">
-                        <input type="text" name="name_activity" class="card-title form-control" id="" value='<?= $oneActivity['name'] ?>'>
+                        <input type="text" name="name_activity" class="card-title form-control" id="" value='<?= $oneActivity['activity_name'] ?>'>
                         <input type="hidden" name="id_activity" value="<?= $oneActivity['id_activity'] ?>">
                         <input type="submit" name='update_activity' class="btn btn-primary" value="Modifier">
                         <input type="submit" name='delete_activity' class="btn btn-danger" value="Supprimer">
@@ -190,7 +193,7 @@ require('../controller/companiesActions.php');
                         <form class="container" method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label class="form-label">Nom de l'entreprise :</label>
-                                <input type="text" class="form-control" name="company_name" value="<?= $company['name'] ?>">
+                                <input type="text" class="form-control" name="company_name" value="<?= $company['company_name'] ?>">
                             </div>
 
                             <div class="mb-3">
@@ -230,7 +233,7 @@ require('../controller/companiesActions.php');
                                 foreach ($addresses as $address) {
                                 ?>
                                     <option value="<?= $address['id_address'] ?>">
-                                        <?= $address['name'] ?> <?= $address['postal_code'] ?> <?= $address['city_name'] ?>
+                                        <?= $address['label'] ?> <?= $address['postal_code'] ?> <?= $address['city_name'] ?>
                                     </option>
                                 <?php
                                 }
@@ -263,7 +266,7 @@ require('../controller/companiesActions.php');
                                 foreach ($company_activities as $acti) {
                                 ?>
                                     <option value="<?= $acti['id_activity'] ?>">
-                                        <?= $acti['name'] ?>
+                                        <?= $acti['activity_name'] ?>
                                     </option>
                                 <?php
                                 }
@@ -309,7 +312,7 @@ require('../controller/companiesActions.php');
                     <div class="card flex-row card_company" id="company<?= $company['id_company'] ?>">
                         <img alt="logo" class="card-img-left example-card-img-responsive logo_company" src="../assets/company-logos/<?= $company['logo'] ?>" />
                         <div class="card-body">
-                            <h5 class="card-title"><a class="nav-link" href="companies.php?id=<?= $company['id_company'] ?>"><?= $company['name'] ?></a></h5>
+                            <h5 class="card-title"><a class="nav-link" href="companies.php?id=<?= $company['id_company'] ?>"><?= $company['company_name'] ?></a></h5>
                             <p class="card-text">Contact : <a href="mailto:<?= $company['email'] ?>"><?= $company['email'] ?></a></p>
                             <?php if ($_SESSION['id_user'] == $company['id_user'] || $_SESSION['id_role'] == 1) { ?>
                                 <a href="companies.php?id=<?= $company['id_company'] ?>&edit" class="btn btn-primary">Modifier</a>
