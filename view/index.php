@@ -14,7 +14,6 @@ require('../controller/securityAction.php');
 <body>
     <?php include '../includes/navbar.php'; ?>
     <?php include '../includes/scripts.php'; ?>
-    <link rel="stylesheet" href="manifest.json">
     <script>
         window.addEventListener("load",()=> {
            if ('serviceWorker' in navigator) {

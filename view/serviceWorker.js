@@ -1,89 +1,66 @@
-/*importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
+const PREFIX = "V1";
+const CACHED_FILES = [
+    '../assets/CSS/style.css',
+    '../assets/images/chips.png',
+    '../assets/images/background.png'
+];
 
-workbox.routing.registerRoute(
-    ({ request }) => request.destination === 'image',
-    new workbox.strategies.NetworkFirst()
-);
-
-//Installation du service worker
-self.addEventListener('install', evt => {
-    evt.waitUntil(caches.open(NomDuCache).then(cache => {
-        cache.addAll(assets);
-    })
-    )
-});
-
-self.addEventListener('activate', evt => {
-    console.log('le Service Worker a été installé ');
-});
-
-//fetch event afin de répondre quand on est en mode hors ligne.
-self.addEventListener('fetch', function (event) {
-    event.respondWith(
-        caches.open('ma_sauvegarde').then(function (cache) {
-            return cache.match(event.request).then(function (response) {
-                return response || fetch(event.request).then(function (response) {
-                    cache.put(event.request, response.clone());
-                    return response;
-                });
-            });
-        })
+self.addEventListener("install", (event) => {
+    self.skipWaiting();
+    event.waitUntil(
+        (async () => {
+            const cache = await caches.open(PREFIX);
+            await Promise.all([...CACHED_FILES, 'offline.html'].map((path) => {
+                return cache.add(new Request(path));
+            }))
+            /*cache.add(new Request('offline.html'));
+            cache.add(new Request('../assets/CSS/style.css'));
+            cache.add(new Request('../assets/images/chips.png'));
+            cache.add(new Request('../assets/images/background.png'));
+            cache.add(new Request('../manifest.json'));*/
+        })()
     );
-});
-*/
-
-const staticCacheName = "cache-v1";
-const assets = ["/", "/index.html"];
-
-// ajout fichiers en cache
-self.addEventListener("install", (e) => {
-    e.waitUntil(
-        caches.open(staticCacheName).then((cache) => {
-            cache.addAll(assets);
-        })
-    );
+    console.log(`${PREFIX} Install`);
 });
 
-self.addEventListener("fetch", (event) => {
-    event.respondWith(
-        caches.match(event.request).then(function (response) {
-            // Cache hit - return response
-            if (response) {
-                return response;
-            }
 
-            // IMPORTANT: Cloner la requête.
-            // Une requete est un flux et est à consommation unique
-            // Il est donc nécessaire de copier la requete pour pouvoir l'utiliser et la servir
-            var fetchRequest = event.request.clone();
-
-            return fetch(fetchRequest).then(function (response) {
-                if (!response || response.status !== 200 || response.type !== "basic") {
-                    return response;
-                }
-
-                // IMPORTANT: Même constat qu'au dessus, mais pour la mettre en cache
-                var responseToCache = response.clone();
-
-                caches.open(staticCacheName).then(function (cache) {
-                    cache.put(event.request, responseToCache);
-                });
-
-                return response;
-            });
-        })
-    );
-});
-
-// supprimer caches
-self.addEventListener("activate", (e) => {
-    e.waitUntil(
-        caches.keys().then((keys) => {
-            return Promise.add(
-                keys
-                    .filter((key) => key !== staticCacheName)
-                    .map((key) => caches.delete(key))
+self.addEventListener("activate", (event) => {
+    clients.claim();
+    event.waitUntil(
+        (async () => {
+            const keys = await caches.keys();
+            await Promise.all(
+                keys.map(key => {
+                    if (!key.includes(PREFIX)) {
+                        return caches.delete(key);
+                    }
+                })
             );
-        })
+        })()
     );
+    console.log(`${PREFIX} Active`);
+});
+
+self.addEventListener('fetch', (event) => {
+    console.log(`Fetching : ${event.request.url}, Mode : ${event.request.mode}`
+    );
+    if (event.request.mode == 'navigate') {
+        event.respondWith(
+            (async () => {
+                try {
+                    const preloadResponse = await event.preloadResponse;
+                    if (preloadResponse) {
+                        return preloadResponse;
+                    }
+
+                    return await fetch(event.request);
+                } catch (e) {
+                    const cache = await caches.open(PREFIX);
+                    return await cache.match('offline.html');
+                }
+            })()
+        );
+    } else if(CACHED_FILES.includes(event.request.url)) {
+        //event.respondWith(caches.match(event.request));
+    }
 });

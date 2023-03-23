@@ -60,7 +60,7 @@
                 }
                 ?>
                 <li class="nav-item">
-                    <a class="nav-link active" href="../controller/logoutAction.php">Se déconnecter</a>
+                    <a class="nav-link active" href="../controller/logoutAction.php" id="deconnexionButton">Se déconnecter</a>
                 </li>
             </ul>
         </div>
