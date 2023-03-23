@@ -17,14 +17,15 @@ class CRUD_user extends Database
         $user_role = $array[4];
         $address_id = $array[5];
 
-        $request = $this->pdo->prepare('INSERT INTO users(email, password, id_role) values (?, ?, ?)');
+        $request = $this->pdo->prepare('CALL users_create (?, ?, ?)');
         $request->execute(array($user_email, $user_password, $user_role));
-        $user_id = $this->pdo->lastInsertId();
+        //$user_id = $this->pdo->lastInsertId();
+        $user_id = $request->fetchAll()[0][0];
 
-        $request = $this->pdo->prepare('INSERT INTO infos(id_user, first_name, last_name, id_address) values (?, ?, ?, ?)');
+        $request = $this->pdo->prepare('CALL infos_create (?, ?, ?, ?)');
         $request->execute(array($user_id, $user_first_name, $user_last_name, $address_id));
 
-        return $user_id;
+        return $request->fetchAll()[0][0];
     }
 
     function update($array)
@@ -34,10 +35,10 @@ class CRUD_user extends Database
         $user_last_name = $array[2];
         $user_email = $array[3];
 
-        $request = $this->pdo->prepare('UPDATE users SET email = ? WHERE id_user =?');
+        $request = $this->pdo->prepare('CALL users_update (?, ?)');
         $request->execute(array($user_email, $user_id));
 
-        $request = $this->pdo->prepare('UPDATE infos SET first_name =?, last_name =? WHERE id_user =?');
+        $request = $this->pdo->prepare('CALL infos_update (?, ?, ?)');
         $request->execute(array($user_first_name, $user_last_name, $user_id));
     }
 
@@ -45,44 +46,44 @@ class CRUD_user extends Database
     {
         $user_id = $array[0];
 
-        $request = $this->pdo->prepare('DELETE FROM users WHERE id_user = ?');
+        $request = $this->pdo->prepare('CALL users_delete (?)');
         $request->execute(array($user_id));
     }
 
     function get($array)
     {
         $user_id = $array[0];
-        $request = $this->pdo->prepare('SELECT * FROM users join infos on users.id_user = infos.id_user join address on infos.id_address = address.id_address where users.id_user = ?');
+        $request = $this->pdo->prepare('CALL users_select (?)');
         $request->execute(array($user_id));
         return $request->fetchAll();
     }
 
     function updatePassword($user_id, $user_password){
-        $request = $this->pdo->prepare('UPDATE users SET password =? WHERE id_user =?');
+        $request = $this->pdo->prepare('CALL users_updatePassword (?,?)');
         $request->execute(array($user_password, $user_id));
     }
 
     function getUserInfos($user_email)
     {
-        $request = $this->pdo->prepare("SELECT * FROM users join infos on infos.id_user = users.id_user WHERE email = ?");
+        $request = $this->pdo->prepare("CALL users_getUserInfos (?)");
         $request->execute(array($user_email));
         return $request->fetchAll();
     }
 
     function getStudents() {
-        $request = $this->pdo->prepare("SELECT * FROM users join infos on infos.id_user = users.id_user where id_role = 3");
+        $request = $this->pdo->prepare("CALL users_getStudents ()");
         $request->execute();
         return $request->fetchAll();
     }
 
     function getPilots() {
-        $request = $this->pdo->prepare("SELECT * FROM users join infos on infos.id_user = users.id_user where id_role = 2");
+        $request = $this->pdo->prepare("CALL users_getPilots ()");
         $request->execute();
         return $request->fetchAll();
     }
 
     function getStudentsAndPilots() {
-        $request = $this->pdo->prepare("SELECT * FROM users join infos on infos.id_user = users.id_user where id_role = 3 or id_role = 2");
+        $request = $this->pdo->prepare("CALL users_getStudentsAndPilots ()");
         $request->execute();
         return $request->fetchAll();
     }
