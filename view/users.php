@@ -32,4 +32,20 @@ Class viewUsers{
 
         $this->smarty->assign('oneUser', $oneUser) ;
     }
+
+    function displayAllUsers($msg, $campus, $user) {
+        //display users
+
+        if ($msg !="0"){
+            $this->smarty->assign('errorMsg', $msg) ;
+        }
+
+
+        $this->smarty->assign('campus', $campus );
+        $this->smarty->assign('users', $user );
+
+
+        $this->smarty->display('../view/templates/users.tpl');
+    }
+
 }
