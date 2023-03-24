@@ -10,6 +10,8 @@ if ($_SESSION['id_role'] == 3) {
 
 require_once '../assets/smarty/Smarty.class.php';
 
+include '../includes/head.php';
+include '../includes/scripts.php';
 
 Class viewUsers{
     
@@ -31,6 +33,8 @@ Class viewUsers{
         }
 
         $this->smarty->assign('oneUser', $oneUser) ;
+
+        $this->smarty->display('../view/templates/oneUser.tpl');
     }
 
     function displayAllUsers($msg, $campus, $user) {

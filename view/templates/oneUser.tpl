@@ -2,12 +2,10 @@
 <html lang="en">
 
 <head>
-    {include file='../../includes/head.php'}
+
 </head>
 
 <body>
-
-    {include file='../../includes/scripts.php'}
 
 
 {if $smarty.session.id_role != 3 }

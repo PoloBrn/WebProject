@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    {include file="../../includes/head.php"}
+
 </head>
 
 <body>

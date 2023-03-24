@@ -1,41 +1,35 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-23 16:24:31
+/* Smarty version 4.3.0, created on 2023-03-24 10:25:22
   from 'C:\Users\damie\Desktop\repos2\WebProject\view\templates\oneUser.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_641c6f2f419608_57706017',
+  'unifunc' => 'content_641d6c82a06553_47324842',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '544db33db0c33cd0c451d109959dae7be40c6e5c' => 
     array (
       0 => 'C:\\Users\\damie\\Desktop\\repos2\\WebProject\\view\\templates\\oneUser.tpl',
-      1 => 1679583209,
+      1 => 1679649808,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
-    'file:../../includes/head.php' => 1,
-    'file:../../includes/scripts.php' => 1,
     'file:../../includes/footer.php' => 1,
   ),
 ),false)) {
-function content_641c6f2f419608_57706017 (Smarty_Internal_Template $_smarty_tpl) {
+function content_641d6c82a06553_47324842 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php $_smarty_tpl->_subTemplateRender('file:../../includes/head.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
+
 </head>
 
 <body>
-
-    <?php $_smarty_tpl->_subTemplateRender('file:../../includes/scripts.php', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
 
 
 <?php if ($_SESSION['id_role'] != 3) {?>
