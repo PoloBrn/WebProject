@@ -1,4 +1,4 @@
-const PREFIX = "V1";
+const PREFIX = "V7";
 const CACHED_FILES = [
     '../assets/CSS/style.css',
     '../assets/images/chips.png',
@@ -60,7 +60,7 @@ self.addEventListener('fetch', (event) => {
                 }
             })()
         );
-    } else if(CACHED_FILES.includes(event.request.url)) {
-        //event.respondWith(caches.match(event.request));
+    } else if (CACHED_FILES.includes(event.request.url)) {
+        event.respondWith(caches.match(event.request));
     }
 });
