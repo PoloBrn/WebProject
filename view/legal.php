@@ -9,7 +9,6 @@
 
 <body>
     <?php
-    require '../includes/navbar.php';
     require '../includes/scripts.php';
     ?>
 

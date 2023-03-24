@@ -15,7 +15,6 @@ require('../controller/companiesActions.php');
 <body>
     <?php include '../includes/scripts.php'; ?>
 
-    <?php include '../includes/navbar.php' ?>
     <?php if (isset($errorMsg)) { ?>
         <p class="errorMsg"><?= $errorMsg ?></p>
     <?php } ?>
