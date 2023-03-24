@@ -1,5 +1,5 @@
 <?php
-require '../controller/campusAction.php';
+
 require '../controller/securityAction.php';
 
 if ($_SESSION['id_role'] != 1) {
@@ -11,7 +11,8 @@ if ($_SESSION['id_role'] != 1) {
 <html lang="en">
 
 <head>
-    <?php include '../includes/head.php'; ?>
+    <?php require '../controller/campusAction.php';
+    include '../includes/head.php'; ?>
 </head>
 
 <body>
