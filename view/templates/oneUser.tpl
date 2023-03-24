@@ -7,7 +7,6 @@
 
 <body>
 
-
 {if $smarty.session.id_role != 3 }
     <a href="usersActions.php#user{$smarty.get.id}" class="btn btn-primary">back</a>
 {/if}

@@ -8,8 +8,6 @@
 <body>
 
     {include file='../../includes/scripts.php'}
-
-
     <!-- Modal -->
 
     <br><br>
