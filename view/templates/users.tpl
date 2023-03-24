@@ -65,14 +65,14 @@
 
                                             {foreach from=$campuses item=$onePromo}
                                                 <option value="{$onepromo['id_promo']}">
-                                                    {$onePromo[1]}
+                                                    {$onePromo['promo_name']}
                                                 </option>
                                             {/foreach}
 
                                         {else}
                                             {foreach from=$campuses item=$onePromo}
                                                 <option value="{$onepromo['id_promo']}">
-                                                    {$onePromo['name']}
+                                                    {$onePromo['promo_name']}
                                                 </option>
                                             {/foreach}
                                         {/if}
@@ -139,8 +139,7 @@
 
             <form method="get">
                 <div class="form-group">
-                    <input type='search' name="search" class="form-control"
-                        value="{if isset($smarty.get.search)}{$smarty.get.search}{/if}">
+                    <input type='search' name="search" class="form-control" value="{$search}">
                     <button class="btn btn-success">Rechercher</button>
                     <br>
 
@@ -163,10 +162,39 @@
                         <br>
                     {/foreach}
                 </div>
-                <input type='number' name="userNumberByPage" class="form-control"
-                    value="{if isset($smarty.get.userNumberByPage)}{$smarty.get.userNumberByPage}{else}{3}{/if}">
-                <input type='number' name="page" class="form-control"
-                    value="{if isset($smarty.get.page)}{$smarty.get.page}{else}{1}{/if}">
+
+                <input type='number' name="userNumberByPage" class="form-control" value="{$nbByPage}">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item {if ($page == 1)}{"disabled"}{/if}">
+                            <a class="page-link" href="usersActions.php?search={$search}&userNumberByPage={$nbByPage}&page={1}">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item {if ($page == 1)}{"disabled"}{/if}">
+                            <a class="page-link" href="usersActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {for $i = ($page - 2) to ($page + 2)}
+                            {if ($i > 0 and $i <= $maxPage)}
+                                <li class="page-item {if ($page == {$i})}{"active"}{/if}"><a class="page-link"
+                                        href="usersActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$i}">{$i}</a>
+                                </li>
+                            {/if}
+                        {/for}
+                        <li class="page-item {if ($page == $maxPage)}{"disabled"}{/if}">
+                            <a class="page-link" href="usersActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item {if ($page == $maxPage)}{"disabled"}{/if}">
+                            <a class="page-link" href="usersActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$maxPage}">
+                                <span aria-hidden="true">&raquo;&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </form>
         {/if}
     </div>
