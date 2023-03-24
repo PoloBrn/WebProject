@@ -12,7 +12,6 @@ require_once '../controller/offerActions.php';
 <body>
     <?php include '../includes/scripts.php'; ?>
 
-    <?php include '../includes/navbar.php'; ?>
 
     <div class="modal fade" id="newSkillModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

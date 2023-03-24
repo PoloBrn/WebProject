@@ -14,7 +14,6 @@ if ($_SESSION['id_role'] != 1) {
 </head>
 
 <body>
-    <?php include '../includes/navbar.php';
     include '../includes/scripts.php'; ?>
     <div class="modal fade" id="newTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
