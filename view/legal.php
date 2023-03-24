@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <?php require '../controller/securityAction.php';
+    <?php 
     require "../includes/head.php"; ?>
     <link rel="stylesheet" href="../assets/CSS/legal.css">
 </head>
 
 <body>
-    <?php
+    <?php require '../controller/securityAction.php';
     require '../includes/scripts.php';
     ?>
 

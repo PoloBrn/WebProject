@@ -1,6 +1,6 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-require('../controller/securityAction.php');
+
 require('../controller/companiesActions.php');
 
 ?>
@@ -13,7 +13,8 @@ require('../controller/companiesActions.php');
 </head>
 
 <body>
-    <?php include '../includes/scripts.php'; ?>
+    <?php require('../controller/securityAction.php');
+    include '../includes/scripts.php'; ?>
 
     <?php if (isset($errorMsg)) { ?>
         <p class="errorMsg"><?= $errorMsg ?></p>

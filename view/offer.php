@@ -7,10 +7,14 @@ require_once '../controller/offerActions.php';
 
 <!DOCTYPE html>
 <html lang="en">
-<?php require '../includes/head.php'; ?>
+
+<head>
+    <?php require '../includes/head.php'; ?>
+</head>
 
 <body>
-    <?php include '../includes/scripts.php'; ?>
+    <?php require('../controller/securityAction.php');
+    include '../includes/scripts.php'; ?>
 
 
     <div class="modal fade" id="newSkillModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -65,7 +69,7 @@ require_once '../controller/offerActions.php';
 
 
 
-    <?php require '../includes/footer.php';?>
+    <?php require '../includes/footer.php'; ?>
 </body>
 
 </html>
