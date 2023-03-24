@@ -33,7 +33,7 @@ class CRUD_promotype extends Database
     }
     function get($array)
     {
-        $request = $this->pdo->prepare('CALL promo_type_select (?)');
+        $request = $this->pdo->prepare('CALL promo_type_select ()');
         $request->execute();
 
         return $request->fetchAll();
