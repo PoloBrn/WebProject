@@ -21,12 +21,14 @@ require_once '../view/users.php';
 // }
 
 
-class ControlUsers{
+class ControlUsers
+{
 
     public $user, $address, $promo, $campus;
     private $display, $errorMsg;
 
-    function __construct() {
+    function __construct()
+    {
         $this->user = new \MODELE\CRUD_user;
         $this->address = new \MODELE\CRUD_address;
         $this->promo = new \MODELE\CRUD_promo;
@@ -36,7 +38,8 @@ class ControlUsers{
         $this->errorMsg = "0";
     }
 
-    function create(){
+    function create()
+    {
 
         // Vérifiersi l'user a bien complété tous les champs
         if (!(empty($_POST['first_name']) && empty($_POST['last_name']) && empty($_POST['email']) && empty($_POST['password']))) {
@@ -46,7 +49,7 @@ class ControlUsers{
             $user_email = htmlspecialchars($_POST['email']);
             $user_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $user_role = $_POST['role'];
-            
+
 
             $address_label = htmlspecialchars($_POST['label']);
             $address_postal_code = htmlspecialchars($_POST['postal_code']);
@@ -70,15 +73,14 @@ class ControlUsers{
             } else {
                 $this->errorMsg = "L'adresse email est déjà utilisée";
             }
-            
-            
         } else {
             $this->errorMsg = 'Veuillez compléter tous les champs';
         }
     }
 
 
-    function update() {
+    function update()
+    {
         if (isset($_POST['update'])) {
 
             if (!empty($_POST['first_password']) && !empty(['second_password'])) {
@@ -87,7 +89,7 @@ class ControlUsers{
                     $password = password_hash($_POST['first_password'], PASSWORD_DEFAULT);
                     $this->user->updatePassword($_GET['id'], $password);
                 } else {
-                    $errorMsg = 'Les mots de passe ne correspondent pas';
+                    $this->errorMsg = 'Les mots de passe ne correspondent pas';
                 }
             }
             $user_first_name = htmlspecialchars($_POST['first_name']);
@@ -107,18 +109,20 @@ class ControlUsers{
         }
     }
 
-    function delete(){
-        
-            $this->user->delete(array($_GET['id']));
+    function delete()
+    {
 
-            header('Location: users.php');
+        $this->user->delete(array($_GET['id']));
+
+        header('Location: users.php');
     }
 
-    function displayOne() {
+    function displayOne()
+    {
 
         //display for one user
 
-        if (isset($_GET['id'])){
+        if (isset($_GET['id'])) {
             if ((in_array($_GET['id'], array_column($this->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user'])) {
 
                 $oneUser = $this->user->get(array($_GET['id']));
@@ -127,9 +131,12 @@ class ControlUsers{
         }
     }
 
-    function displayAll() {
+    function displayAll()
+    {
 
         //students array
+
+
 
         if ($_SESSION['id_role'] == '1') {
             $users = $this->user->getStudentsAndPilots();
@@ -139,7 +146,28 @@ class ControlUsers{
             $users = array();
         }
 
-        //campuses array
+
+        if (isset($_GET['search']) and !empty($_GET['search'])) {
+            $userSearch = strtolower(htmlspecialchars($_GET['search']));
+            $newusers = array();
+            foreach ($users as $user) {
+                if (strpos(strtolower($user['first_name']), $userSearch) !== false || strpos(strtolower($user['last_name']), $userSearch) !== false || strpos(strtolower($user['email']), $userSearch) !== false) {
+                    $newusers[] = $user;
+                }
+            }
+            $users = $newusers;
+        }
+
+        if (isset($_GET['userNumberByPage']) and !empty($_GET['userNumberByPage'])) {
+            if (!isset($_GET['page']) || empty($_GET['page'])) {
+                $_GET['page'] = 1;
+            }
+            $newusers = array();
+            for ($i = $_GET['userNumberByPage'] * $_GET['page'] - 1; $i < $_GET['userNumberByPage'] * $_GET['page']; $i++) {
+                $newusers[] = $users[$i];
+            }
+            $users = $newusers;
+        }
 
         $promos = $this->promo->getPilotPromos($_SESSION['id_user']);
         $campuses = array();
@@ -153,11 +181,9 @@ class ControlUsers{
         } else {
             $campuses = $this->campus->get(0);
         }
-            
-            $this->display->displayAllUsers($this->errorMsg, $campuses, $users);
-            
-    }
 
+        $this->display->displayAllUsers($this->errorMsg, $campuses, $users);
+    }
 }
 
 
@@ -178,11 +204,10 @@ if (isset($_POST['delete'])) {
 }
 
 
-if (isset($_GET['id'])){
+if (isset($_GET['id'])) {
     if ((in_array($_GET['id'], array_column($users->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user'])) {
         $users->displayOne();
     }
-}
-else{
+} else {
     $users->displayAll();
 }
