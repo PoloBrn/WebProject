@@ -23,7 +23,8 @@ require_once '../view/users.php';
 
 class ControlUsers{
 
-    private $user, $address, $promo, $campus, $display, $errorMsg;
+    public $user, $address, $promo, $campus;
+    private $display, $errorMsg;
 
     function __construct() {
         $this->user = new \MODELE\CRUD_user;
@@ -35,51 +36,49 @@ class ControlUsers{
         $this->errorMsg = "0";
     }
 
-    function users(){
-        // Validation du formulaire
-        if (isset($_POST['create'])) {
+    function create(){
 
-            // Vérifiersi l'user a bien complété tous les champs
-            if (!(empty($_POST['first_name']) && empty($_POST['last_name']) && empty($_POST['email']) && empty($_POST['password']))) {
-                // Les données que l'utilisateur a entré
-                $user_first_name = htmlspecialchars($_POST['first_name']);
-                $user_last_name = htmlspecialchars($_POST['last_name']);
-                $user_email = htmlspecialchars($_POST['email']);
-                $user_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $user_role = $_POST['role'];
-                
+        // Vérifiersi l'user a bien complété tous les champs
+        if (!(empty($_POST['first_name']) && empty($_POST['last_name']) && empty($_POST['email']) && empty($_POST['password']))) {
+            // Les données que l'utilisateur a entré
+            $user_first_name = htmlspecialchars($_POST['first_name']);
+            $user_last_name = htmlspecialchars($_POST['last_name']);
+            $user_email = htmlspecialchars($_POST['email']);
+            $user_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $user_role = $_POST['role'];
+            
 
-                $address_label = htmlspecialchars($_POST['label']);
-                $address_postal_code = htmlspecialchars($_POST['postal_code']);
-                $address_city = htmlspecialchars($_POST['city']);
+            $address_label = htmlspecialchars($_POST['label']);
+            $address_postal_code = htmlspecialchars($_POST['postal_code']);
+            $address_city = htmlspecialchars($_POST['city']);
 
 
-                if (count($this->user->getUserInfos($user_email)) == 0) {
+            if (count($this->user->getUserInfos($user_email)) == 0) {
 
-                    $id_address = $this->address->create(array($address_label, $address_postal_code, $address_city));
+                $id_address = $this->address->create(array($address_label, $address_postal_code, $address_city));
 
-                    //Insérer l'utilisateur dans la bdd
-                    $user_id = $this->user->create(array($user_first_name, $user_last_name, $user_email, $user_password, $user_role, $id_address));
+                //Insérer l'utilisateur dans la bdd
+                $user_id = $this->user->create(array($user_first_name, $user_last_name, $user_email, $user_password, $user_role, $id_address));
 
-                    if ($user_role == 3) {
-                        $this->promo->addUserInPromo($_POST['promo'], $user_id);
-                    }
-
-                    //Rediriger l'utilisateur sur la page d'accueil
-                    $this->errorMsg = "L'utilisateur a bien été créé avec l'id : " . $user_id;
-                    header('Location: users.php');
-                } else {
-                    $this->errorMsg = "L'adresse email est déjà utilisée";
+                if ($user_role == 3) {
+                    $this->promo->addUserInPromo($_POST['promo'], $user_id);
                 }
-                
-                
+
+                //Rediriger l'utilisateur sur la page d'accueil
+                $this->errorMsg = "L'utilisateur a bien été créé avec l'id : " . $user_id;
+                header('Location: users.php');
             } else {
-                $this->errorMsg = 'Veuillez compléter tous les champs';
+                $this->errorMsg = "L'adresse email est déjà utilisée";
             }
+            
+            
+        } else {
+            $this->errorMsg = 'Veuillez compléter tous les champs';
         }
+    }
 
 
-
+    function update() {
         if (isset($_POST['update'])) {
 
             if (!empty($_POST['first_password']) && !empty(['second_password'])) {
@@ -106,12 +105,31 @@ class ControlUsers{
 
             //header('Location:companies.php?id=' . $_GET['id']);
         }
+    }
 
-        if (isset($_POST['delete'])) {
+    function delete(){
+        
             $this->user->delete(array($_GET['id']));
 
             header('Location: users.php');
+    }
+
+    function displayOne() {
+
+        //display for one user
+
+        if (isset($_GET['id'])){
+            if ((in_array($_GET['id'], array_column($this->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user'])) {
+
+                $oneUser = $this->user->get(array($_GET['id']));
+                $this->display->displayUser($this->errorMsg, $oneUser);
+            }
         }
+    }
+
+    function displayAll() {
+
+        //students array
 
         if ($_SESSION['id_role'] == '1') {
             $users = $this->user->getStudentsAndPilots();
@@ -121,10 +139,7 @@ class ControlUsers{
             $users = array();
         }
 
-
-        if (isset($_GET['id'])) {
-            $oneUser = $this->user->get(array($_GET['id']));
-        }
+        //campuses array
 
         $promos = $this->promo->getPilotPromos($_SESSION['id_user']);
         $campuses = array();
@@ -138,28 +153,36 @@ class ControlUsers{
         } else {
             $campuses = $this->campus->get(0);
         }
-
-
-
-        ////////////////////////////////
-
-        //display for one user
-
-        if (isset($_GET['id'])){
-            if ((in_array($_GET['id'], array_column($this->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user'])) {
-
-                $oneUser = $this->user->get(array($_GET['id']));
-                $this->display->displayUser($this->errorMsg, $oneUser);
-            }
-        }
-
-        //display all users (add check for admin)
-        else {
             
             $this->display->displayAllUsers($this->errorMsg, $campuses, $users);
-        }
+            
     }
+
 }
 
+
 $users = new ControlUsers();
-$users->users();
+
+
+if (isset($_POST['create'])) {
+    $users->create();
+}
+
+
+if (isset($_POST['update'])) {
+    $users->update();
+}
+
+if (isset($_POST['delete'])) {
+    $users->delete();
+}
+
+
+if (isset($_GET['id'])){
+    if ((in_array($_GET['id'], array_column($users->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user'])) {
+        $users->displayOne();
+    }
+}
+else{
+    $users->displayAll();
+}
