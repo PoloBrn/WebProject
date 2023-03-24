@@ -1,6 +1,9 @@
 <?php
 
 require_once '../assets/smarty/Smarty.class.php';
+include '../includes/head.php';
+include '../includes/scripts.php';
+
 
 Class Login{
     
