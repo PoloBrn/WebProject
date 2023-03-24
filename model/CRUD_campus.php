@@ -13,17 +13,17 @@ class CRUD_campus extends Database
         $campus_name = $array[0];
         $address_id = $array[1];
 
-        $request = $this->pdo->prepare('INSERT INTO campus(name, id_address) values (?,?)');
+        $request = $this->pdo->prepare('CALL campus_create (?,?)');
         $request->execute(array($campus_name, $address_id));
 
-        return $this->pdo->lastInsertId();
+        return $request->fetchAll()[0][0];
     }
     function update($array)
     {
         $campus_name = $array[0];
         $campus_id = $array[1];
 
-        $request = $this->pdo->prepare('UPDATE campus set name =? where id_campus =?');
+        $request = $this->pdo->prepare('CALL campus_update (?,?)');
         $request->execute(array($campus_name, $campus_id));
 
     }
@@ -31,12 +31,12 @@ class CRUD_campus extends Database
     {
         $campus_id = $array[0];
 
-        $request = $this->pdo->prepare('DELETE FROM campus WHERE id_campus =?');
+        $request = $this->pdo->prepare('CALL campus_delete (?)');
         $request->execute(array($campus_id));
     }
     function get($array)
     {
-        $request = $this->pdo->prepare('SELECT * FROM campus join address on campus.id_address = address.id_address');
+        $request = $this->pdo->prepare('CALL campus_select');
         $request->execute();
 
         return $request->fetchAll();
@@ -44,14 +44,14 @@ class CRUD_campus extends Database
 
     function getByInfos($campus_name)
     {
-        $request = $this->pdo->prepare('SELECT * FROM campus where name = ?');
+        $request = $this->pdo->prepare('CALL campus_getByInfos (?)');
         $request->execute(array($campus_name));
 
         return $request->fetchAll();
     }
 
     function getCampusByPromo($promo_id) {
-        $request = $this->pdo->prepare('SELECT campus.id_campus, campus.name FROM campus join promo on campus.id_campus = promo.id_campus where id_promo =? group by campus.id_campus');
+        $request = $this->pdo->prepare('CALL campus_getCampusByPromo (?)');
         $request->execute(array($promo_id));
 
         return $request->fetchAll();

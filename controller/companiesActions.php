@@ -15,8 +15,11 @@ $activity = new \MODELE\CRUD_activities();
 // Validation du formulaire
 if (isset($_POST['create'])) {
 
+
     // Vérifiersi l'user a bien complété tous les champs
-    if (!(empty($_POST['company_name']) && empty($_POST['email']) && empty($_POST['nb_student']) /*&& empty($_POST['logo'])*/)) {
+    if (!(empty($_POST['company_name']) && empty($_POST['email']) && empty($_POST['nb_student']) && empty($_FILES['logo']['name']))) {
+
+
         // Les données que l'utilisateur a entré
         $company_name = htmlspecialchars($_POST['company_name']);
         $company_mail = htmlspecialchars($_POST['email']);
@@ -26,10 +29,21 @@ if (isset($_POST['create'])) {
         // Vérifier sur l'entreprise existe dèjà sur le site
         if (count($company->getByInfos($company_name, $company_mail)) == 0) {
             //Insérer l'entreprise dans la bdd
+            $image_size = getimagesize($_FILES['logo']['tmp_name']);
             $company_id = $company->create(array($company_name, $company_mail, $company_nb_student, $_SESSION['id_user']));
+            if ($image_size[0] != $image_size[1]) {
+                $errorMsg = 'Image pas bonne taille : ' . $image_size[0] . ' x ' . $image_size[1] . '.php';
+            } else {
+                $extension = strtolower(pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION));
+                $file_name = 'company_' . $company_id . '_logo' . '.' . $extension;
+                $path = '../assets/company-logos/' . $file_name;
+                $result = move_uploaded_file($_FILES['logo']['tmp_name'], $path);
+
+                $company->updateLogo($file_name, $company_id);
+            }
 
             //Rediriger l'utilisateur sur la page de l'entreprise
-            header('Location:companies.php?id=' . $company_id);
+            header('Location:companies.php#company' . $company_id);
         } else {
             $errorMsg = "L'entreprise existe déjà";
         }
@@ -46,12 +60,37 @@ if (isset($_POST['update'])) {
 
     $company->update(array($company_name, $company_mail, $company_nb_student, $_GET['id']));
 
-    header('Location:companies.php?id=' . $_GET['id']);
+    if (isset($_FILES['logo']) and !empty($_FILES['logo']['name'])) {
+        // Si le logo est renvoyé
+        $image_size = getimagesize($_FILES['logo']['tmp_name']);
+
+
+        if ($image_size[0] != $image_size[1]) {
+            $errorMsg = 'Image pas bonne taille : ' . $image_size[0] . ' x ' . $image_size[1] . '.php';
+        } else {
+            $old_file_name = '../assets/company-logos/' . $company->getLogo($_GET['id'])[0]['logo'];
+            if (file_exists($old_file_name)) {
+                unlink($old_file_name);
+            }
+            $extension = strtolower(pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION));
+            $file_name = 'company_' . $_GET['id'] . '_logo' . '.' . $extension;
+            $path = '../assets/company-logos/' . $file_name;
+            $result = move_uploaded_file($_FILES['logo']['tmp_name'], $path);
+
+            $company->updateLogo($file_name, $_GET['id']);
+        }
+    }
+
+    header('Location:companies.php#company' . $_GET['id']);
 }
 
 
 if (isset($_POST['delete'])) {
-    $company->delete($_GET['id']);
+    $logo_file = '../assets/company-logos/' . $company->getLogo($_GET['id'])[0]['logo'];
+    if (file_exists($logo_file)) {
+        unlink($logo_file);
+    }
+    $company->delete(array($_GET['id']));
     header('Location: companies.php');
 }
 

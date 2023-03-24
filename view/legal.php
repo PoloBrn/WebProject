@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-
     <?php require '../controller/securityAction.php';
     require "../includes/head.php"; ?>
+    <link rel="stylesheet" href="../assets/CSS/legal.css">
 </head>
 
 <body>
@@ -13,7 +13,7 @@
     require '../includes/scripts.php';
     ?>
 
-    <div class="container" data-name="custom_html-4_12">
+    <div class="container" data-name="custom_html-4_12" id="divmain">
         <p>
         <h2><span id="lwptoc20">1 - Édition du site</span></h2>
         <!-- /wp:heading -->

@@ -155,7 +155,7 @@ if ($_SESSION['id_role'] != 1) {
                         <label for="exampleInputEmail1" class="form-label">Type de la promotion :</label>
                         <select name="update_promo_type" id="update_promo_type" class="mb-3 form-select">
                             <?php foreach ($promoTypes as $promoType) { ?>
-                                <option value="<?= $promoType['id_type'] ?>"><?= $promoType['name'] ?></option>
+                                <option value="<?= $promoType['id_type'] ?>"><?= $promoType['type_name'] ?></option>
                             <?php } ?>
                         </select>
                         <script>
@@ -260,7 +260,7 @@ if ($_SESSION['id_role'] != 1) {
             <?php foreach ($promoTypes as $promoType) { ?>
                 <form class="card" method="POST" id="<?= $promoType['id_type'] ?>">
                     <div class="card-body">
-                        <input type="text" name="name_type" class="card-title form-control" id="" value='<?= $promoType['name'] ?>'>
+                        <input type="text" name="name_type" class="card-title form-control" id="" value='<?= $promoType['type_name'] ?>'>
                         <input type="hidden" name="id_asso" value="<?= $promoType['id_type'] ?>">
                         <input type="submit" name='update_type' class="btn btn-primary" value="Modifier">
                         <input type="submit" name='delete_type' class="btn btn-danger" value="Supprimer">
@@ -286,8 +286,8 @@ if ($_SESSION['id_role'] != 1) {
             <?php foreach ($campuses as $campus) { ?>
                 <form class="card" method="POST" id="<?= $campus['id_campus'] ?>">
                     <div class="card-body">
-                        <input type="text" name="campus_name" class="card-title form-control" id="" value='<?= $campus[1] ?>'>
-                        <input type="text" name="campus_label" class="card-title form-control" id="" value='<?= $campus[4] ?>'>
+                        <input type="text" name="campus_name" class="card-title form-control" id="" value='<?= $campus['campus_name'] ?>'>
+                        <input type="text" name="campus_label" class="card-title form-control" id="" value='<?= $campus['label'] ?>'>
                         <input type="text" name="campus_postal_code" class="card-title form-control" id="update_postal_code" value='<?= $campus['postal_code'] ?>'>
                         <select name="campus_city" id="update_city" class="mb-3 form-select">
                             <option value="<?= $campus['city_name'] ?>"><?= $campus['city_name'] ?></option>
@@ -314,7 +314,7 @@ if ($_SESSION['id_role'] != 1) {
                                             <label class="form-label">Type de la promo :</label>
                                             <select name="create_promo_type" id="create_promo_type" class="mb-3 form-select">
                                                 <?php foreach ($promoTypes as $promoType) { ?>
-                                                    <option value="<?= $promoType['id_type'] ?>"><?= $promoType['name'] ?></option>
+                                                    <option value="<?= $promoType['id_type'] ?>"><?= $promoType['type_name'] ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -345,9 +345,9 @@ if ($_SESSION['id_role'] != 1) {
                         <form class="card" method="POST" id="promo<?= $promo['id_promo'] ?>">
                             <div class="card-body">
                                 <label for="promo_name">Nom de la promo :</label>
-                                <input type="text" disabled name="promo_name" class="card-title form-control" id="" value='<?= $promo[1] ?>'>
+                                <input type="text" disabled name="promo_name" class="card-title form-control" id="" value='<?= $promo['promo_name'] ?>'>
                                 <label for="promo_type">Type de la promo :</label>
-                                <input type="text" disabled name="promo_name" class="card-title form-control" id="" value='<?= $promo['name'] ?>'>
+                                <input type="text" disabled name="promo_name" class="card-title form-control" id="" value='<?= $promo['type_name'] ?>'>
                                 <a href="campus.php?promo=<?= $promo['id_promo'] ?>&edit" class="btn btn-info">Modifier</a>
                             </div>
                         </form>

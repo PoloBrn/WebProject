@@ -13,29 +13,29 @@ class CRUD_activities extends Database
     {
         $activity_name = $array[0];
 
-        $request = $this->pdo->prepare('INSERT INTO activity (name) values (?)');
+        $request = $this->pdo->prepare('CALL activity_create (?)');
         $request->execute(array($activity_name));
 
-        return $this->pdo->lastInsertId();
+        return $request->fetchAll()[0][0];
     }
     function update($array)
     {
         $activity_id = $array[0];
         $activity_name = $array[1];
 
-        $request = $this->pdo->prepare('UPDATE activity SET name =? WHERE id_activity =?');
+        $request = $this->pdo->prepare('CALL activity_update (?,?)');
         $request->execute(array($activity_name, $activity_id));
     }
     function delete($array)
     {
         $activity_id = $array[0];
 
-        $request = $this->pdo->prepare('DELETE FROM activity WHERE id_activity =?');
+        $request = $this->pdo->prepare('CALL activity_delete (?)');
         $request->execute(array($activity_id));
     }
     function get($array)
     {
-        $request = $this->pdo->prepare('SELECT * FROM activity');
+        $request = $this->pdo->prepare('CALL activity_select ()');
         $request->execute();
 
         return $request->fetchAll();
@@ -43,7 +43,7 @@ class CRUD_activities extends Database
 
     function getByName($activity_name)
     {
-        $request = $this->pdo->prepare('SELECT * FROM activity WHERE name =?');
+        $request = $this->pdo->prepare('CALL activity_getByName (?)');
         $request->execute(array($activity_name));
 
         return $request->fetchAll();
@@ -51,19 +51,19 @@ class CRUD_activities extends Database
 
     function addToCompany($activity_id, $company_id)
     {
-        $request = $this->pdo->prepare('INSERT into sector (id_company, id_activity) values (?,?)');
+        $request = $this->pdo->prepare('CALL sector_addToCompany (?,?)');
         $request->execute(array($company_id, $activity_id));
     }
 
     function removeFromCompany($activity_id, $company_id)
     {
-        $request = $this->pdo->prepare('DELETE FROM sector WHERE id_company =? AND id_activity =?');
+        $request = $this->pdo->prepare('CALL sector_removeFromCompany (?,?)');
         $request->execute(array($company_id, $activity_id));
     }
 
     function getRelation($activity_id, $company_id)
     {
-        $request = $this->pdo->prepare('SELECT * FROM sector WHERE id_activity =? AND id_company =?');
+        $request = $this->pdo->prepare('CALL sector_getRelation (?,?)');
         $request->execute(array($activity_id, $company_id));
 
         return $request->fetchAll();
@@ -71,7 +71,7 @@ class CRUD_activities extends Database
 
     function getCompanyActivities($company_id)
     {
-        $request = $this->pdo->prepare('SELECT * FROM sector join activity on activity.id_activity = sector.id_activity WHERE id_company =?');
+        $request = $this->pdo->prepare('CALL sector_getCompanyActivities (?)');
         $request->execute(array($company_id));
         return $request->fetchAll();
     }
