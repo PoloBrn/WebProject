@@ -58,7 +58,8 @@ class CRUD_user extends Database
         return $request->fetchAll();
     }
 
-    function updatePassword($user_id, $user_password){
+    function updatePassword($user_id, $user_password)
+    {
         $request = $this->pdo->prepare('CALL users_updatePassword (?,?)');
         $request->execute(array($user_password, $user_id));
     }
@@ -70,23 +71,24 @@ class CRUD_user extends Database
         return $request->fetchAll();
     }
 
-    function getStudents() {
+    function getStudents()
+    {
         $request = $this->pdo->prepare("CALL users_getStudents ()");
         $request->execute();
         return $request->fetchAll();
     }
 
-    function getPilots() {
+    function getPilots()
+    {
         $request = $this->pdo->prepare("CALL users_getPilots ()");
         $request->execute();
         return $request->fetchAll();
     }
 
-    function getStudentsAndPilots() {
+    function getStudentsAndPilots()
+    {
         $request = $this->pdo->prepare("CALL users_getStudentsAndPilots ()");
         $request->execute();
         return $request->fetchAll();
     }
-
-    
 }
