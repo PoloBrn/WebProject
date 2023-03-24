@@ -1,5 +1,6 @@
 <?php
 require '../controller/campusAction.php';
+require '../controller/securityAction.php';
 
 if ($_SESSION['id_role'] != 1) {
     header('Location: index.php');
@@ -14,7 +15,7 @@ if ($_SESSION['id_role'] != 1) {
 </head>
 
 <body>
-    include '../includes/scripts.php'; ?>
+    <?php include '../includes/scripts.php'; ?>
     <div class="modal fade" id="newTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
