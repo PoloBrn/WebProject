@@ -14,7 +14,7 @@
                             <a class="nav-link active" href="#">Les offres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href=../view/companiesActions.php>Les entreprises</a>
+                            <a class="nav-link active" href=../controller/companiesActions.php>Les entreprises</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="../controller/usersActions.php?id={$smarty.session.id_user}">Mon profil</a>
