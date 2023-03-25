@@ -12,8 +12,6 @@ require_once '../assets/smarty/Smarty.class.php';
 
 include '../includes/scripts.php';
 
-class viewUsers
-{
 
 Class viewUsers{
     
