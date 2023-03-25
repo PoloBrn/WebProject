@@ -22,9 +22,6 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="../view/campus.php">Gestion des campus</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="../view/companies.php">Gestion des entreprises</a>
-                        </li>
                         
                 <li class="nav-item">
                     <a class="nav-link active" href="../controller/logoutAction.php">Se déconnecter</a>

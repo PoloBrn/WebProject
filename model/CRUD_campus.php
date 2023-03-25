@@ -36,7 +36,7 @@ class CRUD_campus extends Database
     }
     function get($array)
     {
-        $request = $this->pdo->prepare('CALL campus_select');
+        $request = $this->pdo->prepare('CALL campus_select ()');
         $request->execute();
 
         return $request->fetchAll();

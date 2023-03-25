@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    {include file='../../includes/head.php'}
-</head>
-
 <body>
-
-    {include file='../../includes/scripts.php'}
-
 
 {if $smarty.session.id_role != 3 }
     <a href="usersActions.php#user{$smarty.get.id}" class="btn btn-primary">back</a>
 {/if}
 
 {if isset($oneUser)}
+    {var_dump($oneUser)}
     {if count($oneUser) != 0 }
         {$oneUser = $oneUser[0]}
         <br>
@@ -51,7 +45,7 @@
             <div class="container">
                 <div class="mb-3">
                     <label class="form-label">Libellé :</label>
-                    <input type="text" class="form-control" name="label" id="label" value="test">
+                    <input type="text" class="form-control" name="label" id="label" value="{$oneUser["label"]}">
 
                 </div>
                 <div class="mb-3">
@@ -61,7 +55,7 @@
                 </div>
                 <label class="form-label">Ville :</label>
                 <select name="city" id="city" class="mb-3 form-select">
-                    <option value="{$oneUser["city_name"]}">"{$oneUser["city_name"]}"</option>
+                    <option value="{$oneUser["city_name"]}">{$oneUser["city_name"]}</option>
                 </select>
                 <input type="hidden" name="address_id" value="{$oneUser["id_address"]}">
                 <button type="submit" class="btn btn-primary" name="update">Enregistrer</button>

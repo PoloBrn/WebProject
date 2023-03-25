@@ -1,34 +1,32 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-23 16:21:47
+/* Smarty version 4.3.0, created on 2023-03-24 10:23:47
   from 'C:\Users\damie\Desktop\repos2\WebProject\view\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_641c6e8bf25403_54727980',
+  'unifunc' => 'content_641d6c2380db11_05883048',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5b98114d214d7e4c701a021630107d02f977d8e9' => 
     array (
       0 => 'C:\\Users\\damie\\Desktop\\repos2\\WebProject\\view\\templates\\login.tpl',
-      1 => 1679580452,
+      1 => 1679649810,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
-    'file:../../includes/head.php' => 1,
   ),
 ),false)) {
-function content_641c6e8bf25403_54727980 (Smarty_Internal_Template $_smarty_tpl) {
+function content_641d6c2380db11_05883048 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php $_smarty_tpl->_subTemplateRender("file:../../includes/head.php", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
+
 </head>
 
 <body>

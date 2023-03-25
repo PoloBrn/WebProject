@@ -12,7 +12,5 @@
             "type": "image/png",
             "sizes": "462x462"
         }
-    ],
-    "start_url": "/source=pwa",
-    "display":"standalone"
+    ]
 }

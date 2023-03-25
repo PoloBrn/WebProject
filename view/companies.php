@@ -10,7 +10,7 @@ $smarty = new Smarty();
 Class viewCompanies{
     
     private $smarty;
-
+    
     function __construct() {
         $this->smarty = new Smarty();
     }

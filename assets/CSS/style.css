@@ -38,11 +38,8 @@ html {
     font-family: 'Roboto', sans-serif;
 }
 
-footer {
+.beau {
     display: block;
-}
-
-footer a {
     margin-top: auto 0;
     padding: 10px;
     color: black;
@@ -53,7 +50,7 @@ footer a {
     margin: 15px;
 }
 
-.links footer a {
+.links .beau {
     margin-top: auto 0;
     padding: 10px;
     color: black;
