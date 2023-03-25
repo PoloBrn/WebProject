@@ -1,4 +1,27 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<?php
+/* Smarty version 4.3.0, created on 2023-03-25 17:44:28
+  from 'C:\Users\damie\Desktop\repos2\WebProject\includes\navbar\navbarAdmin.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.3.0',
+  'unifunc' => 'content_641f24ec325446_50675539',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'd0fd5f003c86c093ddbfdbd820437e373c1ebd20' => 
+    array (
+      0 => 'C:\\Users\\damie\\Desktop\\repos2\\WebProject\\includes\\navbar\\navbarAdmin.tpl',
+      1 => 1679762661,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_641f24ec325446_50675539 (Smarty_Internal_Template $_smarty_tpl) {
+?><nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
     <a class="navbar-brand" href="../view/index.php">
             <!--<img src="assets/images/logo_ligne.png" alt="Logo" height="50"  class="d-inline-block align-text-middle">-->
@@ -32,4 +55,5 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav><?php }
+}
