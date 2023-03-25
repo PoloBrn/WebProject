@@ -14,7 +14,7 @@
                             <a class="nav-link active" href="#">Gestion des offres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../view/companiesActions.php">Gestion des entreprises</a>
+                            <a class="nav-link active" href="../controller/companiesActions.php">Gestion des entreprises</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="../controller/usersActions.php">Gestion des étudiants</a>
