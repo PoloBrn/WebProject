@@ -8,7 +8,6 @@
 {/if}
 
 {if isset($oneUser)}
-    {var_dump($oneUser)}
     {if count($oneUser) != 0 }
         {$oneUser = $oneUser[0]}
         <br>
