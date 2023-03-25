@@ -4,7 +4,6 @@
 
 <body>
     <br><br>
-
     <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -49,27 +48,13 @@
                             <label for="" class="form-label">Promotion :</label>
                             <select name="promo" class="mb-3 form-select">
                                 {foreach from=$campuses item=$campus}
-
-                                    <optgroup label="{$campus[1]}">
-
-                                        {if ($smarty.session.id_role == 1)}
-
-                                            {foreach from=$campuses item=$onePromo}
-                                                <option value="{$onepromo['id_promo']}">
-                                                    {$onePromo['promo_name']}
+                                    <optgroup label="{$campus['campus_name']}">
+                                            {foreach from=$campus['promos'] item=$promo}
+                                                <option value="{$promo['id_promo']}">
+                                                    {$promo['promo_name']}
                                                 </option>
                                             {/foreach}
-
-                                        {else}
-                                            {foreach from=$campuses item=$onePromo}
-                                                <option value="{$onepromo['id_promo']}">
-                                                    {$onePromo['promo_name']}
-                                                </option>
-                                            {/foreach}
-                                        {/if}
-
                                     </optgroup>
-
                                 {/foreach}
 
                             </select>

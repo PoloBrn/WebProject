@@ -14,18 +14,6 @@ require_once '../model/CRUD_campus.php';
 require_once '../view/users.php';
 
 
-// function getPromoByIDcampusAndPilot($campus_id)
-// {
-//     $promo = new \MODELE\CRUD_promo;
-//     return $promo->getPromoByIDcampusAndPilot($campus_id, $_SESSION['id_user']);
-// }
-
-// function getPromoByIDcampus($campus_id)
-// {
-//     $promo = new \MODELE\CRUD_promo;
-//     return $promo->getByCampusID($campus_id);
-// }
-
 
 class ControlUsers
 {
@@ -56,11 +44,9 @@ class ControlUsers
             $user_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $user_role = $_POST['role'];
 
-
             $address_label = htmlspecialchars($_POST['label']);
             $address_postal_code = htmlspecialchars($_POST['postal_code']);
             $address_city = htmlspecialchars($_POST['city']);
-
 
             if (count($this->user->getUserInfos($user_email)) == 0) {
 
@@ -87,54 +73,39 @@ class ControlUsers
 
     function update()
     {
-        if (isset($_POST['update'])) {
-
-            if (!empty($_POST['first_password']) && !empty(['second_password'])) {
-
-                if ($_POST['first_password'] == $_POST['second_password']) {
-                    $password = password_hash($_POST['first_password'], PASSWORD_DEFAULT);
-                    $this->user->updatePassword($_GET['id'], $password);
-                } else {
-                    $this->errorMsg = 'Les mots de passe ne correspondent pas';
-                }
+        if (!empty($_POST['first_password']) && !empty(['second_password'])) {
+            if ($_POST['first_password'] == $_POST['second_password']) {
+                $password = password_hash($_POST['first_password'], PASSWORD_DEFAULT);
+                $this->user->updatePassword($_GET['id'], $password);
+            } else {
+                $this->errorMsg = 'Les mots de passe ne correspondent pas';
             }
-            $user_first_name = htmlspecialchars($_POST['first_name']);
-            $user_last_name = htmlspecialchars($_POST['last_name']);
-            $user_email = htmlspecialchars($_POST['email']);
-
-            $address_id = htmlspecialchars($_POST['address_id']);
-            $address_label = htmlspecialchars($_POST['label']);
-            $address_postal_code = htmlspecialchars($_POST['postal_code']);
-            $address_city = htmlspecialchars($_POST['city']);
-
-            $this->user->update(array($_GET['id'], $user_first_name, $user_last_name, $user_email));
-
-            $this->address->update(array($address_label, $address_postal_code, $address_city, $address_id));
-
-            //header('Location:companies.php?id=' . $_GET['id']);
         }
+        $user_first_name = htmlspecialchars($_POST['first_name']);
+        $user_last_name = htmlspecialchars($_POST['last_name']);
+        $user_email = htmlspecialchars($_POST['email']);
+
+        $address_id = htmlspecialchars($_POST['address_id']);
+        $address_label = htmlspecialchars($_POST['label']);
+        $address_postal_code = htmlspecialchars($_POST['postal_code']);
+        $address_city = htmlspecialchars($_POST['city']);
+
+        $this->user->update(array($_GET['id'], $user_first_name, $user_last_name, $user_email));
+
+        $this->address->update(array($address_label, $address_postal_code, $address_city, $address_id));
+        //header('Location:companies.php?id=' . $_GET['id']);
     }
 
     function delete()
     {
-
         $this->user->delete(array($_GET['id']));
-
         header('Location: users.php');
     }
 
     function displayOne()
     {
-
-        //display for one user
-
-        if (isset($_GET['id'])) {
-            /*if ((in_array($_GET['id'], array_column($this->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user'])) {
-*/
-            $oneUser = $this->user->get(array($_GET['id']));
-            $this->display->displayUser($this->errorMsg, $oneUser);
-            /*}*/
-        }
+        $oneUser = $this->user->get(array($_GET['id']));
+        $this->display->displayUser($this->errorMsg, $oneUser);
     }
 
     function displayAll()
@@ -196,7 +167,7 @@ class ControlUsers
         if ($nbByPage < 1) {
             $nbByPage = 1;
         }
-        
+
         if (!isset($_GET['page']) || empty($_GET['page'])) {    //Si la page demandée n'est pas initialisé ou est vide
             $page = 1;  // On initialise à 1
         } else {
@@ -229,21 +200,27 @@ class ControlUsers
 
 
 
-
         $promos = $this->promo->getPilotPromos($_SESSION['id_user']);
         $campuses = array();
         if ($_SESSION['id_role'] == '2') {
             foreach ($promos as $promo_id) {
                 $onecampus = $this->campus->getCampusByPromo($promo_id)[0];
                 if (!in_array($onecampus, $campuses)) {
+                    $onecampus['promos'] = $this->promo->getPromoByIDcampusAndPilot($onecampus['id_campus'], $_SESSION['id_user']);
                     array_push($campuses, $onecampus);
                 }
             }
         } else {
             $campuses = $this->campus->get(0);
+            $newcampuses = array();
+            foreach ($campuses as $onecampus) {
+                $onecampus['promos'] = $this->promo->getByCampusID($onecampus['id_campus']);
+                $newcampuses[] = $onecampus;
+            }
+            $campuses = $newcampuses;
         }
 
-        $this->display->displayallUsers($this->errorMsg, $campuses, $users, $allUsers, $maxPage, $page, $nbByPage, $search, $role);
+        $this->display->displayallUsers($this->errorMsg, $campuses, $users, $maxPage, $page, $nbByPage, $search, $role);
     }
 }
 
@@ -251,24 +228,29 @@ class ControlUsers
 $users = new ControlUsers();
 
 
-if (isset($_POST['create'])) {
+
+
+if (isset($_POST['create']) && $_SESSION['id_role'] != 3) {
     $users->create();
 }
 
-
-if (isset($_POST['update'])) {
-    $users->update();
-}
-
-if (isset($_POST['delete'])) {
-    $users->delete();
-}
-
-
 if (isset($_GET['id'])) {
+
+
+    if (isset($_POST['update'])  && ((in_array($_GET['id'], array_column($users->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user']) || $_SESSION['id_role'] == 1)) {
+        $users->update();
+    }
+
+    if (isset($_POST['delete'])  && ((in_array($_GET['id'], array_column($users->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || $_SESSION['id_role'] == 1)) {
+        $users->delete();
+    }
     if ((in_array($_GET['id'], array_column($users->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user']) || $_SESSION['id_role'] == 1) {
         $users->displayOne();
     }
 } else {
-    $users->displayAll();
+    if ($_SESSION['id_role'] != 3) {
+        $users->displayAll();
+    } else {
+        header('Location: ../view/index.php');
+    }
 }
