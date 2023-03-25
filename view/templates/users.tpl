@@ -1,17 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    {include file='../../includes/head.php'}
-</head>
 
 <body>
-
-    {include file='../../includes/scripts.php'}
-
-
-    <!-- Modal -->
-
     <br><br>
 
     <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -142,7 +133,15 @@
                     <input type='search' name="search" class="form-control" value="{$search}">
                     <button class="btn btn-success">Rechercher</button>
                     <br>
-
+                    <select name="role" id="role" class="mb-3 form-select" value="{$role}">
+                        {if $smarty.session.id_role == 1}
+                            <option value="0">(peu importe)</option>
+                            <option value="2">Pilote</option>
+                            <option value="3">Etudiant</option>
+                        {else}
+                            <option value="3">Etudiant</option>
+                        {/if}
+                    </select>
                     {foreach from=$users item=$user}
                         <div class=" card" id="user {$user['id_user']}">
                             <div class="card-body">
@@ -154,52 +153,76 @@
                                         {$user['email'] }
                                     </a></p>
 
+
                                 {if (true || $smarty.session.role_id == 1)}
                                     <a href="usersActions.php?id={$user['id_user']}" class="btn btn-primary">Modifier</a>
+
                                 {/if}
                             </div>
                         </div>
                         <br>
+
                     {/foreach}
                 </div>
 
-                <input type='number' name="userNumberByPage" class="form-control" value="{$nbByPage}">
+                <input type='number' name="userNumberByPage" class="form-control"
+                    value="{if (isset($smarty.get.userNumberByPage))}{$smarty.get.userNumberByPage}{else}{4}{/if}">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item {if ($page == 1)}{"disabled"}{/if}">
-                            <a class="page-link" href="usersActions.php?search={$search}&userNumberByPage={$nbByPage}&page={1}">
+                        <li class="page-item 
+                            {if ($page == 1)}{"disabled"}
+                            {/if}">
+                            <a class="page-link" href="usersActions.php?role={$role}&search={$search}&userNumberByPage={$nbByPage}&page=
+                            {1}">
                                 <span aria-hidden="true">&laquo;&laquo;</span>
                             </a>
                         </li>
-                        <li class="page-item {if ($page == 1)}{"disabled"}{/if}">
-                            <a class="page-link" href="usersActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}">
+                        <li class="page-item 
+                            {if ($page == 1)}{"disabled"}
+                            {/if}">
+                            <a class="page-link"
+                                href="usersActions.php?role={$role}&search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
+
                         {for $i = ($page - 2) to ($page + 2)}
+
                             {if ($i > 0 and $i <= $maxPage)}
-                                <li class="page-item {if ($page == {$i})}{"active"}{/if}"><a class="page-link"
-                                        href="usersActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$i}">{$i}</a>
+                                <li class="page-item 
+                                    {if ($page == {$i})}{"active"}
+                                    {/if}"><a class="page-link"
+                                        href="usersActions.php?role={$role}&search={$search}&userNumberByPage={$nbByPage}&page={$i}">{$i}</a>
                                 </li>
+
                             {/if}
+
                         {/for}
-                        <li class="page-item {if ($page == $maxPage)}{"disabled"}{/if}">
-                            <a class="page-link" href="usersActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}">
+                        <li class="page-item 
+                            {if ($page == $maxPage)}{"disabled"}
+                            {/if}">
+                            <a class="page-link"
+                                href="usersActions.php?role={$role}&search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
-                        <li class="page-item {if ($page == $maxPage)}{"disabled"}{/if}">
-                            <a class="page-link" href="usersActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$maxPage}">
+                        <li class="page-item 
+                            {if ($page == $maxPage)}{"disabled"}
+                            {/if}">
+                            <a class="page-link"
+                                href="usersActions.php?role={$role}&search={$search}&userNumberByPage={$nbByPage}&page={$maxPage}">
                                 <span aria-hidden="true">&raquo;&raquo;</span>
                             </a>
                         </li>
                     </ul>
                 </nav>
             </form>
+
         {/if}
     </div>
 
 </body>
+
 {include file='../../includes/footer.php'}
 
 </html>

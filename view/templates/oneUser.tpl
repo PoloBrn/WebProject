@@ -58,7 +58,7 @@
                 </div>
                 <label class="form-label">Ville :</label>
                 <select name="city" id="city" class="mb-3 form-select">
-                    <option value="{$oneUser["city_name"]}">"{$oneUser["city_name"]}"</option>
+                    <option value="{$oneUser["city_name"]}">{$oneUser["city_name"]}</option>
                 </select>
                 <input type="hidden" name="address_id" value="{$oneUser["id_address"]}">
                 <button type="submit" class="btn btn-primary" name="update">Enregistrer</button>
