@@ -1,7 +1,6 @@
 <?php
 
-use MODELE\CRUD_campus;
-use MODELE\CRUD_user;
+
 /*
 if ($_SESSION['id_role'] == 3) {
     header('Location: index.php');
@@ -16,13 +15,13 @@ include '../includes/scripts.php';
 class viewUsers
 {
 
-    private $smarty, $campus, $users;
+Class viewUsers{
+    
+    private $smarty;
 
     function __construct()
     {
         $this->smarty = new Smarty();
-        $campus = new CRUD_campus();
-        $users = new CRUD_user();
     }
 
     function displayUser($msg, $oneUser)
@@ -32,6 +31,7 @@ class viewUsers
         if ($msg != "0") {
             $this->smarty->assign('errorMsg', $msg);
         }
+
 
         $this->smarty->assign('oneUser', $oneUser);
 
