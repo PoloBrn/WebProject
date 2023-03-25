@@ -15,13 +15,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 <body>
     <?php require('../controller/securityAction.php');
     include '../includes/scripts.php'; ?>
-    <script>
-        window.addEventListener("load",()=> {
-           if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('serviceWorker.js');
-        } 
-        });
-    </script>
+    
     <h1>Nom : <?= $_SESSION['last_name'] ?></h1>
     <h1>Prénom : <?= $_SESSION['first_name'] ?></h1>
 

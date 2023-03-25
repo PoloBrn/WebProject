@@ -1,5 +1,11 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+?>
+
+<head>
+    <?php require_once('../includes/head.php'); ?>
+</head>
+<?php
 require('../controller/securityAction.php');
 require_once '../model/CRUD_user.php';
 require_once '../model/CRUD_address.php';
@@ -123,11 +129,11 @@ class ControlUsers
         //display for one user
 
         if (isset($_GET['id'])) {
-            if ((in_array($_GET['id'], array_column($this->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user'])) {
-
-                $oneUser = $this->user->get(array($_GET['id']));
-                $this->display->displayUser($this->errorMsg, $oneUser);
-            }
+            /*if ((in_array($_GET['id'], array_column($this->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user'])) {
+*/
+            $oneUser = $this->user->get(array($_GET['id']));
+            $this->display->displayUser($this->errorMsg, $oneUser);
+            /*}*/
         }
     }
 
@@ -155,6 +161,27 @@ class ControlUsers
             $search = ""; // Sinon la recherche est vide et nous gardons tous les utilisateurs
         }
 
+        if (isset($_GET['role']) && !empty($_GET['role'])) {
+            $role = intval($_GET['role']);
+            if ($role == 2 || $role == 3) {
+                $newusers = array();
+                foreach ($allUsers as $user) {
+                    if ($user['id_role'] == $role) {
+                        $newusers[] = $user;
+                    }
+                }
+                $allUsers = $newusers;
+            } else {
+                $role = 0;
+            }
+        } else {
+            if ($_SESSION['id_role'] == '1') {
+                $role = 0;
+            } else {
+                $role = 3;
+            }
+        }
+
         if (!isset($_GET['userNumberByPage']) || empty($_GET['userNumberByPage']) || $_GET['userNumberByPage'] < 1) {
             // Si la nombre donné d'utilisateur maximum par page n'est pas initialisé, est vide ou est inférieur à 1
             $nbByPage = 4;  // Nous donnons alors comme valeur initiale 4
@@ -166,6 +193,10 @@ class ControlUsers
             $nbByPage = count($allUsers);   // On initialise le nombre de utilisateurs maximum par page au nombre d'utilisateur dont on s'intéresse
         }
 
+        if ($nbByPage < 1) {
+            $nbByPage = 1;
+        }
+        
         if (!isset($_GET['page']) || empty($_GET['page'])) {    //Si la page demandée n'est pas initialisé ou est vide
             $page = 1;  // On initialise à 1
         } else {
@@ -176,16 +207,16 @@ class ControlUsers
             $page = 1;  // On remplace sa valeur par 1
         }
 
-        $maxPage = ceil(count($allUsers) / $nbByPage);  
+        $maxPage = ceil(count($allUsers) / $nbByPage);
         // On affecte à une variable le nombre de page maximum on divisant le nombre d'utilisateur dont on s'intéresse par le nombre d'utilisateur par page maximum
-        
+
         if ($page > $maxPage) { // Si la page demandé est supérieur au nombre de pages maximum
             $page = $maxPage;   // On remplace sa valeur par le nombre de pages maximum
         }
-        
+
         // Nous allons maintenant nous intéresser aux utilisateurs de la page actuelle
         $newusers = array();    // On initialise une variable temporaire
-        for ($i = $nbByPage * ($page - 1); $i < $nbByPage * $page; $i++) {  
+        for ($i = $nbByPage * ($page - 1); $i < $nbByPage * $page; $i++) {
             // Pour i allant du nombre de utilisateurs maximum par page multiplié par la page en question moins 1
             // Jusqu'à le nombre de utilisateurs maximum par page multiplié par la page en question
             // Cette boucle va permettre de prendre seulement les utilisateurs concernés par la page et de les ajouter (s'il existent) dans la variable temporaire
@@ -194,6 +225,9 @@ class ControlUsers
             }
         }
         $users = $newusers; // La varialbe users contiendra donc nos utilisateurs de la page
+
+
+
 
 
         $promos = $this->promo->getPilotPromos($_SESSION['id_user']);
@@ -209,7 +243,7 @@ class ControlUsers
             $campuses = $this->campus->get(0);
         }
 
-        $this->display->displayallUsers($this->errorMsg, $campuses, $users, $allUsers, $maxPage, $page, $nbByPage, $search);
+        $this->display->displayallUsers($this->errorMsg, $campuses, $users, $allUsers, $maxPage, $page, $nbByPage, $search, $role);
     }
 }
 
@@ -232,7 +266,7 @@ if (isset($_POST['delete'])) {
 
 
 if (isset($_GET['id'])) {
-    if ((in_array($_GET['id'], array_column($users->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user'])) {
+    if ((in_array($_GET['id'], array_column($users->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user']) || $_SESSION['id_role'] == 1) {
         $users->displayOne();
     }
 } else {

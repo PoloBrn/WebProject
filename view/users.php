@@ -11,7 +11,6 @@ if ($_SESSION['id_role'] == 3) {
 
 require_once '../assets/smarty/Smarty.class.php';
 
-include '../includes/head.php';
 include '../includes/scripts.php';
 
 class viewUsers
@@ -39,7 +38,7 @@ class viewUsers
         $this->smarty->display('../view/templates/oneUser.tpl');
     }
 
-    function displayAllUsers($msg, $campus, $users, $allUsers, $maxPage, $page, $nbByPage, $search)
+    function displayAllUsers($msg, $campus, $users, $allUsers, $maxPage, $page, $nbByPage, $search, $role)
     {
         //display users
 
@@ -55,6 +54,7 @@ class viewUsers
         $this->smarty->assign('page', $page);
         $this->smarty->assign('nbByPage', $nbByPage);
         $this->smarty->assign('search', $search);
+        $this->smarty->assign('role', $role);
 
         $this->smarty->display('../view/templates/users.tpl');
     }
