@@ -38,7 +38,7 @@ class viewUsers
         $this->smarty->display('../view/templates/oneUser.tpl');
     }
 
-    function displayAllUsers($msg, $campus, $users, $allUsers, $maxPage, $page, $nbByPage, $search, $role)
+    function displayAllUsers($msg, $campuses, $users, $maxPage, $page, $nbByPage, $search, $role)
     {
         //display users
 
@@ -47,9 +47,8 @@ class viewUsers
         }
 
 
-        $this->smarty->assign('campus', $campus);
+        $this->smarty->assign('campuses', $campuses);
         $this->smarty->assign('users', $users);
-        $this->smarty->assign('allUsers', $allUsers);
         $this->smarty->assign('maxPage', $maxPage);
         $this->smarty->assign('page', $page);
         $this->smarty->assign('nbByPage', $nbByPage);

@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-
-</head>
-
 <body>
 
 {if $smarty.session.id_role != 3 }
@@ -12,6 +8,7 @@
 {/if}
 
 {if isset($oneUser)}
+    {var_dump($oneUser)}
     {if count($oneUser) != 0 }
         {$oneUser = $oneUser[0]}
         <br>
@@ -48,7 +45,7 @@
             <div class="container">
                 <div class="mb-3">
                     <label class="form-label">Libellé :</label>
-                    <input type="text" class="form-control" name="label" id="label" value="test">
+                    <input type="text" class="form-control" name="label" id="label" value="{$oneUser["label"]}">
 
                 </div>
                 <div class="mb-3">
