@@ -127,23 +127,12 @@
                     {foreach from=$users item=$user}
                         <div class=" card" id="user {$user['id_user']}">
                             <div class="card-body">
-                                <h5 class="card-title"><a class="nav-link" href="usersActions.php?id={$user['id_user']}">
-                                        {$user['last_name'] }
-                                        {$user['first_name'] }
-                                    </a></h5>
-                                <p class="card-text">Contact : <a href="mailto:{$user['email']}">
-                                        {$user['email'] }
-                                    </a></p>
-
-
-                                {if (true || $smarty.session.role_id == 1)}
-                                    <a href="usersActions.php?id={$user['id_user']}" class="btn btn-primary">Modifier</a>
-
-                                {/if}
+                                <h5 class="card-title">{$user['last_name'] } {$user['first_name'] }</h5>
+                                <p class="card-text">Contact : <a href="mailto:{$user['email']}">{$user['email'] }</a></p>
+                                <a href="usersActions.php?id={$user['id_user']}" class="btn btn-primary">Modifier</a>
                             </div>
                         </div>
                         <br>
-
                     {/foreach}
                 </div>
 
@@ -204,7 +193,3 @@
     </div>
 
 </body>
-
-{include file='../../includes/footer.php'}
-
-</html>

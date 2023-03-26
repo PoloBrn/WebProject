@@ -38,4 +38,10 @@ class CRUD_promotype extends Database
 
         return $request->fetchAll();
     }
+    function getByName($type_name) {
+        $request = $this->pdo->prepare('SELECT * FROM promo_type where type_name = ?');
+        $request->execute(array($type_name));
+
+        return $request->fetchAll();
+    }
 }

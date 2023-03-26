@@ -321,3 +321,5 @@ if (isset($_GET['id'])) {
 
     $companies->displayAll();
 }
+
+include '../includes/footer.php';

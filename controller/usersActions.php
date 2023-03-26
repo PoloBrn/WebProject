@@ -225,32 +225,34 @@ class ControlUsers
 }
 
 
-$users = new ControlUsers();
+$controlUsers = new ControlUsers();
 
 
 
 
 if (isset($_POST['create']) && $_SESSION['id_role'] != 3) {
-    $users->create();
+    $controlUsers->create();
 }
 
 if (isset($_GET['id'])) {
 
 
-    if (isset($_POST['update'])  && ((in_array($_GET['id'], array_column($users->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user']) || $_SESSION['id_role'] == 1)) {
-        $users->update();
+    if (isset($_POST['update'])  && ((in_array($_GET['id'], array_column($controlUsers->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user']) || $_SESSION['id_role'] == 1)) {
+        $controlUsers->update();
     }
 
-    if (isset($_POST['delete'])  && ((in_array($_GET['id'], array_column($users->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || $_SESSION['id_role'] == 1)) {
-        $users->delete();
+    if (isset($_POST['delete'])  && ((in_array($_GET['id'], array_column($controlUsers->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || $_SESSION['id_role'] == 1)) {
+        $controlUsers->delete();
     }
-    if ((in_array($_GET['id'], array_column($users->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user']) || $_SESSION['id_role'] == 1) {
-        $users->displayOne();
+    if ((in_array($_GET['id'], array_column($controlUsers->user->getStudents(), 'id_user')) && $_SESSION['id_user'] != 3) || ($_GET['id'] == $_SESSION['id_user']) || $_SESSION['id_role'] == 1) {
+        $controlUsers->displayOne();
     }
 } else {
     if ($_SESSION['id_role'] != 3) {
-        $users->displayAll();
+        $controlUsers->displayAll();
     } else {
         header('Location: ../view/index.php');
     }
 }
+
+include '../includes/footer.php';

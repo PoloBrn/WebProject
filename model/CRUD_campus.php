@@ -56,4 +56,11 @@ class CRUD_campus extends Database
 
         return $request->fetchAll();
     }
+
+    function getById($campus_id) {
+        $request = $this->pdo->prepare('SELECT * FROM campus join address on campus.id_address = address.id_address where id_campus = ?');
+        $request->execute(array($campus_id));
+
+        return $request->fetchAll()[0];
+    }
 }
