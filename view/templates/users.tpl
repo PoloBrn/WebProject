@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 
 <body>
     <br><br>
@@ -115,7 +112,7 @@
 
             <form method="get">
                 <div class="form-group">
-                    <input type='search' name="search" class="form-control" value="{$search}">
+                    <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
                     <button class="btn btn-success">Rechercher</button>
                     <br>
                     <select name="role" id="role" class="mb-3 form-select" value="{$role}">

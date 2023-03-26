@@ -2,43 +2,52 @@
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
 require_once '../assets/smarty/Smarty.class.php';
-include '../includes/head.php';
 include '../includes/scripts.php';
 
 $smarty = new Smarty();
 
-Class viewCompanies{
-    
+class viewCompanies
+{
+
     private $smarty;
-    
-    function __construct() {
+
+    function __construct()
+    {
         $this->smarty = new Smarty();
     }
 
-    function displayCompany($msg,$company, $addresses, $company_activities){
+    function displayCompany($errorMsg, $company, $addresses, $company_activities, $activities, $edit)
+    {
         //display an user documents
-        
-        if (count($company)!=0){
-            $company = $company[0];
-        }
-    
+
+        $this->smarty->assign('errorMsg', $errorMsg);
         $this->smarty->assign('company', $company);
         $this->smarty->assign('addresses', $addresses);
         $this->smarty->assign('company_activities', $company_activities);
-        
+        $this->smarty->assign('activities', $activities);
+
+        if ($edit) {
+            $this->smarty->display('../view/templates/oneCompanyEdit.tpl');
+        } else {
+            $this->smarty->display('../view/templates/oneCompany.tpl');
+        }
     }
 
-    function displayAllCompanies($msg, $allCompanies, $allActivities) {
+    function displayAllCompanies($msg, $companies, $search, $maxPage, $page, $nbByPage)
+    {
         //display users
 
-        if ($msg !="0"){
-            $this->smarty->assign('errorMsg', $msg) ;
-        }
 
-        
+        $this->smarty->assign('errorMsg', $msg);
 
-    $this->smarty->assign('allCompanies', $allCompanies);
-    $this->smarty->assign('allActivities', $allActivities);
+
+
+
+        $this->smarty->assign('companies', $companies);
+        $this->smarty->assign('search', $search);
+        $this->smarty->assign('maxPage', $maxPage);
+        $this->smarty->assign('page', $page);
+        $this->smarty->assign('nbByPage', $nbByPage);
 
         $this->smarty->display('../view/templates/companies.tpl');
     }
