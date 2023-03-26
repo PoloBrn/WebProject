@@ -18,7 +18,7 @@
         <!-- /wp:heading -->
 
         <!-- wp:paragraph -->
-        <p>En vertu de <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000801164#LEGIARTI000042038977" target="_blank" rel="noreferrer noopener">l'article 6 de la loi n° 2004-575 du 21 juin 2004</a> pour la confiance dans l'économie numérique, il est précisé aux utilisateurs du site internet <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.interchips.fr</span></strong> l'identité des différents intervenants dans le cadre de sa réalisation et de son suivi:</p>
+        <p>En vertu de <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000801164#LEGIARTI000042038977" target="_blank" rel="noreferrer noopener">l'article 6 de la loi n° 2004-575 du 21 juin 2004</a> pour la confiance dans l'économie numérique, il est précisé aux utilisateurs du site internet <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.internchips.fr</span></strong> l'identité des différents intervenants dans le cadre de sa réalisation et de son suivi:</p>
         <!-- /wp:paragraph -->
 
         <!-- wp:paragraph -->
@@ -72,15 +72,15 @@
         <!-- /wp:heading -->
 
         <!-- wp:paragraph -->
-        <p><strong><span class="ff_dynamic_value" data-ref="nom_proprietaire" data-fallback="">Paul Bréon</span></strong> ne pourra être tenu pour responsable des dommages directs et indirects causés au matériel de l’utilisateur, lors de l’accès au site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.interchips.fr</span></strong>.</p>
+        <p><strong><span class="ff_dynamic_value" data-ref="nom_proprietaire" data-fallback="">Paul Bréon</span></strong> ne pourra être tenu pour responsable des dommages directs et indirects causés au matériel de l’utilisateur, lors de l’accès au site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.internchips.fr</span></strong>.</p>
         <!-- /wp:paragraph -->
 
         <!-- wp:paragraph -->
-        <p><strong><span class="ff_dynamic_value" data-ref="nom_proprietaire" data-fallback="">Paul Bréon</span></strong> décline toute responsabilité quant à l’utilisation qui pourrait être faite des informations et contenus présents sur <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.interchips.fr</span></strong>.</p>
+        <p><strong><span class="ff_dynamic_value" data-ref="nom_proprietaire" data-fallback="">Paul Bréon</span></strong> décline toute responsabilité quant à l’utilisation qui pourrait être faite des informations et contenus présents sur <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.internchips.fr</span></strong>.</p>
         <!-- /wp:paragraph -->
 
         <!-- wp:paragraph -->
-        <p><strong><span class="ff_dynamic_value" data-ref="nom_proprietaire" data-fallback="">Paul Bréon</span></strong> s’engage à sécuriser au mieux le site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.interchips.fr</span></strong>, cependant sa responsabilité ne pourra être mise en cause si des données indésirables sont importées et installées sur son site à son insu.</p>
+        <p><strong><span class="ff_dynamic_value" data-ref="nom_proprietaire" data-fallback="">Paul Bréon</span></strong> s’engage à sécuriser au mieux le site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.internchips.fr</span></strong>, cependant sa responsabilité ne pourra être mise en cause si des données indésirables sont importées et installées sur son site à son insu.</p>
         <!-- /wp:paragraph -->
 
         <!-- wp:paragraph -->
@@ -99,7 +99,7 @@
         <!-- /wp:heading -->
 
         <!-- wp:paragraph -->
-        <p>Conformément aux dispositions de <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000886460" target="_blank" rel="noreferrer nofollow noopener">la loi 78-17 du 6 janvier 1978 modifiée</a>, l’utilisateur du site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.interchips.fr</span></strong> dispose d’un droit d’accès, de modification et de suppression des informations collectées. Pour exercer ce droit, envoyez un message à notre Délégué à la Protection des Données : <strong><span class="ff_dynamic_value" data-ref="dpo" data-fallback="">Paul Bréon</span></strong> - <strong><span class="ff_dynamic_value" data-ref="contact_dpo" data-fallback="">paul.breon@viacesi.fr</span></strong>.</p>
+        <p>Conformément aux dispositions de <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000886460" target="_blank" rel="noreferrer nofollow noopener">la loi 78-17 du 6 janvier 1978 modifiée</a>, l’utilisateur du site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.internchips.fr</span></strong> dispose d’un droit d’accès, de modification et de suppression des informations collectées. Pour exercer ce droit, envoyez un message à notre Délégué à la Protection des Données : <strong><span class="ff_dynamic_value" data-ref="dpo" data-fallback="">Paul Bréon</span></strong> - <strong><span class="ff_dynamic_value" data-ref="contact_dpo" data-fallback="">paul.breon@viacesi.fr</span></strong>.</p>
         <!-- /wp:paragraph -->
 
         <!-- wp:paragraph -->
@@ -114,11 +114,11 @@
         <!-- /wp:heading -->
 
         <!-- wp:paragraph -->
-        <p>Le site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.interchips.fr</span></strong> contient des liens hypertextes vers d’autres sites et dégage toute responsabilité à propos de ces liens externes ou des liens créés par d’autres sites vers <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.interchips.fr</span></strong>.</p>
+        <p>Le site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.internchips.fr</span></strong> contient des liens hypertextes vers d’autres sites et dégage toute responsabilité à propos de ces liens externes ou des liens créés par d’autres sites vers <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.internchips.fr</span></strong>.</p>
         <!-- /wp:paragraph -->
 
         <!-- wp:paragraph -->
-        <p>La navigation sur le site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.interchips.fr</span></strong> est susceptible de provoquer l’installation de cookie(s) sur l’ordinateur de l’utilisateur.</p>
+        <p>La navigation sur le site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.internchips.fr</span></strong> est susceptible de provoquer l’installation de cookie(s) sur l’ordinateur de l’utilisateur.</p>
         <!-- /wp:paragraph -->
 
         <!-- wp:paragraph -->
@@ -145,7 +145,7 @@
         <!-- /wp:heading -->
 
         <!-- wp:paragraph -->
-        <p>Tout litige en relation avec l’utilisation du site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.interchips.fr</span></strong> est soumis au droit français. En dehors des cas où la loi ne le permet pas, il est fait attribution exclusive de juridiction aux tribunaux compétents de <strong><span class="ff_dynamic_value" data-ref="ville_du_tribunal" data-fallback="">Rouen</span></strong>.</p>
+        <p>Tout litige en relation avec l’utilisation du site <strong><span class="ff_dynamic_value" data-ref="url" data-fallback="">https://www.internchips.fr</span></strong> est soumis au droit français. En dehors des cas où la loi ne le permet pas, il est fait attribution exclusive de juridiction aux tribunaux compétents de <strong><span class="ff_dynamic_value" data-ref="ville_du_tribunal" data-fallback="">Rouen</span></strong>.</p>
         <!-- /wp:paragraph -->
 
         <!-- wp:spacer -->
