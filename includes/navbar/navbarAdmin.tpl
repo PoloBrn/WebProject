@@ -20,7 +20,7 @@
                             <a class="nav-link active" href="../controller/usersActions.php">Gestion des utilisateurs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../view/campus.php">Gestion des campus</a>
+                            <a class="nav-link active" href="../controller/campusAction.php">Gestion des campus</a>
                         </li>
                         
                 <li class="nav-item">

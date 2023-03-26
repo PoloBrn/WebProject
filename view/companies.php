@@ -27,9 +27,9 @@ class viewCompanies
         $this->smarty->assign('activities', $activities);
 
         if ($edit) {
-            $this->smarty->display('../view/templates/oneCompanyEdit.tpl');
+            $this->smarty->display('../view/templates/companies/oneCompanyEdit.tpl');
         } else {
-            $this->smarty->display('../view/templates/oneCompany.tpl');
+            $this->smarty->display('../view/templates/companies/oneCompany.tpl');
         }
     }
 
@@ -49,6 +49,6 @@ class viewCompanies
         $this->smarty->assign('page', $page);
         $this->smarty->assign('nbByPage', $nbByPage);
 
-        $this->smarty->display('../view/templates/companies.tpl');
+        $this->smarty->display('../view/templates/companies/companies.tpl');
     }
 }

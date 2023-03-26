@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <body>
 
 {if $smarty.session.id_role != 3 }
@@ -95,7 +92,5 @@
 
 
 </body>
-
-{include file='../../includes/footer.php'}
 
 </html>
