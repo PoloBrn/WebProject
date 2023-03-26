@@ -14,8 +14,8 @@ class CRUD_company extends Database
         $company_nb_student = $array[2];
         $company_id_user = $array[3];
 
-        $request = $this->pdo->prepare('CALL company_create (?, ?, ?, ?, ?)');
-        $request->execute(array($company_name, true, $company_mail, $company_nb_student, $company_id_user));
+        $request = $this->pdo->prepare('CALL company_create (?, ?, ?, ?)');
+        $request->execute(array($company_name, $company_mail, $company_nb_student, $company_id_user));
 
         return $request->fetchAll()[0][0];
     }
@@ -24,10 +24,12 @@ class CRUD_company extends Database
         $company_name = $array[0];
         $company_mail = $array[1];
         $company_nb_student = $array[2];
-        $company_id = $array[3];
+        $company_active = $array[3];
+        $company_description = $array[4];
+        $company_id = $array[5];
 
-        $request = $this->pdo->prepare('CALL company_update (?,?,?,?)');
-        $request->execute(array($company_name, $company_mail, $company_nb_student, $company_id));
+        $request = $this->pdo->prepare('CALL company_update (?,?,?,?,?,?)');
+        $request->execute(array($company_name, $company_mail, $company_nb_student, $company_active, $company_description, $company_id));
     }
 
     function delete($array)
