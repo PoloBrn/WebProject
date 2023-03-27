@@ -1,0 +1,44 @@
+
+
+
+.card {
+    height: 20%;
+    background-color: rgba( 255, 255, 255, 0.2 );
+    
+    box-shadow: 0 8px 16px 0 rgba( 0, 0, 0, 0.37 );
+    backdrop-filter: blur( 7.5px );
+    -webkit-backdrop-filter: blur( 7.5px );
+    border-radius: 20px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: auto;
+    transition: all 2s ease-in-out;
+}
+
+.card-title {
+    text-align: center;
+    color: white;
+}
+
+.card-text {
+
+    text-align: center;
+    color: white;
+}
+
+.card-text a{
+
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+.card .btn {
+    position: relative;
+    left: 40%;
+    width: 20%;
+}
+
+.logo_company {
+    height: 100% !important;
+    border-radius: 20px !important;
+}
