@@ -1,5 +1,8 @@
+
+<link rel="stylesheet" href="../assets/CSS/footer.css">
+
 <footer>
     <br>
     <br>
-    <a class="beau" href="legal.php">Mentions Légales</a>
+    <a class="legal" href="legal.php">Mentions Légales</a>
 </footer>

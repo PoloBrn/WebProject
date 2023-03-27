@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-25 17:44:25
+/* Smarty version 4.3.0, created on 2023-03-27 10:01:04
   from 'C:\Users\damie\Desktop\repos2\WebProject\includes\navbar\navbarAdmin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_641f24e9ba0364_84670777',
+  'unifunc' => 'content_64214d40bb7046_78780693',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1ffea3832e8138d99acf66e5bab9d994cd0a6b17' => 
     array (
       0 => 'C:\\Users\\damie\\Desktop\\repos2\\WebProject\\includes\\navbar\\navbarAdmin.tpl',
-      1 => 1679762661,
+      1 => 1679904061,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_641f24e9ba0364_84670777 (Smarty_Internal_Template $_smarty_tpl) {
-?><nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+function content_64214d40bb7046_78780693 (Smarty_Internal_Template $_smarty_tpl) {
+?>
+<link rel="stylesheet" href="../assets/CSS/navbar.css">
+
+<nav class="navbar-custom navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
     <a class="navbar-brand" href="../view/index.php">
             <!--<img src="assets/images/logo_ligne.png" alt="Logo" height="50"  class="d-inline-block align-text-middle">-->
@@ -43,10 +46,7 @@ function content_641f24e9ba0364_84670777 (Smarty_Internal_Template $_smarty_tpl)
                             <a class="nav-link active" href="../controller/usersActions.php">Gestion des utilisateurs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../view/campus.php">Gestion des campus</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="../view/companies.php">Gestion des entreprises</a>
+                            <a class="nav-link active" href="../controller/campusAction.php">Gestion des campus</a>
                         </li>
                         
                 <li class="nav-item">
