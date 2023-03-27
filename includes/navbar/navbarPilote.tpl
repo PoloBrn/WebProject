@@ -11,7 +11,7 @@
             <ul class="navbar-nav">
 
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Gestion des offres</a>
+                            <a class="nav-link active" href="../controller/offerActions.php">Gestion des offres</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="../controller/companiesActions.php">Gestion des entreprises</a>

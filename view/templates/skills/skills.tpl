@@ -1,36 +1,32 @@
-<div class="modal fade" id="newTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="newSkillModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="container" method="POST" action="#">
+            <form class="container" method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Nouveau type de promo</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Nouvelle compétence</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Nom :</label>
-                        <input type="text" class="form-control" name="create_type_name">
+                        <label class="form-label">Nom de la compétence :</label>
+                        <input type="text" class="form-control" name="skill_name">
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-primary" name="create_type">Créer</button>
+                    <button type="submit" class="btn btn-primary" name="skill_create">Créer</button>
                 </div>
 
             </form>
-
         </div>
     </div>
 </div>
 
-
-
 <form method="get" class="container">
-    <a href="campusAction.php" class="btn btn-primary">back</a>
+    <a href="offerActions.php" class="btn btn-primary">back</a>
     <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
-        data-bs-target="#newTypeModal">
-        Ajouter un type de promo
+        data-bs-target="#newSkillModal">
+        Ajouter une compétence
     </button>
     <br><br>
     <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
@@ -38,13 +34,13 @@
     <br><br>
 </form>
 <div class="container">
-    {foreach from=$promoTypes item=$promoType}
-        <form class="card" method="POST" id="{$promoType['id_type']}">
+    {foreach from=$skills item=$skill}
+        <form class="card" method="POST" id="{$skill['id_skill']}">
             <div class="card-body">
-                <input type="text" name="name_type" class="card-title form-control" id="" value='{$promoType['type_name']}'>
-                <input type="hidden" name="id_asso" value="{$promoType['id_type']}">
-                <input type="submit" name='update_type' class="btn btn-primary" value="Modifier">
-                <input type="submit" name='delete_type' class="btn btn-danger" value="Supprimer">
+                <input type="text" name="name_skill" class="card-title form-control" id="" value='{$skill['skill_name']}'>
+                <input type="hidden" name="id_skill" value="{$skill['id_skill']}">
+                <input type="submit" name='update_skill' class="btn btn-primary" value="Modifier">
+                <input type="submit" name='delete_skill' class="btn btn-danger" value="Supprimer">
             </div>
         </form>
         <br>
@@ -59,8 +55,7 @@
             <li class="page-item 
                             {if ($page == 1)}{"disabled"}
                             {/if}">
-                <a class="page-link" href="promoTypeActions.php?search={$search}&userNumberByPage={$nbByPage}&page=
-                            {1}">
+                <a class="page-link" href="skillsActions.php?search={$search}&userNumberByPage={$nbByPage}&page=1">
                     <span aria-hidden="true">&laquo;&laquo;</span>
                 </a>
             </li>
@@ -68,7 +63,7 @@
                             {if ($page == 1)}{"disabled"}
                             {/if}">
                 <a class="page-link"
-                    href="promoTypeActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}">
+                    href="skillsActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -79,7 +74,7 @@
                     <li class="page-item 
                                     {if ($page == {$i})}{"active"}
                                     {/if}"><a class="page-link"
-                            href="promoTypeActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$i}">{$i}</a>
+                            href="skillsActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$i}">{$i}</a>
                     </li>
 
                 {/if}
@@ -89,7 +84,7 @@
                             {if ($page == $maxPage)}{"disabled"}
                             {/if}">
                 <a class="page-link"
-                    href="promoTypeActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}">
+                    href="skillsActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
@@ -97,7 +92,7 @@
                             {if ($page == $maxPage)}{"disabled"}
                             {/if}">
                 <a class="page-link"
-                    href="promoTypeActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$maxPage}">
+                    href="skillsActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$maxPage}">
                     <span aria-hidden="true">&raquo;&raquo;</span>
                 </a>
             </li>
