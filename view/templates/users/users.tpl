@@ -193,3 +193,5 @@
     </div>
 
 </body>
+
+<script src="../assets/js/card.js"></script>

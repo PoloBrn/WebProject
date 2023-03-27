@@ -104,3 +104,5 @@
         </ul>
     </nav>
 </form>
+
+<script src="../assets/js/card.js"></script>
