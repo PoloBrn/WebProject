@@ -17,15 +17,6 @@ body {
     background-image: url("../images/background.png");
 }
 
-.card {
-    background-color: rgba(255, 255, 255, 0.8);
-}
-
-.nav {
-    background-color: #2C74B3;
-}
-
-
 label {
     color: white;
 }
@@ -36,42 +27,6 @@ label {
 
 html {
     font-family: 'Roboto', sans-serif;
-}
-
-.beau {
-    display: block;
-    margin-top: auto 0;
-    padding: 10px;
-    color: black;
-    text-decoration: none;
-    border-radius: 5px;
-    background: #e0e0e0;
-    box-shadow: 2px 2px 10px #7d7d7d86, -2px -2px 10px #6e6e6e77;
-    margin: 15px;
-}
-
-.links .beau {
-    margin-top: auto 0;
-    padding: 10px;
-    color: black;
-    text-decoration: none;
-    border-radius: 5px;
-    background: #e0e0e0;
-    box-shadow: 2px 2px 10px #7d7d7d86, -2px -2px 10px #6e6e6e77;
-    margin: 15px;
-}
-
-p {
-    color: rgb(74, 73, 73);
-
-}
-
-h5 {
-    color: white !important;
-}
-
-.card h5 {
-    color: black !important;
 }
 
 .modal label {
@@ -86,12 +41,47 @@ h5 {
     color: red;
 }
 
+
+/* //////////////////////////////////CARDS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+
+.card {
+    height: 20%;
+    background-color: rgba( 255, 255, 255, 0.2 );
+    
+    box-shadow: 0 8px 16px 0 rgba( 0, 0, 0, 0.37 );
+    backdrop-filter: blur( 7.5px );
+    -webkit-backdrop-filter: blur( 7.5px );
+    border-radius: 20px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: auto;
+    transition: all 2s ease-in-out;
+}
+
+.card-title {
+    text-align: center;
+    color: white;
+}
+
+.card-text {
+
+    text-align: center;
+    color: white;
+}
+
+.card-text a{
+
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+.card .btn {
+    position: relative;
+    left: 40%;
+    width: 20%;
+}
+
 .logo_company {
     height: 100% !important;
     border-radius: 20px !important;
-}
-
-.card_company {
-    border-radius: 20px !important;
-    height: 150px !important;
 }

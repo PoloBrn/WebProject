@@ -1,0 +1,75 @@
+#shape1, #shape2, #shape3{
+    height: 100px;
+    width: 100px;
+}
+
+#shape1{
+    position: absolute;
+
+    top: 10%;
+}
+
+#shape2{
+    position: absolute;
+
+    top: 20%;
+}
+
+#shape3 {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+}
+
+
+.wave {
+    animation: wave 8s linear infinite;
+    transform: rotate(90deg);
+  }
+
+  .wave1 {
+    animation: wave1 10s linear infinite;
+  }
+
+  .wave2 {
+    animation: wave2 12s linear infinite;
+  }
+
+  @keyframes wave {
+    0% {
+      transform: translateX(0%);
+      rotate: 0deg;
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes wave1 {
+    0% {
+      transform: scaleY(1.2) translateX(0%);
+    }
+
+    100% {
+      transform: scaleY(1.2) translateX(100%);
+    }
+  }
+
+  @keyframes wave2 {
+    0% {
+      transform: scaleY(.8) translateX(0%);
+    }
+
+    100% {
+      transform: scaleY(.8) translateX(100%);
+    }
+  }
+
+  svg {
+    
+    position: absolute;
+    rotate: 180deg;
+    width: 100%;
+    bottom: 10%;   
+  }

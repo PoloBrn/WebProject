@@ -17,11 +17,16 @@ class ViewActivities
         $this->smarty = new Smarty();
     }
 
-    function displayActivities($msg, $activities){
+    function displayActivities($errorMsg, $activities, $search, $maxPage, $page, $nbByPage){
         //display an user documents
 
-
+        $this->smarty->assign('errorMsg', $errorMsg);
         $this->smarty->assign('activities', $activities);
+        $this->smarty->assign('search', $search);
+        $this->smarty->assign('maxPage', $maxPage);
+        $this->smarty->assign('page', $page);
+        $this->smarty->assign('nbByPage', $nbByPage);
+
         
         $this->smarty->display('../view/templates/activities.tpl');
 

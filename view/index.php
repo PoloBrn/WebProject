@@ -1,6 +1,5 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-
 ?>
 
 
@@ -8,20 +7,20 @@ if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 <html lang="en">
 
 <head>
-    <?php include '../includes/head.php'; ?>
+    <?php include '../includes/head.php';    
+        include '../includes/scripts.php';
+        require('../controller/securityAction.php');  
+        include '../includes/background.php'; ?>
     <link rel="stylesheet" href="../assets/CSS/index.css">
 </head>
 
 <body>
-    <?php require('../controller/securityAction.php');
-    include '../includes/scripts.php'; ?>
+    <?php 
+    ?>
     
-    <h1>Nom : <?= $_SESSION['last_name'] ?></h1>
-    <h1>Prénom : <?= $_SESSION['first_name'] ?></h1>
+    <h1>Bienvenue, <?= $_SESSION['last_name']." ".$_SESSION['first_name']; ?></h1>
 
 </body>
 <?php include '../includes/footer.php';
-
 ?>
-
 </html>

@@ -49,8 +49,8 @@ class CRUD_localities extends Database
 
     function getByInfos($address_id, $company_id)
     {
-        $array = $this->securityCheck($array);
-        $array = $this->securityCheck($array);
+        $address_id = $this->securityCheck($address_id);
+        $company_id = $this->securityCheck($company_id);
 
         $request = $this->pdo->prepare('CALL localities_getByInfos (?,?)');
         $request->execute(array($address_id, $company_id));

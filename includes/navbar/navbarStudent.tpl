@@ -1,4 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<link rel="stylesheet" href="../assets/CSS/navbar.css">
+
+<nav class="navbar-custom navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
     <a class="navbar-brand" href="../view/index.php">
             <!--<img src="assets/images/logo_ligne.png" alt="Logo" height="50"  class="d-inline-block align-text-middle">-->
@@ -11,7 +13,7 @@
             <ul class="navbar-nav">
 
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Les offres</a>
+                            <a class="nav-link active" href="../controller/offerActions.php">Les offres</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href=../controller/companiesActions.php>Les entreprises</a>
