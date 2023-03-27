@@ -10,7 +10,6 @@
                     <div class="mb-3">
                         <label class="form-label">Libellé :</label>
                         <input type="text" class="form-control" name="label" id="label" value>
-
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Code postal :</label>
@@ -18,15 +17,12 @@
                     </div>
                     <label class="form-label">Ville :</label>
                     <select name="city" id="city" class="mb-3 form-select">
-
                     </select><br>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     <button type="submit" class="btn btn-primary" name="createAddress">Ajouter</button>
                 </div>
-
             </form>
         </div>
     </div>

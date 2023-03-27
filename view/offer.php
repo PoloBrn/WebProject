@@ -17,6 +17,20 @@ class ViewOffers
         $this->smarty = new Smarty();
     }
 
+    function displayOne($errorMsg, $offer, $promotypes, $skills, $edit) {
+
+        $this->smarty->assign('errorMsg', $errorMsg);
+        $this->smarty->assign('offer', $offer);
+        $this->smarty->assign('promotypes', $promotypes);
+        $this->smarty->assign('skills', $skills);
+
+        if ($edit) {
+            $this->smarty->display('../view/templates/offers/oneOfferEdit.tpl');
+        } else {
+            $this->smarty->display('../view/templates/offers/oneOffer.tpl');
+        }
+    }
+
     function displayOffers($errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage){
         //display an user documents
 

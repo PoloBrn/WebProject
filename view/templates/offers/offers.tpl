@@ -1,5 +1,4 @@
 <body>
-
     <div class="modal fade" id="newOfferModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -87,7 +86,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Salaire horaire :</label>
-                            <input type="number" class="form-control" name="offer_salary">
+                            <input type="text" class="form-control" name="offer_salary">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Description (optionnel) :</label>
