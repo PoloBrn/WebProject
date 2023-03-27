@@ -9,6 +9,8 @@ class CRUD_skills extends Database
 
     function create($array)
     {
+        $array = $this->securityCheck($array);
+
         $skill_name = $array[0];
 
         $request = $this->pdo->prepare('INSERT INTO skills(skill_name) VALUES (?)');
@@ -18,6 +20,9 @@ class CRUD_skills extends Database
     }
     function update($array)
     {
+    
+        $array = $this->securityCheck($array);
+        
         $skill_id = $array[0];
         $skill_name = $array[1];
 
@@ -33,6 +38,9 @@ class CRUD_skills extends Database
     }
     function get($array)
     {
+        
+        $array = $this->securityCheck($array);
+        
         $request = $this->pdo->prepare('SELECT * FROM skills');
         $request->execute();
 

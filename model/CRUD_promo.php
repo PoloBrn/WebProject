@@ -9,6 +9,9 @@ class CRUD_promo extends Database
 
     function create($array)
     {
+        
+        $array = $this->securityCheck($array);
+
         $promo_name = $array[0];
         $type_id = $array[1];
         $campus_id = $array[2];
@@ -20,6 +23,9 @@ class CRUD_promo extends Database
     }
     function update($array)
     {
+        
+        $array = $this->securityCheck($array);
+
         $promo_id = $array[0];
         $promo_name = $array[1];
         $type_id = $array[2];
@@ -29,6 +35,9 @@ class CRUD_promo extends Database
     }
     function delete($array)
     {
+        
+        $array = $this->securityCheck($array);
+
         $promo_id = $array[0];
 
         $request = $this->pdo->prepare("CALL promo_delete (?)");
@@ -36,6 +45,9 @@ class CRUD_promo extends Database
     }
     function get($array)
     {
+        
+        $array = $this->securityCheck($array);
+
         $request = $this->pdo->prepare("CALL promo_select ()");
         $request->execute();
 
@@ -45,6 +57,9 @@ class CRUD_promo extends Database
 
     function getByCampusID($campus_id)
     {
+        
+        $campus_id = $this->securityCheck($campus_id);
+
         $request = $this->pdo->prepare("CALL promo_getByCampusID (?)");
         $request->execute(array($campus_id));
 
@@ -53,6 +68,8 @@ class CRUD_promo extends Database
 
     function getById($promo_id)
     {
+        $promo_id = $this->securityCheck($promo_id);
+
         $request = $this->pdo->prepare('CALL promo_getById (?)');
         $request->execute(array($promo_id));
         return $request->fetchAll();
@@ -60,6 +77,8 @@ class CRUD_promo extends Database
 
     function getPilotsByPromo($promo_id)
     {
+        $promo_id = $this->securityCheck($promo_id);
+
         $request = $this->pdo->prepare('CALL promo_getPilotsByPromo (?)');
         $request->execute(array($promo_id));
         return $request->fetchAll();
@@ -67,6 +86,8 @@ class CRUD_promo extends Database
 
     function getStudentsByPromo($promo_id)
     {
+        $promo_id = $this->securityCheck($promo_id);
+
         $request = $this->pdo->prepare('CALL promo_getStudentsByPromo (?)');
         $request->execute(array($promo_id));
         return $request->fetchAll();
@@ -74,12 +95,18 @@ class CRUD_promo extends Database
 
     function addUserInPromo($promo_id, $user_id)
     {
+        $promo_id = $this->securityCheck($promo_id);
+        $user_id = $this->securityCheck($user_id);
+
         $request = $this->pdo->prepare('CALL promo_addUserInPromo (?,?)');
         $request->execute(array($user_id, $promo_id));
     }
 
     function getAffiliation($promo_id, $user_id)
     {
+        $promo_id = $this->securityCheck($promo_id);
+        $user_id = $this->securityCheck($user_id);
+
         $request = $this->pdo->prepare('CALL promo_getAffiliation (?,?)');
         $request->execute(array($promo_id, $user_id));
 
@@ -88,12 +115,17 @@ class CRUD_promo extends Database
 
     function deleteAffiliation($promo_id, $user_id)
     {
+        $promo_id = $this->securityCheck($promo_id);
+        $user_id = $this->securityCheck($user_id);
+
         $request = $this->pdo->prepare('CALL promo_deleteAffiliation (?,?)');
         $request->execute(array($promo_id, $user_id));
     }
 
     function getPilotPromos($pilot_id)
-    {
+    {   
+        $pilot_id = $this->securityCheck($pilot_id);
+
         $request = $this->pdo->prepare("CALL promo_getPilotPromos (?) ");
         $request->execute(array($pilot_id));
 
@@ -108,6 +140,8 @@ class CRUD_promo extends Database
 
     function getStudentsOfPilot($pilot_id)
     {
+        $pilot_id = $this->securityCheck($pilot_id);
+
         $students = array();
         foreach ($this->getPilotPromos($pilot_id) as $promo_id) {
             foreach ($this->getStudentsByPromo($promo_id) as $student) {
@@ -118,6 +152,10 @@ class CRUD_promo extends Database
     }
 
     function getPromoByIDcampusAndPilot($campus_id, $pilot_id) {
+
+        $pilot_id = $this->securityCheck($pilot_id);
+        $campus_id = $this->securityCheck($campus_id);
+
         $request = $this->pdo->prepare("CALL promo_getPromoByIDcampusAndPilot (?,?)");
         $request->execute(array($campus_id, $pilot_id));
 
