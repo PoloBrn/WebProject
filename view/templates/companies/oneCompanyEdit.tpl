@@ -94,7 +94,7 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Description :</label>
-            <textarea class='form-control' name="description">{$company['description']}</textarea>
+            <textarea class='form-control' name="description">{$company['company_description']}</textarea>
         </div>
 
         <a href="companiesActions.php?id={$company['id_company']}" class="btn btn-secondary">Annuler</a>
