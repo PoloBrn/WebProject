@@ -219,6 +219,7 @@ class ControlCompanies
             foreach ($allCompanies as $company) {  // Pour chaque utilisateur dans la liste des utilisateurs auquels nous nous intéressont
                 if (strpos(strtolower($company['company_name']), strtolower($search)) !== false || 
                 strpos(strtolower($company['email']), strtolower($search)) !== false || 
+                strpos(strtolower($company['company_description']), strtolower($search)) !== false || 
                 strpos(strtolower(implode(array_column($company['addresses'], 'label'))), strtolower($search)) !== false ||
                 strpos(strtolower(implode(array_column($company['addresses'], 'postal_code'))), strtolower($search)) !== false ||
                 strpos(strtolower(implode(array_column($company['addresses'], 'city_name'))), strtolower($search)) !== false) {

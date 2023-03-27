@@ -13,7 +13,7 @@
             <ul class="navbar-nav">
 
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Les offres</a>
+                            <a class="nav-link active" href="../controller/offerActions.php">Les offres</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href=../controller/companiesActions.php>Les entreprises</a>

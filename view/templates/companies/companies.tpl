@@ -57,6 +57,11 @@
             <br>
 
 
+
+
+
+
+
                 {foreach from=$companies item=$company}
                 <div class="card flex-row card_company" id="{$company['id_company']}">
                     <img alt="logo" class="card-img-left example-card-img-responsive logo_company"
@@ -65,7 +70,17 @@
                         <h5 class="card-title"><a class="nav-link" href="companiesActions.php?id={$company['id_company']}">
 
 
+
+
+
+
+
                     {if ($company['active'] != 'on')}[Non-active]
+
+
+
+
+
 
 
                     {/if} {$company['company_name']}</a>
@@ -73,14 +88,29 @@
                         <p class="card-text">Contact : <a href="mailto:{$company['email']}">{$company['email']}</a></p>
 
 
+
+
+
+
+
                     {if $smarty.session.id_user == $company['id_user'] || $smarty.session.id_role == 1}
                             <a href="companiesActions.php?id={$company['id_company']}&edit" class="btn btn-primary">Modifier</a>
+
+
+
+
+
 
 
                     {/if}
                     </div>
                 </div>
                 <br>
+
+
+
+
+
 
 
                 {/foreach}
