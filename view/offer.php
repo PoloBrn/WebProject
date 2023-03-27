@@ -2,7 +2,6 @@
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
 require_once '../assets/smarty/Smarty.class.php';
-include '../includes/head.php';
 include '../includes/scripts.php';
 
 $smarty = new Smarty();
@@ -31,7 +30,7 @@ class ViewOffers
         }
     }
 
-    function displayOffers($errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage){
+    function displayOffers($errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage, $skills, $skill, $types, $type){
         //display an user documents
 
         $this->smarty->assign('errorMsg', $errorMsg);
@@ -41,6 +40,10 @@ class ViewOffers
         $this->smarty->assign('maxPage', $maxPage);
         $this->smarty->assign('page', $page);
         $this->smarty->assign('nbByPage', $nbByPage);
+        $this->smarty->assign('skills', $skills);
+        $this->smarty->assign('skill', $skill);
+        $this->smarty->assign('types', $types);
+        $this->smarty->assign('type', $type);
 
         
         $this->smarty->display('../view/templates/offers/offers.tpl');

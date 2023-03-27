@@ -48,6 +48,11 @@ class CRUD_offer extends Database
     }
     function delete($array)
     {
+        $offer_id = $array[0];
+
+        $request = $this->pdo->prepare('DELETE FROM offer where id_offer = ?');
+        $request->execute(array($offer_id));
+        
     }
     function get($array)
     {

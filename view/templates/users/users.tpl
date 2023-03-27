@@ -115,7 +115,7 @@
                     <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
                     <button class="btn btn-success">Rechercher</button>
                     <br>
-                    <select name="role" id="role" class="mb-3 form-select" value="{$role}">
+                    <select name="role" id="_role" class="mb-3 form-select">
                         {if $smarty.session.id_role == 1}
                             <option value="0">(peu importe)</option>
                             <option value="2">Pilote</option>
@@ -124,6 +124,9 @@
                             <option value="3">Etudiant</option>
                         {/if}
                     </select>
+                    <script>
+                        $('#_role').val({$role});
+                    </script>
                     {foreach from=$users item=$user}
                         <div class=" card" id="user {$user['id_user']}">
                             <div class="card-body">
