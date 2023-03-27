@@ -124,18 +124,38 @@
         <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
         <button class="btn btn-success">Rechercher</button>
         <br>
+        <label for="exampleInputEmail1" class="form-label">Compétence :</label>
+        <select name="skill" id="skill" class="mb-3 form-select">
+            <option value="0">(peu importe)</option>
+            {foreach from=$skills item=$oneskill}
+                <option value="{$oneskill['id_skill']}">{$oneskill['skill_name']}</option>
+            {/foreach}
+        </select>
+        <script>
+            $('#skill').val({$skill});
+        </script>
+        <label for="exampleInputEmail1" class="form-label">Types de promo :</label>
+        <select name="type" id="type" class="mb-3 form-select">
+            <option value="0">(peu importe)</option>
+            {foreach from=$types item=$promotype}
+                <option value="{$promotype['id_type']}">{$promotype['type_name']}</option>
+            {/foreach}
+        </select>
+        <script>
+            $('#type').val({$type});
+        </script>
+        {if count($offers) > 0}
+            {foreach from=$offers item=$offer}
+                <div class="card flex-row card_company" style="height:135px;" id="{$offer['id_offer']}">
+                    <img alt="logo" class="card-img-left example-card-img-responsive logo_company"
+                        src="../assets/company-logos/{$offer['logo']}" />
+                    <div class="card-body">
+                        <h5 class="card-title"><a class="nav-link" href="offerActions.php?id={$offer['id_offer']}">
 
-        {foreach from=$offers item=$offer}
-            <div class="card flex-row card_company" id="{$offer['id_offer']}">
-                <img alt="logo" class="card-img-left example-card-img-responsive logo_company"
-                    src="../assets/company-logos/{$offer['logo']}" />
-                <div class="card-body">
-                    <h5 class="card-title"><a class="nav-link" href="offerActions.php?id={$offer['id_offer']}">
-
-                            {if ($offer['offer_active'] != 'on')}[Non-active]{/if}
-                            {$offer['offer_name']} - {$offer['company_name']} - {$offer['city_name']}</a>
-                    </h5>
-                    <p class="card-text">Secteur d'activité : {$offer['activity_name']}</p>
+                                {if ($offer['offer_active'] != 'on')}[Non-active]{/if}
+                                {$offer['offer_name']} - {$offer['company_name']} - {$offer['city_name']}</a>
+                        </h5>
+                        <p class="card-text">Secteur d'activité : {$offer['activity_name']}</p>
                 {if $smarty.session.id_user == $offer['id_user'] || $smarty.session.id_role == 1}
                 <a href="offerActions.php?id={$offer['id_company']}&edit" class="btn btn-primary">Modifier</a>
 
@@ -145,57 +165,60 @@
         <br>
         {/foreach}
         <input type='number' name="userNumberByPage" class="form-control"
-                value={if (isset($smarty.get.userNumberByPage))}{$smarty.get.userNumberByPage} {else}"4"{/if}>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item 
+            value={if (isset($smarty.get.userNumberByPage))}{$smarty.get.userNumberByPage} {else}"4"{/if}>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item 
                 {if ($page == 1)}{"disabled"}
                 {/if}">
-                        <a class="page-link" href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page=1">
-                            <span aria-hidden="true">&laquo;&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item 
+                    <a class="page-link"
+                        href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page=1&skill={$skill}&type={$type}">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item 
                 {if ($page == 1)}{"disabled"}
                 {/if}">
-                        <a class="page-link"
-                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {for $i = ($page - 2) to ($page + 2)}
-                        {if ($i > 0 and $i <= $maxPage)}
-                            <li class="page-item 
+                    <a class="page-link"
+                        href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}&skill={$skill}&type={$type}">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {for $i = ($page - 2) to ($page + 2)}
+                {if ($i > 0 and $i <= $maxPage)}
+                <li class="page-item 
                         {if ($page == {$i})}{"active"}
                         {/if}"><a class="page-link"
-                                    href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$i}">{$i}</a>
-                            </li>
-                        {/if}
-                    {/for}
-                    <li class="page-item 
+                        href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$i}&skill={$skill}&type={$type}">{$i}</a>
+                </li>
+                {/if}
+                {/for}
+                <li class="page-item 
                 {if ($page == $maxPage)}{"disabled"}
                 {/if}">
-                        <a class="page-link"
-                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item 
+                    <a class="page-link"
+                        href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}&skill={$skill}&type={$type}">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item 
                 {if ($page == $maxPage)}{"disabled"}
                 {/if}">
-                        <a class="page-link"
-                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$maxPage}">
-                            <span aria-hidden="true">&raquo;&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </form>
+                    <a class="page-link"
+                        href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$maxPage}&skill={$skill}&type={$type}">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </form>
+    {else}
+    <h1>Il n'y a aucune offre correspondante à votre recherche</h1>
+        {/if}
 
 
 
 
-
-
+        <script src="../assets/js/card.js"></script>
 
     </body>

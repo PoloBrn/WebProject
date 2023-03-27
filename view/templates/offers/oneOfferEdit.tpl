@@ -173,7 +173,7 @@
 <hr>
 <br>
 <div class="container">
-    <h5>Secteur(s) d&#8217activité :</h5><br>
+    <h5>Compétence(s) :</h5><br>
     <form class="container" method="post">
         <select name='id_skill' class="form-control" size="
                             {if count($offer['skills']) < 2}
