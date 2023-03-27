@@ -48,3 +48,5 @@
     {/foreach}
 
 </div>
+
+<script src="../assets/js/card.js"></script>

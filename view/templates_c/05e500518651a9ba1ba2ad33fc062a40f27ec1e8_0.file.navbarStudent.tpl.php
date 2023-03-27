@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-23 16:21:48
+/* Smarty version 4.3.0, created on 2023-03-27 10:29:43
   from 'C:\Users\damie\Desktop\repos2\WebProject\includes\navbar\navbarStudent.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_641c6e8c6e47f1_45450033',
+  'unifunc' => 'content_642153f713cc86_63964681',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '05e500518651a9ba1ba2ad33fc062a40f27ec1e8' => 
     array (
       0 => 'C:\\Users\\damie\\Desktop\\repos2\\WebProject\\includes\\navbar\\navbarStudent.tpl',
-      1 => 1679584734,
+      1 => 1679905781,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_641c6e8c6e47f1_45450033 (Smarty_Internal_Template $_smarty_tpl) {
-?><nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+function content_642153f713cc86_63964681 (Smarty_Internal_Template $_smarty_tpl) {
+?><link rel="stylesheet" href="../assets/CSS/navbar.css">
+
+<nav class="navbar-custom navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
     <a class="navbar-brand" href="../view/index.php">
             <!--<img src="assets/images/logo_ligne.png" alt="Logo" height="50"  class="d-inline-block align-text-middle">-->
@@ -37,7 +39,7 @@ function content_641c6e8c6e47f1_45450033 (Smarty_Internal_Template $_smarty_tpl)
                             <a class="nav-link active" href="#">Les offres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href=../view/companies.php>Les entreprises</a>
+                            <a class="nav-link active" href=../controller/companiesActions.php>Les entreprises</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="../controller/usersActions.php?id=<?php echo $_SESSION['id_user'];?>

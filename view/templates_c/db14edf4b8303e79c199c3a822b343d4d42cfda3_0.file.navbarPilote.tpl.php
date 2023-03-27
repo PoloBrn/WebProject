@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-24 13:33:19
+/* Smarty version 4.3.0, created on 2023-03-26 15:12:35
   from 'C:\Users\damie\Desktop\repos2\WebProject\includes\navbar\navbarPilote.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_641d988fe2ab35_38532424',
+  'unifunc' => 'content_642044c36868d2_03984902',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'db14edf4b8303e79c199c3a822b343d4d42cfda3' => 
     array (
       0 => 'C:\\Users\\damie\\Desktop\\repos2\\WebProject\\includes\\navbar\\navbarPilote.tpl',
-      1 => 1679647988,
+      1 => 1679762917,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_641d988fe2ab35_38532424 (Smarty_Internal_Template $_smarty_tpl) {
+function content_642044c36868d2_03984902 (Smarty_Internal_Template $_smarty_tpl) {
 ?><nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="../view/index.php">
@@ -37,7 +37,7 @@ function content_641d988fe2ab35_38532424 (Smarty_Internal_Template $_smarty_tpl)
                             <a class="nav-link active" href="#">Gestion des offres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../view/companies.php">Gestion des entreprises</a>
+                            <a class="nav-link active" href="../view/companiesActions.php">Gestion des entreprises</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="../controller/usersActions.php">Gestion des étudiants</a>
