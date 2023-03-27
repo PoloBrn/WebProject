@@ -17,12 +17,25 @@ require '../model/CRUD_localities.php';
 require '../model/CRUD_activities.php';
 require '../model/CRUD_promotype.php';
 require '../model/CRUD_skills.php';
+require '../model/CRUD_wishlist.php';
+require '../model/CRUD_campus.php';
+require '../model/CRUD_promo.php';
 require_once '../view/offer.php';
 
 class ControlOffers
 {
 
-    private $errorMsg, $CRUD_offer, $CRUD_company, $CRUD_localities, $CRUD_activities, $CRUD_promotype, $CRUD_skills, $View_offers;
+    private $errorMsg, 
+    $CRUD_offer, 
+    $CRUD_company, 
+    $CRUD_localities, 
+    $CRUD_activities, 
+    $CRUD_promotype, 
+    $CRUD_skills, 
+    $CRUD_wishlist,
+    $CRUD_campus,
+    $CRUD_promo,
+    $View_offers;
 
     function __construct()
     {
@@ -32,6 +45,9 @@ class ControlOffers
         $this->CRUD_activities = new \MODELE\CRUD_activities();
         $this->CRUD_promotype = new \MODELE\CRUD_promotype();
         $this->CRUD_skills = new \MODELE\CRUD_skills();
+        $this->CRUD_wishlist = new \MODELE\CRUD_wishlist();
+        $this->CRUD_campus = new \MODELE\CRUD_campus();
+        $this->CRUD_promo = new \MODELE\CRUD_promo();
         $this->View_offers = new ViewOffers();
 
         $this->errorMsg = '';
@@ -77,6 +93,27 @@ class ControlOffers
             $offer_end_date, $offer_places, $offer_salary, $offer_description, $offer_active, $_GET['id']
         ));
         header('Location: offerActions.php?id=' . $_GET['id'] . '&edit');
+    }
+
+    function addWishlist()
+    {
+
+        $user_id = $_POST['student'];
+        $offer_id = $_POST['offer_id'];
+
+        if (count($this->CRUD_wishlist->getRelation($offer_id, $user_id)) == 0) {
+            $this->CRUD_wishlist->create(array($user_id, $offer_id));
+        } else {
+            $this->errorMsg = 'Wishlist deja faite';
+        }
+    }
+
+    function removeWishlist()
+    {
+        $user_id = $_POST['student'];
+        $offer_id = $_POST['offer_id'];
+
+        $this->CRUD_wishlist->delete(array($user_id, $offer_id));
     }
 
     function addSkill()
@@ -177,14 +214,14 @@ class ControlOffers
 
         $newoffers = array();
         foreach ($allOffers as $offer) {
-            if (($offer['id_user'] == $_SESSION['id_user'] || $_SESSION['id_role'] == 1) || $offer['active'] == 'on') {
+            if (($offer['id_user'] == $_SESSION['id_user'] || $_SESSION['id_role'] == 1) || $offer['offer_active'] == 'on') {
+                $offer['wishes'] = $this->CRUD_wishlist->getFromOffer($offer['id_offer']);
                 $offer['promotypes'] = $this->CRUD_promotype->getFromOffer($offer['id_offer']);
                 $offer['skills'] = $this->CRUD_skills->getFromOffer($offer['id_offer']);
                 $newoffers[] = $offer;
             }
         }
         $allOffers = $newoffers;
-
         $newoffers = array();
         if (isset($_GET['skill'])) {
             $skill = intval($_GET['skill']);
@@ -292,8 +329,22 @@ class ControlOffers
         $skills = $this->CRUD_skills->get(0);
         $types = $this->CRUD_promotype->get(0);
 
+        $campuses = $this->CRUD_campus->get(0);
+        $newcampuses = array();
+        foreach ($campuses as $campus) {
+            $campus['promos'] = $this->CRUD_promo->getByCampusID($campus['id_campus']);
+            $newpromos = array();
+            foreach ($campus['promos'] as $promo) {
+                $promo['students'] = $this->CRUD_promo->getStudentsByPromo($promo['id_promo']);
+                $newpromos[] = $promo;
+            }
+            $campus['promos'] = $newpromos;
+            $newcampuses[] = $campus;
+        }
+        $campuses = $newcampuses;
 
-        $this->View_offers->displayOffers($this->errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage, $skills, $skill, $types, $type);
+
+        $this->View_offers->displayOffers($this->errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage, $skills, $skill, $types, $type, $campuses);
     }
 }
 
@@ -324,6 +375,12 @@ if (isset($_GET['id'])) {
 } else {
     if (isset($_POST['offer_create'])) {
         $controlOffers->create();
+    }
+    if (isset($_POST['addWishlist'])) {
+        $controlOffers->addWishlist();
+    }
+    if (isset($_POST['removeWishlist'])) {
+        $controlOffers->removeWishlist();
     }
     $controlOffers->displayAll();
 }
