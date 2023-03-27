@@ -53,4 +53,28 @@ class CRUD_skills extends Database
 
         return $request->fetchAll();
     }
+
+    function addToOffer($offer_id, $skill_id) {
+        $request = $this->pdo->prepare('INSERT INTO need_skill(id_offer, id_skill) values (?,?)');
+        $request->execute(array($offer_id, $skill_id));
+    }
+
+    function removeFromOffer($offer_id, $skill_id) {
+        $request = $this->pdo->prepare('DELETE FROM need_skill where id_offer = ? and id_skill = ?');
+        $request->execute(array($offer_id, $skill_id));
+    }
+
+    function getFromOffer($offer_id) {
+        $request = $this->pdo->prepare('SELECT * from need_skill join skills on skills.id_skill = need_skill.id_skill where id_offer = ?');
+        $request->execute(array($offer_id));
+
+        return $request->fetchAll();
+    }
+
+    function getRelation($offer_id, $skill_id) {
+        $request = $this->pdo->prepare('SELECT * from need_skill where id_offer = ? and id_skill = ?');
+        $request->execute(array($offer_id, $skill_id));
+
+        return $request->fetchAll();
+    }
 }
