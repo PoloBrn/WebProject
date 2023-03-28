@@ -57,4 +57,18 @@ class CRUD_postulate extends Database
 
         return $request->fetchAll();
     }
+
+    function getByUser($user_id) {
+        $request = $this->pdo->prepare('SELECT * FROM postulate where id_user = ?');
+        $request->execute(array($user_id));
+
+        return $request->fetchAll();
+    }
+
+    function getByOffer($offer_id) {
+        $request = $this->pdo->prepare('SELECT * FROM postulate where id_offer = ?');
+        $request->execute(array($offer_id));
+
+        return $request->fetchAll();
+    }
 }

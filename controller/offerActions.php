@@ -196,10 +196,23 @@ class ControlOffers
             $promotypes = $this->CRUD_promotype->get(0);
             $skills = $this->CRUD_skills->get(0);
 
+            $campuses = $this->CRUD_campus->get(0);
+            $newcampuses = array();
+            foreach ($campuses as $campus) {
+                $campus['promos'] = $this->CRUD_promo->getByCampusID($campus['id_campus']);
+                $newpromos = array();
+                foreach ($campus['promos'] as $promo) {
+                    $promo['students'] = $this->CRUD_promo->getStudentsByPromo($promo['id_promo']);
+                    $newpromos[] = $promo;
+                }
+                $campus['promos'] = $newpromos;
+                $newcampuses[] = $campus;
+            }
+            $campuses = $newcampuses;
 
             $edit = isset($_GET['edit']) && ($_SESSION['id_user'] == $offer['id_user'] || $_SESSION['id_role'] == 1);
 
-            $this->View_offers->displayOne($this->errorMsg, $offer, $promotypes, $skills, $edit);
+            $this->View_offers->displayOne($this->errorMsg, $offer, $promotypes, $skills, $edit, $campuses);
         } else {
             echo '<h1>Offre inexistante</h1>';
         }
@@ -393,6 +406,10 @@ if (isset($_GET['id'])) {
     }
     if (isset($_POST['delete'])) {
         $controlOffers->delete();
+    }
+
+    if (isset($_POST['post'])) {
+        header('Location: postulateActions.php?offer='.$_POST['offer_id'].'&user='.$_POST['student']);
     }
 
     if (isset($_POST['addSkill'])) {

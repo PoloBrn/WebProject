@@ -1,3 +1,137 @@
+<div class="modal fade" id="addWishlistModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="container" method="POST" action="#">
+                <input type="hidden" name="offer_id" value="{$offer['id_offer']}">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Ajouter à une wishlist</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3" id="promodiv">
+                        <label for="" class="form-label">Promotion :</label>
+                        <select name="promo" id="promo" class="mb-3 form-select">
+                            {foreach from=$campuses item=$campus}
+                                <optgroup label="{$campus['campus_name']}">
+                                    {foreach from=$campus['promos'] item=$promo}
+                                        <option value="{$promo['id_promo']}">
+                                            {$promo['promo_name']}
+                                        </option>
+                                    {/foreach}
+                                </optgroup>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <label class="form-label">Etudiant :</label>
+                    <select name="student" id="student" class="mb-3 form-select">
+                    </select><br>
+                    <script>
+                        $(function() {
+                            $('#promo').change(function(e) {
+                                e.preventDefault();
+                                getStudents($('#promo').val());
+                            });
+                        });
+
+                        function getStudents(id_promo) {
+                            let html = "";
+
+                            let campuses = {json_encode($campuses)};
+                            let onepromo;
+                            campuses.forEach(campus => {
+                                campus.promos.forEach(promo => {
+                                    if (promo.id_promo == $('#promo').val()) {
+                                        onepromo = promo;
+                                    }
+                                });
+                            });
+
+                            let students = onepromo.students;
+                            students.forEach(student => {
+                                html += "<option value='" + student.id_user + "'>" +
+                                    student.first_name + " " + student.last_name + '</option>';
+                            });
+                            $('#student').html(html);
+                        }
+                        getStudents($('#promo').val());
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary" name="addWishlist">Créer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="postModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="container" method="POST" action="#">
+                <input type="hidden" name="offer_id" value="{$offer['id_offer']}">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Ajouter à une wishlist</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3" id="promodiv">
+                        <label for="" class="form-label">Promotion :</label>
+                        <select name="promo" id="promopost" class="mb-3 form-select">
+                            {foreach from=$campuses item=$campus}
+                                <optgroup label="{$campus['campus_name']}">
+                                    {foreach from=$campus['promos'] item=$promo}
+                                        <option value="{$promo['id_promo']}">
+                                            {$promo['promo_name']}
+                                        </option>
+                                    {/foreach}
+                                </optgroup>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <label class="form-label">Etudiant :</label>
+                    <select name="student" id="studentpost" class="mb-3 form-select">
+                    </select><br>
+                    <script>
+                        $(function() {
+                            $('#promopost').change(function(e) {
+                                e.preventDefault();
+                                getStudentspost($('#promopost').val());
+                            });
+                        });
+
+                        function getStudentspost(id_promo) {
+                            let html = "";
+
+                            let campuses = {json_encode($campuses)};
+                            let onepromo;
+                            campuses.forEach(campus => {
+                                campus.promos.forEach(promo => {
+                                    if (promo.id_promo == $('#promopost').val()) {
+                                        onepromo = promo;
+                                    }
+                                });
+                            });
+
+                            let students = onepromo.students;
+                            students.forEach(student => {
+                                html += "<option value='" + student.id_user + "'>" +
+                                    student.first_name + " " + student.last_name + '</option>';
+                            });
+                            $('#studentpost').html(html);
+                        }
+                        getStudentspost($('#promopost').val());
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary" name="post">Créer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="addTypeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -61,6 +195,7 @@
 </div>
 
 <form method="post" class="container">
+    <a href="offerActions.php#{$offer['id_offer']}" class="btn btn-primary">back</a>
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" name="active[]" role="switch" id="flexSwitchCheckDefault"
             {if ($offer['offer_active'] == 'on')}checked{/if}>
@@ -142,6 +277,19 @@
             </div>
         </div>
     </div>
+    {if $smarty.session.id_role == 1}
+    <button type="button" class="btn btn-danger" data-backdrop="static" data-bs-toggle="modal"
+        data-bs-target="#addWishlistModal">
+        Ajouter à une wishlist
+    </button>
+    <button type="button" class="btn btn-danger" data-backdrop="static" data-bs-toggle="modal"
+        data-bs-target="#postModal">
+        Créer une candidature
+    </button>
+    {/if}
+    {if $smarty.session.id_role != 3}
+    <a href="postulateActions.php?offer={$offer['id_offer']}" class="btn btn-secondary">Consulter les candidatures</a>
+    {/if}
 </form>
 <div class="container">
     <h5>Type(s) de promo :</h5><br>

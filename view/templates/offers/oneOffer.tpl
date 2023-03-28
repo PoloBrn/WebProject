@@ -20,7 +20,9 @@
 </div>
 
 
-
+{if $smarty.session.id_role == 3}
+    <a href="postulateActions.php?offer={$offer['id_offer']}&user={$smarty.session.id_user}" class="btn btn-primary">Postuler</a>
+{/if}
 
 <a href="companiesActions.php?id={$offer['id_company']}" class="btn btn-primary">Voir l'entreprise</a>
 
