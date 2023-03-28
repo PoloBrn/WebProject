@@ -12,7 +12,7 @@ class CRUD_wishlist extends Database
         $array = $this->securityCheck($array);
 
         $user_id = $array[0];
-        $offer_id = $array[0];
+        $offer_id = $array[1];
 
         $request = $this->pdo->prepare('INSERT INTO wish(id_user, id_offer) VALUES (?,?)');
         $request->execute(array($user_id, $offer_id));
@@ -22,8 +22,10 @@ class CRUD_wishlist extends Database
     }
     function delete($array)
     {
+        $array = $this->securityCheck($array);
+
         $user_id = $array[0];
-        $offer_id = $array[0];
+        $offer_id = $array[1];
 
         $request = $this->pdo->prepare('DELETE FROM wish where id_user = ? and id_offer = ?');
         $request->execute(array($user_id, $offer_id));

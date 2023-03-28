@@ -112,7 +112,7 @@
                         <div class="modal-body">
                             <div class="mb-3" id="promodiv">
                                 <label for="" class="form-label">Promotion :</label>
-                                <select name="promo" id="promo" class="mb-3 form-select">
+                                <select name="promo" id="promo{$offer['id_offer']}" class="mb-3 form-select">
                                     {foreach from=$campuses item=$campus}
                                         <optgroup label="{$campus['campus_name']}">
                                             {foreach from=$campus['promos'] item=$promo}
@@ -125,24 +125,24 @@
                                 </select>
                             </div>
                             <label class="form-label">Etudiant :</label>
-                            <select name="student" id="student" class="mb-3 form-select">
+                            <select name="student" id="student{$offer['id_offer']}" class="mb-3 form-select">
                             </select><br>
                             <script>
                                 $(function() {
-                                    $('#promo').change(function(e) {
+                                    $('#promo{$offer['id_offer']}').change(function(e) {
                                         e.preventDefault();
-                                        getStudents($('#promo').val());
+                                        getStudents{$offer['id_offer']}($('#promo{$offer['id_offer']}').val());
                                     });
                                 });
 
-                                function getStudents(id_promo) {
+                                function getStudents{$offer['id_offer']}(id_promo) {
                                     let html = "";
                                     
                                     let campuses = {json_encode($campuses)};
                                     let onepromo;
                                     campuses.forEach(campus => {
                                         campus.promos.forEach(promo => {
-                                            if (promo.id_promo == $('#promo').val()) {
+                                            if (promo.id_promo == $('#promo{$offer['id_offer']}').val()) {
                                                 onepromo = promo;
                                             }
                                         });
@@ -153,10 +153,10 @@
                                         html += "<option value='" + student.id_user + "'>" +
                                         student.first_name + " " + student.last_name + '</option>';
                                     });
-
-                                    $('#student').html(html);
+                                    console.log(html);
+                                    $('#student{$offer['id_offer']}').html(html);
                                 }
-                                getStudents($('#promo').val());
+                                getStudents{$offer['id_offer']}($('#promo{$offer['id_offer']}').val());
                             </script>
                         </div>
                         <div class="modal-footer">
@@ -175,7 +175,7 @@
         {if ($errorMsg != '')}
             <p class="errorMsg">{$errorMsg}</p>
         {/if}
-        {if $smarty.session.id_role != 3}
+        {if $smarty.session.id_role != 3 && $wishlist == 0}
             <div style="display: flex; gap: 10px; justify-content: center;">
                 <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
                     data-bs-target="#newOfferModal">
@@ -217,7 +217,7 @@
                 {if ($page == 1)}{"disabled"}
                 {/if}">
                         <a class="page-link"
-                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page=1&skill={$skill}&type={$type}">
+                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page=1&skill={$skill}&type={$type}&wishlist={$wishlist}">
                             <span aria-hidden="true">&laquo;&laquo;</span>
                         </a>
                     </li>
@@ -225,7 +225,7 @@
                 {if ($page == 1)}{"disabled"}
                 {/if}">
                         <a class="page-link"
-                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}&skill={$skill}&type={$type}">
+                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}&skill={$skill}&type={$type}&wishlist={$wishlist}">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -234,7 +234,7 @@
                             <li class="page-item 
                         {if ($page == {$i})}{"active"}
                         {/if}"><a class="page-link"
-                                    href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$i}&skill={$skill}&type={$type}">{$i}</a>
+                                    href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$i}&skill={$skill}&type={$type}&wishlist={$wishlist}">{$i}</a>
                             </li>
                         {/if}
                     {/for}
@@ -242,7 +242,7 @@
                 {if ($page == $maxPage)}{"disabled"}
                 {/if}">
                         <a class="page-link"
-                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}&skill={$skill}&type={$type}">
+                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}&skill={$skill}&type={$type}&wishlist={$wishlist}">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -250,7 +250,7 @@
                 {if ($page == $maxPage)}{"disabled"}
                 {/if}">
                         <a class="page-link"
-                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$maxPage}&skill={$skill}&type={$type}">
+                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$maxPage}&skill={$skill}&type={$type}&wishlist={$wishlist}">
                             <span aria-hidden="true">&raquo;&raquo;</span>
                         </a>
                     </li>
@@ -270,16 +270,16 @@
                     <input type="hidden" name="student" value="{$smarty.session.id_user}">
                     <input type="hidden" name="offer_id" value="{$offer['id_offer']}">
                     <p class="card-text">Secteur d'activité : {$offer['activity_name']}</p>
-            {if $smarty.session.id_user == $offer['id_user'] || $smarty.session.id_role == 1}
+            {if ($smarty.session.id_user == $offer['id_user'] || $smarty.session.id_role == 1) && $wishlist == 0}
             <a href="offerActions.php?id={$offer['id_company']}&edit" class="btn btn-primary">Modifier</a>
             {/if}
             {if $smarty.session.id_role == 3 and !in_array($smarty.session.id_user, array_column($offer['wishes'], 'id_user'))}
             <button type="submit" class="btn btn-outline-danger" name="addWishlist">Ajouter à la wishlist</button>
             {/if}
-            {if $smarty.session.id_role == 3 and in_array($smarty.session.id_user, array_column($offer['wishes'], 'id_user'))}
+            {if ($smarty.session.id_role == 3 and in_array($smarty.session.id_user, array_column($offer['wishes'], 'id_user'))) || ($smarty.session.id_role == 1 && $wishlist != 0)}
             <button type="submit" class="btn btn-danger" name="removeWishlist">Retirer de la wishlist</button>
             {/if}
-            {if $smarty.session.id_role == 1}
+            {if $smarty.session.id_role == 1 && $wishlist ==0}
             <button type="button" class="btn btn-danger" data-backdrop="static" data-bs-toggle="modal"
                 data-bs-target="#addWishlistModal{$offer['id_offer']}">
                 Ajouter à une wishlist

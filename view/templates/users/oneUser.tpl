@@ -55,7 +55,9 @@
                 </select>
                 <input type="hidden" name="address_id" value="{$oneUser["id_address"]}">
                 <button type="submit" class="btn btn-primary" name="update">Enregistrer</button>
-
+                {if $smarty.session.id_role != 2}
+                <a href="offerActions.php?wishlist={$oneUser['id_user']}" class="btn btn-danger">Wishlist</a>
+                {/if}
                 {if $smarty.session.id_user != $smarty.get.id}
                     <button type="button" class="btn btn-danger" data-backdrop="static" data-bs-toggle="modal"
                     data-bs-target="#deleteUserModal">

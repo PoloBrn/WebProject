@@ -30,7 +30,7 @@ class ViewOffers
         }
     }
 
-    function displayOffers($errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage, $skills, $skill, $types, $type, $campuses){
+    function displayOffers($errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage, $skills, $skill, $types, $type, $campuses, $wishlist){
         //display an user documents
 
         $this->smarty->assign('errorMsg', $errorMsg);
@@ -45,6 +45,7 @@ class ViewOffers
         $this->smarty->assign('types', $types);
         $this->smarty->assign('type', $type);
         $this->smarty->assign('campuses', $campuses);
+        $this->smarty->assign('wishlist', $wishlist);
 
         
         $this->smarty->display('../view/templates/offers/offers.tpl');

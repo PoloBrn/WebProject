@@ -25,17 +25,17 @@ require_once '../view/offer.php';
 class ControlOffers
 {
 
-    private $errorMsg, 
-    $CRUD_offer, 
-    $CRUD_company, 
-    $CRUD_localities, 
-    $CRUD_activities, 
-    $CRUD_promotype, 
-    $CRUD_skills, 
-    $CRUD_wishlist,
-    $CRUD_campus,
-    $CRUD_promo,
-    $View_offers;
+    private $errorMsg,
+        $CRUD_offer,
+        $CRUD_company,
+        $CRUD_localities,
+        $CRUD_activities,
+        $CRUD_promotype,
+        $CRUD_skills,
+        $CRUD_wishlist,
+        $CRUD_campus,
+        $CRUD_promo,
+        $View_offers;
 
     function __construct()
     {
@@ -97,7 +97,6 @@ class ControlOffers
 
     function addWishlist()
     {
-
         $user_id = $_POST['student'];
         $offer_id = $_POST['offer_id'];
 
@@ -110,7 +109,16 @@ class ControlOffers
 
     function removeWishlist()
     {
-        $user_id = $_POST['student'];
+        if (isset($_GET['wishlist']) && $_SESSION['id_role'] == 1) {
+            if (!empty($_GET['wishlist'])) {
+                $user_id = $_GET['wishlist'];
+            } else {
+                $user_id = $_POST['student'];
+            }
+        } else {
+            $user_id = $_POST['student'];
+        }
+
         $offer_id = $_POST['offer_id'];
 
         $this->CRUD_wishlist->delete(array($user_id, $offer_id));
@@ -212,6 +220,25 @@ class ControlOffers
 
         $allOffers = $this->CRUD_offer->get(0);
 
+
+        if (isset($_GET['wishlist'])) {
+            $wishlist = intval($_GET['wishlist']);
+            if (!empty($wishlist) || $wishlist != 0) {
+                $wishes = $this->CRUD_wishlist->getFromUser($wishlist);
+                $newoffers = array();
+                foreach ($allOffers as $offer) {
+                    if (in_array($offer['id_offer'], array_column($wishes, 'id_offer'))) {
+                        $newoffers[] = $offer;
+                    }
+                }
+                $allOffers = $newoffers;
+            } else {
+                $wishlist = 0;
+            }
+        } else {
+            $wishlist = 0;
+        }
+
         $newoffers = array();
         foreach ($allOffers as $offer) {
             if (($offer['id_user'] == $_SESSION['id_user'] || $_SESSION['id_role'] == 1) || $offer['offer_active'] == 'on') {
@@ -221,6 +248,7 @@ class ControlOffers
                 $newoffers[] = $offer;
             }
         }
+
         $allOffers = $newoffers;
         $newoffers = array();
         if (isset($_GET['skill'])) {
@@ -344,7 +372,11 @@ class ControlOffers
         $campuses = $newcampuses;
 
 
-        $this->View_offers->displayOffers($this->errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage, $skills, $skill, $types, $type, $campuses);
+        $this->View_offers->displayOffers($this->errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage, $skills, $skill, $types, $type, $campuses, $wishlist);
+    }
+
+    function displayWishlist()
+    {
     }
 }
 
