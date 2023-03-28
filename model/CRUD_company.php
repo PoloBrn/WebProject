@@ -45,7 +45,7 @@ class CRUD_company extends Database
         $request = $this->pdo->prepare('CALL company_delete (?)');
         $request->execute(array($company_id));
     }
-    
+
     function get($array)
     {
         $array = $this->securityCheck($array);
@@ -74,7 +74,8 @@ class CRUD_company extends Database
         return $request->fetchAll();
     }
 
-    function updateLogo($logo_name, $company_id) {
+    function updateLogo($logo_name, $company_id)
+    {
 
         $logo_name = $this->securityCheck($logo_name);
         $company_id = $this->securityCheck($company_id);
@@ -83,13 +84,46 @@ class CRUD_company extends Database
         $request->execute(array($logo_name, $company_id));
     }
 
-    function getLogo($company_id) {
+    function getLogo($company_id)
+    {
 
         $company_id = $this->securityCheck($company_id);
-        
+
         $request = $this->pdo->prepare('CALL company_getLogo (?)');
         $request->execute(array($company_id));
 
         return $request->fetchAll();
+    }
+
+    function addFeedback($user_id, $company_id, $rate, $comment)
+    {
+        $request = $this->pdo->prepare('INSERT INTO feedback (id_user, id_company, rate, comment) values (?,?,?,?)');
+        $request->execute(array($user_id, $company_id, $rate, $comment));
+
+        return $this->pdo->lastInsertId();
+    }
+
+    function getFeedback($company_id)
+    {
+        $request = $this->pdo->prepare('SELECT * from feedback join infos on infos.id_user = feedback.id_user WHERE id_company = ?');
+        $request->execute(array($company_id));
+        return $request->fetchAll();
+    }
+
+    function getFBfromIDs($user_id, $company_id)
+    {
+        $request = $this->pdo->prepare('SELECT * from feedback WHERE id_user = ? and id_company = ?');
+        $request->execute(array($user_id, $company_id));
+        return $request->fetchAll();
+    }
+
+    function editFeedback($user_id, $company_id, $rate, $comment) {
+        $request = $this->pdo->prepare('UPDATE feedback SET rate = ?, comment = ? WHERE id_user = ? and id_company = ?');
+        $request->execute(array($rate, $comment, $user_id, $company_id));
+    }
+
+    function deleteFeedback($user_id, $company_id) {
+        $request = $this->pdo->prepare('DELETE FROM feedback WHERE id_user = ? and id_company = ?');
+        $request->execute(array($user_id, $company_id));
     }
 }
