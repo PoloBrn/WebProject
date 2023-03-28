@@ -1,200 +1,42 @@
-<div class="modal fade" id="newOfferModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form class="container" method="POST" enctype="multipart/form-data">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Nouvelle offre</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h1>Postulate</h1>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-primary" name="offer_create">Créer</button>
-                </div>
-
-            </form>
-        </div>
-    </div>
-</div>
-
-<form method="get" class="container">
-    {if $errorMsg != ''}
-        <p class="errorMsg">{$errorMsg}</p>
+<a href="offerActions.php#{$offer['id_offer']}" class="btn btn-primary">back</a>
+<img alt="logo" class="card-img-left example-card-img-responsive logo_company"
+    src="../assets/company-logos/{$offer['logo']}" />
+<div class="container">
+    <h1>{$offer['company_name']}</h1>
+    <h4>Description de l'entreprise :</h4>
+    <p>{$offer['company_description']}</p>
+    <h4>Description de l'offre :</h4>
+    <p>{$offer['offer_description']}</p>
+    <h4>Secteur d'activité : {$offer['activity_name']}</h4>
+    {if $offer['nb_student'] > 1}
+    <p>{$offer['nb_student']} étudiants on déjà été acceptés dans cette entreprise</p>
+    {else}
+    <p>{$offer['nb_student']} étudiant a déjà été accepté dans cette entreprise</p>
     {/if}
-    <br><br>
-    <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
-    <button class="btn btn-success">Rechercher</button>
-    <br>
+    <h4>Lieu : {$offer['label']} {$offer['postal_code']} {$offer['city_name']}</h4>
 
-    {foreach from=$offers item=offer}
-        <div class="card flex-row card_company" id="{$offer.id_offer}">
-            <img alt="logo" class="card-img-left example-card-img-responsive logo_company"
-                src="../assets/company-logos/{$offer.logo}" />
-            <div class="card-body">
-                <h5 class="card-title"><a class="nav-link" href="offerActions.php?id={$offer.id_offer}">
+    <p>Contact : <a href="mailto:{$offer['email']}">{$offer['email'] }</a></p>
 
-                        {if $offer.active != 'on'}[Non-active]
-
-                        {/if} {$offer.offer_name} - {$offer.company_name}</a>
-                </h5>
-                <p class="card-text">Secteur d'activité : {$offer.activity_name}</p>
-            {if $smarty.session.id_user == $offer.id_user || $smarty.session.id_role == 1}
-            <a href="offerActions.php?id={$offer.id_company}&edit" class="btn btn-primary">Modifier</a>
-
-            {/if}
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="offer_id" value="{$offer['id_offer']}">
+        <input type="hidden" name="user_id" value="{$user['id_user']}">
+<h1>Postuler {if $smarty.session.id_role == 1} en tant que {$user['first_name']} {$user['last_name']}{/if} :</h1>
+        <div class="mb-3">
+            <label for="cv" class="form-label">CV :</label>
+            <input type="file" accept=".pdf" class="form-control" name="cv">
         </div>
-    </div>
-    <br>
-    {/foreach}
-    <input type='number' name="userNumberByPage" class="form-control"
-        value={if isset($smarty.get.userNumberByPage)}{$smarty.get.userNumberByPage}{else}"4"{/if}>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item 
-            {if $page == 1}disabled{/if}">
-                <a class="page-link" href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page=1">
-                    <span aria-hidden="true">&laquo;&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item 
-            {if $page == 1}disabled{/if}">
-                <a class="page-link"
-                    href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}">
-                    <span aria-hidden="true">&laquo;</span>
-                    </div>
-                    </div>
-                    </div>
-
-                    <form method="get" class="container">
-                        {if ($errorMsg != '')}
-                        <p class="errorMsg">{$errorMsg}</p>
-                        {/if}
-                        <br><br>
-                        <input type='search' name="search" class="form-control" value="{$search}"
-                            placeholder="Rechercher">
-                        <button class="btn btn-success">Rechercher</button>
-                        <br>
-
-                        {foreach from=$offers item=$offer}
-                        <div class="card flex-row card_company" id="{$offer['id_offer']}">
-                            <img alt="logo" class="card-img-left example-card-img-responsive logo_company"
-                                src="../assets/company-logos/{$offer['logo']}" />
-                            <div class="card-body">
-                                <h5 class="card-title"><a class="nav-link"
-                                        href="offerActions.php?id={$offer['id_offer']}">
-
-                                        {if ($offer['active'] != 'on')}[Non-active]
-
-                                        {/if} {$offer['offer_name']} - {$offer['company_name']}</a>
-                                </h5>
-                                <p class="card-text">Secteur d'activité : {$offer['activity_name']}</p>
-                                    {if $smarty.session.id_user == $offer['id_user'] || $smarty.session.id_role == 1}
-                                        <a href="offerActions.php?id={$offer['id_company']}&edit"
-                                            class="btn btn-primary">Modifier</a>
-
-                                    {/if}
-                                </div>
-                            </div>
-                            <br>
-                        {/foreach}
-                        <input type='number' name="userNumberByPage" class="form-control"
-                            value={if (isset($smarty.get.userNumberByPage))}{$smarty.get.userNumberByPage} 
-                            {else}"4"
-                            {/if}>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item 
-            {if ($page == 1)}{"disabled"}
-            {/if}">
-                                    <a class="page-link"
-                                        href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page=1">
-                                        <span aria-hidden="true">&laquo;&laquo;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item 
-            {if ($page == 1)}{"disabled"}
-            {/if}">
-                                    <a class="page-link"
-                                        href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                {for $i = ($page - 2) to ($page + 2)}
-                                    {if ($i > 0 and $i <= $maxPage)}
-                                        <li class="page-item 
-                    {if ($page == {$i})}{"active"}
-                    {/if}"><a class="page-link"
-                                                href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$i}">{$i}</a>
-                                        </li>
-                                    {/if}
-                                {/for}
-                                <li class="page-item 
-            {if ($page == $maxPage)}{"disabled"}
-            {/if}">
-                                    <a class="page-link"
-                                        href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                <li class="page-item 
-                                    {if ($page == $maxPage)}{"disabled"}
-                                    {/if}">
-                                    <a class="page-link"
-                                        href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                                <li class="page-item 
-                                    {if ($page == $maxPage)}{"disabled"}
-                                    {/if}">
-                                    <a class="page-link"
-                                        href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$maxPage}">
-                                        <span aria-hidden="true">&raquo;&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </form>
-
-                    {if $smarty.session.id_role == 1}
-                        <div class="container">
-                            <h3>Gérer les offres</h3>
-                            <hr>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Titre de l'offre</th>
-                                            <th>Entreprise</th>
-                                            <th>Statut</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {foreach from=$offers item=$offer}
-                                            <tr>
-                                                <td><a href="offerActions.php?id={$offer['id_offer']}">{$offer['offer_name']}</a>
-                                                </td>
-                                                <td>{$offer['company_name']}</td>
-                                                <td>
-
-                                                {if ($offer['active'] == 'on')}Active
-
-                                                {else}Inactive
-
-                                                {/if}</td>
-                                                <td>
-                                                    <a href="offerActions.php?id={$offer['id_offer']}&edit"
-                                                        class="btn btn-sm btn-primary">Modifier</a>
-                                                    <a href="offerActions.php?id={$offer['id_offer']}&delete"
-                                                        class="btn btn-sm btn-danger">Supprimer</a>
-                                                </td>
-                                            </tr>
-                                        {/foreach}
-                                    </tbody>
-                                </table>
-                            </div>
-                        {/if}
-                        </body>
-
-    </html>
+        <div class="mb-3">
+            <label for="lm" class="form-label">Lettre de motivation :</label>
+            <input type="file" accept=".pdf, .doc, .docx, .odt" class="form-control" name="lm">
+        </div>
+        <div class="mb-3">
+            <label for="lm" class="form-label">Informations complémentaires :</label>
+            <textarea class="form-control" name="infos"></textarea>
+        </div>
+        <div class="mb-3">
+            <a href="offerActions.php" class="btn btn-danger">Annuler</a>
+            <button type="submit" class="btn btn-primary" name="create">Postuler</button>
+        </div>
+</div>
+</form>
+</div>
