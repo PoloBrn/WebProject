@@ -1,10 +1,10 @@
 <body>
-    <div class="modal fade" id="newOfferModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="newOfferModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form class="container" method="POST" enctype="multipart/form-data">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Nouvelle offre</h1>
+                        <h1 class="modal-title fs-5">Nouvelle offre</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -99,14 +99,13 @@
         </div>
     </div>
     {foreach from=$offers item=$offer}
-        <div class="modal fade" id="addWishlistModal{$offer['id_offer']}" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="addWishlistModal{$offer['id_offer']}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form class="container" method="POST" action="#">
                         <input type="hidden" name="offer_id" value="{$offer['id_offer']}">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter à une wishlist</h1>
+                            <h1 class="modal-title fs-5">Ajouter à une wishlist</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -285,7 +284,6 @@
                 Ajouter à une wishlist
             </button>
             {/if}
-
         </div>
     </form>
     <br>
