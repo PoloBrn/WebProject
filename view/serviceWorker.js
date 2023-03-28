@@ -2,7 +2,8 @@ const PREFIX = "V7";
 const CACHED_FILES = [
     '../assets/CSS/style.css',
     '../assets/images/chips.png',
-    '../assets/images/background.png'
+    '../assets/images/background.webp',
+    '../manifest.json'
 ];
 
 self.addEventListener("install", (event) => {
@@ -10,7 +11,7 @@ self.addEventListener("install", (event) => {
     event.waitUntil(
         (async () => {
             const cache = await caches.open(PREFIX);
-            await Promise.all([...CACHED_FILES, 'offline.html'].map((path) => {
+            await Promise.all([...CACHED_FILES, '../view/offline.html'].map((path) => {
                 return cache.add(new Request(path));
             }))
             /*cache.add(new Request('offline.html'));
