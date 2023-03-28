@@ -141,13 +141,16 @@
             </option>
             {/foreach}
         </select><br>
-        <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
+        <button type="button" class="btn btn-info companyType" data-backdrop="static" data-bs-toggle="modal"
             data-bs-target="#newaddrModal">
             Ajouter une adresse
         </button>
-        <button type="submit" class="btn btn-danger" name="deleteAddress">
+        <br>
+
+        <button type="submit" class="btn btn-danger companyType" name="deleteAddress">
             Supprimer une adresse
         </button>
+
     </form>
 </div>
 <hr>
@@ -171,12 +174,30 @@
             {/foreach}
         </select>
         <br>
-        <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
+        <button type="button" class="btn btn-info companyType" data-backdrop="static" data-bs-toggle="modal"
             data-bs-target="#addActivityModal">
             Ajouter un secteur d'activité
         </button>
-        <button type="submit" class="btn btn-danger" name="remove_activity">
+        <br>
+        <button type="submit" class="btn btn-danger companyType" name="remove_activity">
             Retirer un secteur d'activité
         </button>
     </form>
 </div>
+
+
+<style>
+.companyType {
+    margin-top: 20px;
+    position: relative;
+    width: 50%;
+    left: 25%;
+    transition: all 1s ease-in-out !important;
+}
+
+.companyType:hover {
+    
+    width: 60%;
+    left: 20%;
+}   
+</style>
