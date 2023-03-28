@@ -192,7 +192,8 @@ class ControlOffers
             $offer['promotypes'] = $this->CRUD_promotype->getFromOffer($offer['id_offer']);
             $offer['skills'] = $this->CRUD_skills->getFromOffer($offer['id_offer']);
 
-
+            //$offer['company'] = $this->CRUD_company->getById($offer['id_company']);
+            var_dump($offer);
             $promotypes = $this->CRUD_promotype->get(0);
             $skills = $this->CRUD_skills->get(0);
 
@@ -212,7 +213,13 @@ class ControlOffers
 
             $edit = isset($_GET['edit']) && ($_SESSION['id_user'] == $offer['id_user'] || $_SESSION['id_role'] == 1);
 
-            $this->View_offers->displayOne($this->errorMsg, $offer, $promotypes, $skills, $edit, $campuses);
+            if (($offer['offer_active'] == 'on' && $offer['active'] == 'on')|| ($_SESSION['id_user'] == $offer['id_user'] || $_SESSION['id_role'] == 1)) {
+                $this->View_offers->displayOne($this->errorMsg, $offer, $promotypes, $skills, $edit, $campuses);
+            } else {
+                echo '<h1>Offre inexistante</h1>';
+            }
+
+            
         } else {
             echo '<h1>Offre inexistante</h1>';
         }
@@ -254,7 +261,7 @@ class ControlOffers
 
         $newoffers = array();
         foreach ($allOffers as $offer) {
-            if (($offer['id_user'] == $_SESSION['id_user'] || $_SESSION['id_role'] == 1) || $offer['offer_active'] == 'on') {
+            if (($offer['id_user'] == $_SESSION['id_user'] || $_SESSION['id_role'] == 1) || $offer['offer_active'] == 'on' && $offer['active'] == 'on') {
                 $offer['wishes'] = $this->CRUD_wishlist->getFromOffer($offer['id_offer']);
                 $offer['promotypes'] = $this->CRUD_promotype->getFromOffer($offer['id_offer']);
                 $offer['skills'] = $this->CRUD_skills->getFromOffer($offer['id_offer']);
@@ -392,10 +399,6 @@ class ControlOffers
 
         $this->View_offers->displayOffers($this->errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage, $skills, $skill, $types, $type, $campuses, $wishlist);
     }
-
-    function displayWishlist()
-    {
-    }
 }
 
 $controlOffers = new ControlOffers();
@@ -409,7 +412,7 @@ if (isset($_GET['id'])) {
     }
 
     if (isset($_POST['post'])) {
-        header('Location: postulateActions.php?offer='.$_POST['offer_id'].'&user='.$_POST['student']);
+        header('Location: postulateActions.php?offer=' . $_POST['offer_id'] . '&user=' . $_POST['student']);
     }
 
     if (isset($_POST['addSkill'])) {
