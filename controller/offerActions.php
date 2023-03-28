@@ -289,19 +289,24 @@ class ControlOffers
             $search = htmlspecialchars($_GET['search']); // Nous gardons la recherche en mettant tout les caractères en minuscule
             $newoffers = array();    // Initialisation d'une vartiable temporaire
             foreach ($allOffers as $offer) {  // Pour chaque utilisateur dans la liste des utilisateurs auquels nous nous intéressont
-                if (
-                    strpos(strtolower($offer['company_name']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['offer_name']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['offer_description']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['company_description']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['email']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['activity_name']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['city_name']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['label']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['postal_code']), strtolower($search)) !== false
-                ) {
-                    // Si le recherche coincide avec le nom, le prénom ou l'adresse mail de l'utilisateur
-                    $newoffers[] = $offer;    // Nous ajoutons l'utilisateur à la variable temporaire
+                foreach (explode(' ', $search) as $arg) {
+                    if (
+                        strpos(strtolower($offer['company_name']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['offer_name']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['offer_description']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['company_description']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['email']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['activity_name']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['city_name']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['label']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['postal_code']), strtolower($arg)) !== false
+                    ) {
+                        // Si le recherche coincide avec le nom, le prénom ou l'adresse mail de l'utilisateur
+                        if (!in_array($offer, $newoffers)) {
+                            $newoffers[] = $offer;
+                        }
+                        // Nous ajoutons l'utilisateur à la variable temporaire
+                    }
                 }
             }
             $allOffers = $newoffers; // Comme nous nous intéresseront qu'aux utilisateurs qui coincide avec la recherche nous pouvons écraser la dernière liste des utilisateurs
