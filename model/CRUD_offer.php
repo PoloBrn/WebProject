@@ -62,6 +62,7 @@ class CRUD_offer extends Database
         on activity.id_activity = offer.id_activity join address 
         on address.id_address = localities.id_address');
         $request->execute(array());
+        
         return $request->fetchAll();
     }
 }

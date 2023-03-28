@@ -12,13 +12,14 @@ class CRUD_postulate extends Database
 
     function create($array)
     {
-        $progress = $array[2];
+        $offer_id = $array[0];
+        $user_id = $array[1];
+        $infos = $array[2];
+        $file_name_cv = $array[3];
+        $file_name_lm = $array[4];
 
-        $request = $this->pdo->prepare('INSERT INTO postulate(progress) values (?)');
-        $request->execute(array($progress));
-        $postulate_id = $this->pdo->lastInsertId();
-
-        return $request->fetchAll()[0][0];
+        $request = $this->pdo->prepare('INSERT INTO postulate(id_user, id_offer, progress, lm, cv, infos) values (?,?,?,?,?,?)');
+        $request->execute(array($user_id, $offer_id, 'Email Envoyé' ,$file_name_lm, $file_name_cv, $infos));
     }
 
     function update($array)
@@ -47,6 +48,13 @@ class CRUD_postulate extends Database
         $offer_id = $array[1];
         $request = $this->pdo->prepare('SELECT * FROM postulate WHERE id_user = ? AND id_offer = ?');
         $request->execute(array($user_id, $offer_id));
+        return $request->fetchAll();
+    }
+
+    function getByIDs($user_id, $offer_id) {
+        $request = $this->pdo->prepare('SELECT * FROM postulate where id_user = ? AND id_offer = ?');
+        $request->execute(array($user_id, $offer_id));
+
         return $request->fetchAll();
     }
 }

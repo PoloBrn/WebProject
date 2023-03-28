@@ -4,5 +4,5 @@
 <footer>
     <br>
     <br>
-    <a class="legal" href="legal.php">Mentions Légales</a>
+    <a class="legal" href="../view/legal.php">Mentions Légales</a>
 </footer>

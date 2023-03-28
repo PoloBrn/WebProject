@@ -15,17 +15,16 @@ Class ViewPostulate
         $this->smarty = new Smarty();
     }
 
-    function displayPostulate($msg, $postulate)
+    function displayPostulate($msg, $offer, $user)
     {
         //display
 
-        if ($msg != "0") {
             $this->smarty->assign('errorMsg', $msg);
-        }
+        
 
 
-        $this->smarty->assign('postulate', $postulate);
-
+        $this->smarty->assign('offer', $offer);
+        $this->smarty->assign('user', $user);
         $this->smarty->display('../view/templates/postulate/postulate.tpl');
     }
 }
