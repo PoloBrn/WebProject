@@ -98,75 +98,6 @@
             </div>
         </div>
     </div>
-    {foreach from=$offers item=$offer}
-        <div class="modal fade" id="addWishlistModal{$offer['id_offer']}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form class="container" method="POST" action="#">
-                        <input type="hidden" name="offer_id" value="{$offer['id_offer']}">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5">Ajouter à une wishlist</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3" id="promodiv">
-                                <label for="" class="form-label">Promotion :</label>
-                                <select name="promo" id="promo{$offer['id_offer']}" class="mb-3 form-select">
-                                    {foreach from=$campuses item=$campus}
-                                        <optgroup label="{$campus['campus_name']}">
-                                            {foreach from=$campus['promos'] item=$promo}
-                                                <option value="{$promo['id_promo']}">
-                                                    {$promo['promo_name']}
-                                                </option>
-                                            {/foreach}
-                                        </optgroup>
-                                    {/foreach}
-                                </select>
-                            </div>
-                            <label class="form-label">Etudiant :</label>
-                            <select name="student" id="student{$offer['id_offer']}" class="mb-3 form-select">
-                            </select><br>
-                            <script>
-                                $(function() {
-                                $('#promo{$offer['id_offer']}').change(function(e) {
-                                e.preventDefault();
-                                getStudents{$offer['id_offer']}($('#promo{$offer['id_offer']}').val());
-                                });
-                                });
-
-                                function getStudents{$offer['id_offer']}(id_promo) {
-                                let html = "";
-
-                                let campuses = {json_encode($campuses)};
-                                let onepromo;
-                                campuses.forEach(campus => {
-                                    campus.promos.forEach(promo => {
-                                            if (promo.id_promo == $('#promo{$offer['id_offer']}').val()) {
-                                            onepromo = promo;
-                                        }
-                                    });
-                                });
-
-                                let students = onepromo.students;
-                                students.forEach(student => {
-                                    html += "<option value='" + student.id_user + "'>" +
-                                        student.first_name + " " + student.last_name + '</option>';
-                                });
-                                console.log(html);
-                                $('#student{$offer['id_offer']}').html(html);
-                                }
-                                getStudents{$offer['id_offer']}($('#promo{$offer['id_offer']}').val());
-                            </script>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                            <button type="submit" class="btn btn-primary" name="addWishlist">Créer</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    {/foreach}
 
 
 
@@ -273,19 +204,13 @@
                     <input type="hidden" name="offer_id" value="{$offer['id_offer']}">
                     <p class="card-text">Secteur d'activité : {$offer['activity_name']}</p>
             {if ($smarty.session.id_user == $offer['id_user'] || $smarty.session.id_role == 1) && $wishlist == 0}
-            <a href="offerActions.php?id={$offer['id_company']}&edit" class="btn btn-primary">Modifier</a>
+            <a href="offerActions.php?id={$offer['id_offer']}&edit" class="btn btn-primary">Modifier</a>
             {/if}
             {if $smarty.session.id_role == 3 and !in_array($smarty.session.id_user, array_column($offer['wishes'], 'id_user'))}
             <button type="submit" class="btn btn-outline-danger" name="addWishlist">Ajouter à la wishlist</button>
             {/if}
             {if ($smarty.session.id_role == 3 and in_array($smarty.session.id_user, array_column($offer['wishes'], 'id_user'))) || ($smarty.session.id_role == 1 && $wishlist != 0)}
             <button type="submit" class="btn btn-danger" name="removeWishlist">Retirer de la wishlist</button>
-            {/if}
-            {if $smarty.session.id_role == 1 && $wishlist ==0}
-            <button type="button" class="btn btn-danger" data-backdrop="static" data-bs-toggle="modal"
-                data-bs-target="#addWishlistModal{$offer['id_offer']}">
-                Ajouter à une wishlist
-            </button>
             {/if}
         </div>
     </form>
