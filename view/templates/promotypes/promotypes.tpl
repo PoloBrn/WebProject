@@ -33,8 +33,10 @@
         Ajouter un type de promo
     </button>
     <br><br>
-    <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
-    <button class="btn btn-success">Rechercher</button>
+    <div class="search">  
+        <button class="btn btn-success"><i class="fas fa-search"></i></button>
+        <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
+    </div>
     <br><br>
 </form>
 <div class="container">

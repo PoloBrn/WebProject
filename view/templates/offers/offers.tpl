@@ -112,20 +112,115 @@
         {if ($errorMsg != '')}
             <p class="errorMsg">{$errorMsg}</p>
         {/if}
+        
         {if $smarty.session.id_role != 3}
-            <div style="display: flex; gap: 10px; justify-content: center;">
-                <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
+            <div style="gap: 10px; justify-content: center;">
+                <button type="button" class="btn btn-info offersActions" data-backdrop="static" data-bs-toggle="modal"
+
+        {if $smarty.session.id_role != 3 && $wishlist == 0}
+            <div style="gap: 10px; justify-content: center;">
+                <button type="button" class="btn btn-info offersActions" data-backdrop="static" data-bs-toggle="modal"
+
                     data-bs-target="#newOfferModal">
                     Ajouter une offre
                 </button>
-                <a href="skillsActions.php" class="btn btn-primary">Gérer les compétences</a>
+                <a href="skillsActions.php" class="btn btn-primary offersActions">Gérer les compétences</a>
             </div>
+
+            <style>
+            .offersActions {
+                margin-top: 20px;
+                position: relative;
+                width: 50%;
+                left: 25%;
+                transition: all 1s ease-in-out !important;
+            }
+    
+            .offersActions:hover {
+                
+                width: 60%;
+                left: 20%;
+            }
+        </style>
+
         {/if}
-        <br><br>
-        <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
-        <button class="btn btn-success">Rechercher</button>
         <br>
 
+        <div class="search">    
+        <button class="btn btn-success"><i class="fas fa-search"></i></button>
+        <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
+        <br><br>
+        </div>
+        <label for="exampleInputEmail1" class="form-label">Compétence :</label>
+        <select name="skill" id="skill" class="mb-3 form-select">
+            <option value="0">(peu importe)</option>
+            {foreach from=$skills item=$oneskill}
+                <option value="{$oneskill['id_skill']}">{$oneskill['skill_name']}</option>
+            {/foreach}
+        </select>
+        <script>
+            $('#skill').val({$skill});
+        </script>
+        <label for="exampleInputEmail1" class="form-label">Types de promo :</label>
+        <select name="type" id="type" class="mb-3 form-select">
+            <option value="0">(peu importe)</option>
+            {foreach from=$types item=$promotype}
+                <option value="{$promotype['id_type']}">{$promotype['type_name']}</option>
+            {/foreach}
+        </select>
+        <script>
+            $('#type').val({$type});
+        </script>
+        {if count($offers) > 0}
+            <input type='number' name="userNumberByPage" class="form-control"
+                value={if (isset($smarty.get.userNumberByPage))}{$smarty.get.userNumberByPage} {else}"4"{/if}>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item 
+                {if ($page == 1)}{"disabled"}
+                {/if}">
+                        <a class="page-link"
+                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page=1&skill={$skill}&type={$type}&wishlist={$wishlist}">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item 
+                {if ($page == 1)}{"disabled"}
+                {/if}">
+                        <a class="page-link"
+                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page - 1}&skill={$skill}&type={$type}&wishlist={$wishlist}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {for $i = ($page - 2) to ($page + 2)}
+                        {if ($i > 0 and $i <= $maxPage)}
+                            <li class="page-item 
+                        {if ($page == {$i})}{"active"}
+                        {/if}"><a class="page-link"
+                                    href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$i}&skill={$skill}&type={$type}&wishlist={$wishlist}">{$i}</a>
+                            </li>
+                        {/if}
+                    {/for}
+                    <li class="page-item 
+                {if ($page == $maxPage)}{"disabled"}
+                {/if}">
+                        <a class="page-link"
+                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$page + 1}&skill={$skill}&type={$type}&wishlist={$wishlist}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item 
+                {if ($page == $maxPage)}{"disabled"}
+                {/if}">
+                        <a class="page-link"
+                            href="offerActions.php?search={$search}&userNumberByPage={$nbByPage}&page={$maxPage}&skill={$skill}&type={$type}&wishlist={$wishlist}">
+                            <span aria-hidden="true">&raquo;&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </form>
+            {/if}
         {foreach from=$offers item=$offer}
             <div class="card flex-row card_company" id="{$offer['id_offer']}">
                 <img alt="logo" class="card-img-left example-card-img-responsive logo_company"

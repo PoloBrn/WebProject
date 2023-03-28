@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-27 10:01:04
+/* Smarty version 4.3.0, created on 2023-03-28 12:56:29
   from 'C:\Users\damie\Desktop\repos2\WebProject\includes\navbar\navbarAdmin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64214d40bb7046_78780693',
+  'unifunc' => 'content_6422c7dd3d1f32_85594512',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1ffea3832e8138d99acf66e5bab9d994cd0a6b17' => 
     array (
       0 => 'C:\\Users\\damie\\Desktop\\repos2\\WebProject\\includes\\navbar\\navbarAdmin.tpl',
-      1 => 1679904061,
+      1 => 1679999442,
       2 => 'file',
     ),
   ),
@@ -20,11 +20,11 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64214d40bb7046_78780693 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6422c7dd3d1f32_85594512 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <link rel="stylesheet" href="../assets/CSS/navbar.css">
 
-<nav class="navbar-custom navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar-custom navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid">
     <a class="navbar-brand" href="../view/index.php">
             <!--<img src="assets/images/logo_ligne.png" alt="Logo" height="50"  class="d-inline-block align-text-middle">-->
@@ -37,7 +37,7 @@ function content_64214d40bb7046_78780693 (Smarty_Internal_Template $_smarty_tpl)
             <ul class="navbar-nav">
 
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Gestion des offres</a>
+                            <a class="nav-link active" href="../controller/offerActions.php">Gestion des offres</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="../controller/companiesActions.php">Gestion des entreprises</a>

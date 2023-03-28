@@ -40,3 +40,154 @@ html {
 .errorMsg {
     color: red;
 }
+
+.btn-info {
+    margin-top: 5%;
+    position: relative;
+    width: 50%;
+    left: 25%;
+    transition: all 1s ease-in-out !important;
+}
+
+.btn-info:hover {
+    
+    width: 60%;
+    left: 20%
+}
+
+.form-control {
+    position: relative;
+
+    background: rgba( 255, 255, 255, 0.7 ) !important;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ) !important;
+    backdrop-filter: blur( 2.5px );
+    -webkit-backdrop-filter: blur( 2.5px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 ) !important;
+}
+
+
+.legal {
+    position: absolute;
+    bottom: 0;
+}
+
+/* //////////////////////////////////CARDS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+
+.card {
+    height: 15%;
+    background-color: rgba( 255, 255, 255, 0.1 ) !important;
+    
+    box-shadow: 0 8px 16px 0 rgba( 0, 0, 0, 0.37 );
+    backdrop-filter: blur( 7.5px );
+    -webkit-backdrop-filter: blur( 7.5px );
+    border-radius: 20px !important;
+    border: 1px solid rgba( 255, 255, 255, 0.18 ) !important;
+    width: auto;
+}
+
+.card-title {
+    text-align: center;
+    color: white;
+}
+
+.card-text {
+
+    text-align: center;
+    color: white;
+}
+
+.card-text a{
+
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    transition: all 0.2s ease-out;
+}
+
+.card-text a:hover{
+
+    color: red;
+    transition: all 0.2s ease-out;
+}
+
+.card .btn {
+    position: relative;
+    left: 35%;
+    width: 30%;
+}
+
+.logo_company {
+    height: 100% !important;
+    border-radius: 20px !important;
+}
+
+
+
+/* //////////////////////////////////SEARCH\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+
+
+.search{
+    position: sticky !important;
+    display: flex;
+    justify-content: center;
+}
+
+.search > * {
+    height: 40px;
+}
+
+.search select {
+    width: 40% !important;
+}
+
+.search .btn {
+    width: 5%;
+    transition: all 0.5s ease-in-out !important;
+}
+
+.search .btn:hover {
+    width: 10%;
+}
+
+
+/* //////////////////////////////////PAGINATION\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+
+
+.pagination .page-item, .page-link{
+
+    background: rgba( 255, 255, 255, 0.4 ) !important;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ) !important;
+}
+
+
+/* //////////////////////////////////MODAL\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+
+
+.modal-content {
+    background: rgba( 255, 255, 255, 0.2 ) !important;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ) !important;
+    backdrop-filter: blur( 10px ) !important;
+    -webkit-backdrop-filter: blur( 10px ) !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba( 255, 255, 255, 0.18 ) !important;
+}
+
+
+
+.modal-content .form-control, .form-select{
+    
+    background: rgba( 255, 255, 255, 0.2 ) !important;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ) !important;
+    backdrop-filter: blur( 10px ) !important;
+    -webkit-backdrop-filter: blur( 10px ) !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba( 255, 255, 255, 0.18 ) !important;
+}
+
+.modal-content label,h1,h2,h3,h4,h5,h6 {
+    color: white !important;
+}
+
+.modal-content .form-select option {
+    background: rgba( 255, 255, 255, 0.2 ) !important;
+}

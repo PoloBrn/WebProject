@@ -1,4 +1,3 @@
-
 <body>
     <br><br>
     <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,11 +45,11 @@
                             <select name="promo" class="mb-3 form-select">
                                 {foreach from=$campuses item=$campus}
                                     <optgroup label="{$campus['campus_name']}">
-                                            {foreach from=$campus['promos'] item=$promo}
-                                                <option value="{$promo['id_promo']}">
-                                                    {$promo['promo_name']}
-                                                </option>
-                                            {/foreach}
+                                        {foreach from=$campus['promos'] item=$promo}
+                                            <option value="{$promo['id_promo']}">
+                                                {$promo['promo_name']}
+                                            </option>
+                                        {/foreach}
                                     </optgroup>
                                 {/foreach}
 
@@ -104,26 +103,32 @@
             <p> {$errorMsg} </p>
         {/if}
         {if $smarty.session.id_role != 3 }
-            <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
+            <button type="button" class="btn btn-info center" data-backdrop="static" data-bs-toggle="modal"
                 data-bs-target="#newUserModal">
+
                 Ajouter un utilisateur
             </button>
             <br><br>
 
             <form method="get">
                 <div class="form-group">
-                    <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
-                    <button class="btn btn-success">Rechercher</button>
-                    <br>
-                    <select name="role" id="role" class="mb-3 form-select" value="{$role}">
-                        {if $smarty.session.id_role == 1}
-                            <option value="0">(peu importe)</option>
-                            <option value="2">Pilote</option>
-                            <option value="3">Etudiant</option>
-                        {else}
-                            <option value="3">Etudiant</option>
-                        {/if}
-                    </select>
+                    <div class="search">
+                        <button class="btn btn-success"><i class="fas fa-search"></i></button>
+                        <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
+                        <br>
+                        <select name="role" id="_role" class="mb-3 form-select">
+                            {if $smarty.session.id_role == 1}
+                                <option value="0">(peu importe)</option>
+                                <option value="2">Pilote</option>
+                                <option value="3">Etudiant</option>
+                            {else}
+                                <option value="3">Etudiant</option>
+                            {/if}
+                        </select>
+                    </div>
+                    <script>
+                        $('#_role').val({$role});
+                    </script>
                     {foreach from=$users item=$user}
                         <div class=" card" id="user {$user['id_user']}">
                             <div class="card-body">
@@ -136,7 +141,8 @@
                     {/foreach}
                 </div>
 
-                <input type='number' name="userNumberByPage" class="form-control"
+                
+                <input type='number' name="userNumberByPage" class="form-control InputPage"
                     value="{if (isset($smarty.get.userNumberByPage))}{$smarty.get.userNumberByPage}{else}{4}{/if}">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">

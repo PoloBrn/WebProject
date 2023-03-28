@@ -41,11 +41,29 @@
         data-bs-target="#newCampusModal">
         Ajouter un campus
     </button>
-    <a href="promoTypeActions.php" class="btn btn-primary">Gérer les types de promo</a>
+    <a href="promoTypeActions.php" class="btn btn-primary promoType">Gérer les types de promo</a>
+    <style>
+        .promoType {
+            margin-top: 20px;
+            position: relative;
+            width: 50%;
+            left: 25%;
+            transition: all 1s ease-in-out !important;
+        }
+
+        .promoType:hover {
+            
+            width: 60%;
+            left: 20%;
+        }
+
+    </style>
     <br><br>
-    <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
-    <button class="btn btn-success">Rechercher</button>
-    <br><br>
+    
+    <div class="search">    
+    <button class="btn btn-success"><i class="fas fa-search"></i></button>
+    <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">*
+    </div>
     {foreach from=$campuses item=$campus}
         <div class="card" method="POST" id="{$campus['id_campus']}">
             <div class="card-body">
@@ -108,4 +126,5 @@
         </ul>
     </nav>
 
+    <script src="../assets/js/card.js"></script>
 </form>

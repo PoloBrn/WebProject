@@ -13,5 +13,6 @@ $(document).ready(function() {
 
             $(this).css('background', 'radial-gradient(at ' + mouseXpercentage*0.4 + '% ' + mouseYpercentage*0.4 + '%, rgba( 255, 255, 255, 0.5 ), rgba( 255, 255, 255, 0.2))');
     });
+    console.log('test');
     $('.card').css('background', 'radial-gradient(at ' + 0 + '% ' + 0 + '%, rgba( 255, 255, 255, 0.5 ), rgba( 255, 255, 255, 0.2))');
 });

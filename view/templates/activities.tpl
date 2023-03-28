@@ -21,7 +21,6 @@
     </div>
 </div>
 
-<p>modifier les secteurs d&#8217;activité
 <p>
 
 <form method="get" class="container">
@@ -30,10 +29,27 @@
         data-bs-target="#newActivityModal">
         Ajouter un secteur d'activité
     </button>
-    <br><br>
-    <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
-    <button class="btn btn-success">Rechercher</button>
-    <br><br>
+    <br><br>   <div class="search">    
+    <button class="btn btn-success"><i class="fas fa-search"></i></button>
+    <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">*
+    </div>
+    <br>
+
+    
+<div class="container">
+{foreach from=$activities item=$activity}
+    <form class="card" method="POST" id="{$activity['id_activity']}">
+        <div class="card-body">
+            <input type="text" name="name_activity" class="card-title form-control" id=""
+                value='{$activity['activity_name']}'>
+            <input type="hidden" name="id_activity" value="{$activity['id_activity']}">
+            <input type="submit" name='update_activity' class="btn btn-primary" value="Modifier">
+            <input type="submit" name='delete_activity' class="btn btn-danger" value="Supprimer">
+        </div>
+    </form>
+    <br>
+{/foreach}
+<br>
 
     <input type='number' name="userNumberByPage" class="form-control"
         value="{if (isset($smarty.get.userNumberByPage))}{$smarty.get.userNumberByPage}{else}{4}{/if}">
@@ -86,19 +102,9 @@
             </li>
         </ul>
     </nav>
+    </div>
 </form>
-<div class="container">
-{foreach from=$activities item=$activity}
-    <form class="card" method="POST" id="{$activity['id_activity']}">
-        <div class="card-body">
-            <input type="text" name="name_activity" class="card-title form-control" id=""
-                value='{$activity['activity_name']}'>
-            <input type="hidden" name="id_activity" value="{$activity['id_activity']}">
-            <input type="submit" name='update_activity' class="btn btn-primary" value="Modifier">
-            <input type="submit" name='delete_activity' class="btn btn-danger" value="Supprimer">
-        </div>
-    </form>
-    <br>
-{/foreach}
-<br>
-</div>
+
+
+
+<script src="../assets/js/card.js"></script>
