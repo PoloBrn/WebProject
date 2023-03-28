@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../assets/CSS/navbar.css">
 
-<nav class="navbar-custom navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar-custom navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="../view/index.php">
             <!--<img src="assets/images/logo_ligne.png" alt="Logo" height="50"  class="d-inline-block align-text-middle">-->

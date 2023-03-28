@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-27 16:18:58
+/* Smarty version 4.3.0, created on 2023-03-28 15:31:48
   from 'C:\Users\damie\Desktop\repos2\WebProject\includes\navbar\navbarStudent.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_6421a5d2df5a75_69418492',
+  'unifunc' => 'content_6422ec447e2437_68804575',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '05e500518651a9ba1ba2ad33fc062a40f27ec1e8' => 
     array (
       0 => 'C:\\Users\\damie\\Desktop\\repos2\\WebProject\\includes\\navbar\\navbarStudent.tpl',
-      1 => 1679926684,
+      1 => 1679999497,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6421a5d2df5a75_69418492 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6422ec447e2437_68804575 (Smarty_Internal_Template $_smarty_tpl) {
 ?><link rel="stylesheet" href="../assets/CSS/navbar.css">
 
-<nav class="navbar-custom navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar-custom navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid">
     <a class="navbar-brand" href="../view/index.php">
             <!--<img src="assets/images/logo_ligne.png" alt="Logo" height="50"  class="d-inline-block align-text-middle">-->

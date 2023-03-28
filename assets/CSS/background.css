@@ -1,26 +1,34 @@
 #shape1, #shape2, #shape3{
     height: 100px;
     width: 100px;
+    z-index: -10;
 }
 
 #shape1{
     position: absolute;
 
     top: 10%;
+    left: 90%
 }
 
 #shape2{
     position: absolute;
 
-    top: 20%;
+    top: 30%;
+    left: 10%;
 }
 
 #shape3 {
     position: absolute;
-    left: 10%;
+    left: 80%;
     top: 50%;
 }
 
+.waves {
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+}
 
 .wave {
     animation: wave 8s linear infinite;

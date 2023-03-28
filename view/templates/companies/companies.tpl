@@ -43,18 +43,37 @@
             <p class="errorMsg">{$errorMsg}</p>
         {/if}
         {if $smarty.session.id_role != 3}
-            <div style="display: flex; gap: 10px; justify-content: center;">
-                <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
+            <div style="gap: 10px; justify-content: center;">
+                <button type="button" class="btn btn-info companyType" data-backdrop="static" data-bs-toggle="modal"
                     data-bs-target="#newCompanyModal">
                     Ajouter une entreprise
                 </button>
-                <a href="activitiesActions.php" class="btn btn-primary">Gérer les secteurs d'activité</a>
+                <a href="activitiesActions.php" class="btn btn-primary companyType">Gérer les secteurs d'activité</a>
                 </div>
+
+                <style>
+                .companyType {
+                    margin-top: 20px;
+                    position: relative;
+                    width: 50%;
+                    left: 25%;
+                    transition: all 1s ease-in-out !important;
+                }
+        
+                .companyType:hover {
+                    
+                    width: 60%;
+                    left: 20%;
+                }
+        
+            </style>
             {/if}
             <br><br>
+            <div class="search">    
+            <button class="btn btn-success"><i class="fas fa-search"></i></button>
             <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
-            <button class="btn btn-success">Rechercher</button>
-            <br>
+            </div>
+            <br><br>
 
 
 
@@ -63,7 +82,7 @@
 
 
                 {foreach from=$companies item=$company}
-                <div class="card flex-row card_company" id="{$company['id_company']}">
+                <div class="card flex-row card_company companyCard" id="{$company['id_company']}">
                     <img alt="logo" class="card-img-left example-card-img-responsive logo_company"
                         src="../assets/company-logos/{$company['logo']}" />
                     <div class="card-body">
@@ -108,8 +127,12 @@
                 <br>
 
 
-
-
+                <style>
+                    .companyCard{
+                        height: 200px;
+                        align-items: center;
+                    }
+                </style>
 
 
 
@@ -163,4 +186,5 @@
             </nav>
         </form>
 
+        <script src="../assets/js/card.js"></script>
     </body>

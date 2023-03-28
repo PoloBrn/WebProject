@@ -152,3 +152,5 @@
         </nav>
     </form>
 </div>
+
+<script src="../assets/js/card.js"></script>
