@@ -1,6 +1,7 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 ?>
+
 <head>
     <?php require '../includes/head.php'; ?>
 </head>
@@ -216,15 +217,22 @@ class ControlCompanies
         if (isset($_GET['search']) and !empty($_GET['search'])) {   // Si l'utilisateur recherche bien et que sa recherche n'est pas vide
             $search = htmlspecialchars($_GET['search']); // Nous gardons la recherche en mettant tout les caractères en minuscule
             $newcompanies = array();    // Initialisation d'une vartiable temporaire
-            foreach ($allCompanies as $company) {  // Pour chaque utilisateur dans la liste des utilisateurs auquels nous nous intéressont
-                if (strpos(strtolower($company['company_name']), strtolower($search)) !== false || 
-                strpos(strtolower($company['email']), strtolower($search)) !== false || 
-                strpos(strtolower($company['company_description']), strtolower($search)) !== false || 
-                strpos(strtolower(implode(array_column($company['addresses'], 'label'))), strtolower($search)) !== false ||
-                strpos(strtolower(implode(array_column($company['addresses'], 'postal_code'))), strtolower($search)) !== false ||
-                strpos(strtolower(implode(array_column($company['addresses'], 'city_name'))), strtolower($search)) !== false) {
-                    // Si le recherche coincide avec le nom, le prénom ou l'adresse mail de l'utilisateur
-                    $newcompanies[] = $company;    // Nous ajoutons l'utilisateur à la variable temporaire
+            foreach ($allCompanies as $company) {
+                foreach (explode(' ', $search) as $arg) { // Pour chaque utilisateur dans la liste des utilisateurs auquels nous nous intéressont
+                    if (
+                        strpos(strtolower($company['company_name']), strtolower($arg)) !== false ||
+                        strpos(strtolower($company['email']), strtolower($arg)) !== false ||
+                        strpos(strtolower($company['company_description']), strtolower($arg)) !== false ||
+                        strpos(strtolower(implode(array_column($company['addresses'], 'label'))), strtolower($arg)) !== false ||
+                        strpos(strtolower(implode(array_column($company['addresses'], 'postal_code'))), strtolower($arg)) !== false ||
+                        strpos(strtolower(implode(array_column($company['addresses'], 'city_name'))), strtolower($arg)) !== false
+                    ) {
+                        // Si le recherche coincide avec le nom, le prénom ou l'adresse mail de l'utilisateur
+                        if (!in_array($company, $newcompanies)) {
+                            $newcompanies[] = $company;
+                        }
+                            // Nous ajoutons l'utilisateur à la variable temporaire
+                    }
                 }
             }
             $allCompanies = $newcompanies; // Comme nous nous intéresseront qu'aux utilisateurs qui coincide avec la recherche nous pouvons écraser la dernière liste des utilisateurs

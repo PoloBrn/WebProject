@@ -15,12 +15,27 @@ require '../model/CRUD_offer.php';
 require '../model/CRUD_company.php';
 require '../model/CRUD_localities.php';
 require '../model/CRUD_activities.php';
+require '../model/CRUD_promotype.php';
+require '../model/CRUD_skills.php';
+require '../model/CRUD_wishlist.php';
+require '../model/CRUD_campus.php';
+require '../model/CRUD_promo.php';
 require_once '../view/offer.php';
 
 class ControlOffers
 {
 
-    private $errorMsg, $CRUD_offer, $CRUD_company, $CRUD_localities, $CRUD_activities, $View_offers;
+    private $errorMsg,
+        $CRUD_offer,
+        $CRUD_company,
+        $CRUD_localities,
+        $CRUD_activities,
+        $CRUD_promotype,
+        $CRUD_skills,
+        $CRUD_wishlist,
+        $CRUD_campus,
+        $CRUD_promo,
+        $View_offers;
 
     function __construct()
     {
@@ -28,7 +43,11 @@ class ControlOffers
         $this->CRUD_company = new \MODELE\CRUD_company();
         $this->CRUD_localities = new \MODELE\CRUD_localities();
         $this->CRUD_activities = new \MODELE\CRUD_activities();
-
+        $this->CRUD_promotype = new \MODELE\CRUD_promotype();
+        $this->CRUD_skills = new \MODELE\CRUD_skills();
+        $this->CRUD_wishlist = new \MODELE\CRUD_wishlist();
+        $this->CRUD_campus = new \MODELE\CRUD_campus();
+        $this->CRUD_promo = new \MODELE\CRUD_promo();
         $this->View_offers = new ViewOffers();
 
         $this->errorMsg = '';
@@ -59,12 +78,132 @@ class ControlOffers
 
     function update()
     {
+        $offer_name = htmlspecialchars($_POST['offer_name']);
+        $offer_locality_id = $_POST['offer_locality'];
+        $offer_activity_id = $_POST['offer_activity'];
+        $offer_start_date = $_POST['offer_start_date'];
+        $offer_end_date = $_POST['offer_end_date'];
+        $offer_places = $_POST['offer_places'];
+        $offer_salary = $_POST['offer_salary'];
+        $offer_description = htmlspecialchars($_POST['offer_description']);
+        $offer_active = $_POST['active'][0];
+
+        $this->CRUD_offer->update(array(
+            $offer_name, $offer_locality_id, $offer_activity_id, $offer_start_date,
+            $offer_end_date, $offer_places, $offer_salary, $offer_description, $offer_active, $_GET['id']
+        ));
+        header('Location: offerActions.php?id=' . $_GET['id'] . '&edit');
     }
+
+    function addWishlist()
+    {
+        $user_id = $_POST['student'];
+        $offer_id = $_POST['offer_id'];
+
+        if (count($this->CRUD_wishlist->getRelation($offer_id, $user_id)) == 0) {
+            $this->CRUD_wishlist->create(array($user_id, $offer_id));
+        } else {
+            $this->errorMsg = 'Wishlist deja faite';
+        }
+    }
+
+    function removeWishlist()
+    {
+        if (isset($_GET['wishlist']) && $_SESSION['id_role'] == 1) {
+            if (!empty($_GET['wishlist'])) {
+                $user_id = $_GET['wishlist'];
+            } else {
+                $user_id = $_POST['student'];
+            }
+        } else {
+            $user_id = $_POST['student'];
+        }
+
+        $offer_id = $_POST['offer_id'];
+
+        $this->CRUD_wishlist->delete(array($user_id, $offer_id));
+    }
+
+    function addSkill()
+    {
+
+        $skill_id = htmlspecialchars($_POST['skill']);
+
+        if (count($this->CRUD_skills->getRelation($_GET['id'], $skill_id)) == 0) {
+            $this->CRUD_skills->addToOffer($_GET['id'], $skill_id);
+        } else {
+            $this->errorMsg = 'Activité déjà ajoutée';
+        }
+    }
+
+    function removeSkill()
+    {
+
+
+        $skill_id = htmlspecialchars($_POST['id_skill']);
+
+        $this->CRUD_skills->removeFromOffer($_GET['id'], $skill_id);
+    }
+
+    function addType()
+    {
+
+        $type_id = htmlspecialchars($_POST['promotype']);
+
+        if (count($this->CRUD_promotype->getRelation($_GET['id'], $type_id)) == 0) {
+            $this->CRUD_promotype->addToOffer($_GET['id'], $type_id);
+        } else {
+            $this->errorMsg = 'Activité déjà ajoutée';
+        }
+    }
+
+    function removeType()
+    {
+
+
+        $type_id = htmlspecialchars($_POST['id_type']);
+
+        $this->CRUD_promotype->removeFromOffer($_GET['id'], $type_id);
+    }
+
+
 
     function delete()
     {
-    }
+        $offer_id = $_GET['id'];
 
+        $this->CRUD_offer->delete($offer_id);
+        header('Location: offerActions.php');
+    }
+    function displayOne()
+    {
+        $allOffers = $this->CRUD_offer->get(0);
+        if (in_array($_GET['id'], array_column($allOffers, 'id_offer'))) {
+            $offer = array();
+            foreach ($allOffers as $oneoffer) {
+                if ($oneoffer['id_offer'] == $_GET['id']) {
+                    $offer = $oneoffer;
+                }
+            }
+
+            $offer['localities'] = $this->CRUD_localities->get(array($offer['id_company']));
+            $offer['activities'] = $this->CRUD_activities->getCompanyActivities($offer['id_company']);
+
+            $offer['promotypes'] = $this->CRUD_promotype->getFromOffer($offer['id_offer']);
+            $offer['skills'] = $this->CRUD_skills->getFromOffer($offer['id_offer']);
+
+
+            $promotypes = $this->CRUD_promotype->get(0);
+            $skills = $this->CRUD_skills->get(0);
+
+
+            $edit = isset($_GET['edit']) && ($_SESSION['id_user'] == $offer['id_user'] || $_SESSION['id_role'] == 1);
+
+            $this->View_offers->displayOne($this->errorMsg, $offer, $promotypes, $skills, $edit);
+        } else {
+            echo '<h1>Offre inexistante</h1>';
+        }
+    }
     function displayAll()
     {
         $companies = $this->CRUD_company->get(0);
@@ -80,20 +219,94 @@ class ControlOffers
         $companies = $newcompanies;
 
         $allOffers = $this->CRUD_offer->get(0);
+
+
+        if (isset($_GET['wishlist'])) {
+            $wishlist = intval($_GET['wishlist']);
+            if (!empty($wishlist) || $wishlist != 0) {
+                $wishes = $this->CRUD_wishlist->getFromUser($wishlist);
+                $newoffers = array();
+                foreach ($allOffers as $offer) {
+                    if (in_array($offer['id_offer'], array_column($wishes, 'id_offer'))) {
+                        $newoffers[] = $offer;
+                    }
+                }
+                $allOffers = $newoffers;
+            } else {
+                $wishlist = 0;
+            }
+        } else {
+            $wishlist = 0;
+        }
+
+        $newoffers = array();
+        foreach ($allOffers as $offer) {
+            if (($offer['id_user'] == $_SESSION['id_user'] || $_SESSION['id_role'] == 1) || $offer['offer_active'] == 'on') {
+                $offer['wishes'] = $this->CRUD_wishlist->getFromOffer($offer['id_offer']);
+                $offer['promotypes'] = $this->CRUD_promotype->getFromOffer($offer['id_offer']);
+                $offer['skills'] = $this->CRUD_skills->getFromOffer($offer['id_offer']);
+                $newoffers[] = $offer;
+            }
+        }
+
+        $allOffers = $newoffers;
+        $newoffers = array();
+        if (isset($_GET['skill'])) {
+            $skill = intval($_GET['skill']);
+            if ($skill != 0 || !empty($skill)) {
+                foreach ($allOffers as $offer) {
+                    if (in_array($skill, array_column($offer['skills'], 'id_skill'))) {
+                        $newoffers[] = $offer;
+                    }
+                }
+                $allOffers = $newoffers;
+            } else {
+                $skill = 0;
+            }
+        } else {
+            $skill = 0;
+        }
+
+        $newoffers = array();
+        if (isset($_GET['type'])) {
+            $type = intval($_GET['type']);
+            if ($type != 0 || !empty($type)) {
+                foreach ($allOffers as $offer) {
+                    if (in_array($type, array_column($offer['promotypes'], 'id_type'))) {
+                        $newoffers[] = $offer;
+                    }
+                }
+                $allOffers = $newoffers;
+            } else {
+                $type = 0;
+            }
+        } else {
+            $type = 0;
+        }
+
+
         if (isset($_GET['search']) and !empty($_GET['search'])) {   // Si l'utilisateur recherche bien et que sa recherche n'est pas vide
             $search = htmlspecialchars($_GET['search']); // Nous gardons la recherche en mettant tout les caractères en minuscule
             $newoffers = array();    // Initialisation d'une vartiable temporaire
             foreach ($allOffers as $offer) {  // Pour chaque utilisateur dans la liste des utilisateurs auquels nous nous intéressont
-                if (
-                    strpos(strtolower($offer['company_name']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['offer_name']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['offer_description']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['company_description']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['email']), strtolower($search)) !== false ||
-                    strpos(strtolower($offer['activity_name']), strtolower($search)) !== false
-                ) {
-                    // Si le recherche coincide avec le nom, le prénom ou l'adresse mail de l'utilisateur
-                    $newoffers[] = $offer;    // Nous ajoutons l'utilisateur à la variable temporaire
+                foreach (explode(' ', $search) as $arg) {
+                    if (
+                        strpos(strtolower($offer['company_name']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['offer_name']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['offer_description']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['company_description']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['email']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['activity_name']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['city_name']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['label']), strtolower($arg)) !== false ||
+                        strpos(strtolower($offer['postal_code']), strtolower($arg)) !== false
+                    ) {
+                        // Si le recherche coincide avec le nom, le prénom ou l'adresse mail de l'utilisateur
+                        if (!in_array($offer, $newoffers)) {
+                            $newoffers[] = $offer;
+                        }
+                        // Nous ajoutons l'utilisateur à la variable temporaire
+                    }
                 }
             }
             $allOffers = $newoffers; // Comme nous nous intéresseront qu'aux utilisateurs qui coincide avec la recherche nous pouvons écraser la dernière liste des utilisateurs
@@ -145,22 +358,66 @@ class ControlOffers
             }
         }
         $offers = $newoffers;
-        $this->View_offers->displayOffers($this->errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage);
+
+        $skills = $this->CRUD_skills->get(0);
+        $types = $this->CRUD_promotype->get(0);
+
+        $campuses = $this->CRUD_campus->get(0);
+        $newcampuses = array();
+        foreach ($campuses as $campus) {
+            $campus['promos'] = $this->CRUD_promo->getByCampusID($campus['id_campus']);
+            $newpromos = array();
+            foreach ($campus['promos'] as $promo) {
+                $promo['students'] = $this->CRUD_promo->getStudentsByPromo($promo['id_promo']);
+                $newpromos[] = $promo;
+            }
+            $campus['promos'] = $newpromos;
+            $newcampuses[] = $campus;
+        }
+        $campuses = $newcampuses;
+
+
+        $this->View_offers->displayOffers($this->errorMsg, $companies, $offers, $search, $maxPage, $page, $nbByPage, $skills, $skill, $types, $type, $campuses, $wishlist);
+    }
+
+    function displayWishlist()
+    {
     }
 }
 
 $controlOffers = new ControlOffers();
 
-if (isset($_POST['offer_create'])) {
-    $controlOffers->create();
-}
+if (isset($_GET['id'])) {
+    if (isset($_POST['update'])) {
+        $controlOffers->update();
+    }
+    if (isset($_POST['delete'])) {
+        $controlOffers->delete();
+    }
 
-if (isset($_POST['update_skill'])) {
-    $controlOffers->update();
-}
+    if (isset($_POST['addSkill'])) {
+        $controlOffers->addSkill();
+    }
+    if (isset($_POST['removeSkill'])) {
+        $controlOffers->removeSkill();
+    }
 
-if (isset($_POST['delete_skill'])) {
-    $controlOffers->delete();
+    if (isset($_POST['addType'])) {
+        $controlOffers->addType();
+    }
+    if (isset($_POST['removeType'])) {
+        $controlOffers->removeType();
+    }
+    $controlOffers->displayOne();
+} else {
+    if (isset($_POST['offer_create'])) {
+        $controlOffers->create();
+    }
+    if (isset($_POST['addWishlist'])) {
+        $controlOffers->addWishlist();
+    }
+    if (isset($_POST['removeWishlist'])) {
+        $controlOffers->removeWishlist();
+    }
+    $controlOffers->displayAll();
 }
-
-$controlOffers->displayAll();

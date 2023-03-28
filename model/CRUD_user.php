@@ -10,6 +10,7 @@ class CRUD_user extends Database
 
     function create($array)
     {
+        $array = $this->securityCheck($array);
         $user_first_name = $array[0];
         $user_last_name = $array[1];
         $user_email = $array[2];
@@ -30,6 +31,7 @@ class CRUD_user extends Database
 
     function update($array)
     {
+        $array = $this->securityCheck($array);
         $user_id = $array[0];
         $user_first_name = $array[1];
         $user_last_name = $array[2];
@@ -44,6 +46,9 @@ class CRUD_user extends Database
 
     function delete($array)
     {
+        
+        $array = $this->securityCheck($array);
+
         $user_id = $array[0];
 
         $request = $this->pdo->prepare('CALL users_delete (?)');
@@ -52,6 +57,8 @@ class CRUD_user extends Database
 
     function get($array)
     {
+        
+        $array = $this->securityCheck($array);
         $user_id = $array[0];
         $request = $this->pdo->prepare('CALL users_select (?)');
         $request->execute(array($user_id));
@@ -60,12 +67,19 @@ class CRUD_user extends Database
 
     function updatePassword($user_id, $user_password)
     {
+        
+        $user_id = $this->securityCheck($user_id);
+        $user_password = $this->securityCheck($user_password);
+
         $request = $this->pdo->prepare('CALL users_updatePassword (?,?)');
         $request->execute(array($user_password, $user_id));
     }
 
     function getUserInfos($user_email)
     {
+        
+        $array = $this->securityCheck($user_email);
+
         $request = $this->pdo->prepare("CALL users_getUserInfos (?)");
         $request->execute(array($user_email));
         return $request->fetchAll();

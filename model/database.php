@@ -13,7 +13,6 @@ abstract class Database implements CRUD
 
     function __construct()
     {
-
         $bdd_config = parse_ini_file('../config/config_db.ini');
         $dsn = 'mysql:host=' . $bdd_config['hostname'] . ';dbname=' . $bdd_config['db_name'] . ';charset=utf8;'; // Serveur Localhost
 
@@ -23,6 +22,23 @@ abstract class Database implements CRUD
         } catch (Exception $e) {
             die('Une erreur a été trouvée : ' . $e->getMessage());
         }
+    }
+    protected static function securityCheck($var) {
+                                //additionnal security on entries in database
+        if (is_array($var)){
+            foreach($var as $data){
+                $data = trim($data);    //deletes invsible characters at start and end of string
+                $data = stripslashes($data);    //deletes slashes and unquotes quoted chars
+                $data = htmlspecialchars($data);    //converts special chars to html
+            }
+        }
+
+        else {
+            $var = trim($var);
+            $var = stripslashes($var);
+            $var = htmlspecialchars($var);
+        }
+        return $var;
     }
 }
 
