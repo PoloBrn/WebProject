@@ -57,16 +57,9 @@
                     position: relative;
                     width: 50%;
                     left: 25%;
-                    transition: all 1s ease-in-out !important;
                 }
-        
-                .companyType:hover {
-                    
-                    width: 60%;
-                    left: 20%;
-                }
-        
             </style>
+            
             {/if}
             <br><br>
             <div class="search">    

@@ -31,16 +31,16 @@
 }
 
 .wave {
-    animation: wave 8s linear infinite;
+    animation: wave 18s linear infinite;
     transform: rotate(90deg);
   }
 
   .wave1 {
-    animation: wave1 10s linear infinite;
+    animation: wave1 12s linear infinite;
   }
 
   .wave2 {
-    animation: wave2 12s linear infinite;
+    animation: wave2 15s linear infinite;
   }
 
   @keyframes wave {

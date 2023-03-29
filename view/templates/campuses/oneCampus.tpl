@@ -85,9 +85,11 @@
             Ajouter une promo
         </button>
         <br><br>
-        <input type="hidden" name="id" value="{$campus['id_campus']}">
-        <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">
-        <input type='submit' class="btn btn-success" value="Rechercher">
+        <input type="hidden" name="id" value="{$campus['id_campus']}">    
+        <div class="search">    
+        <button class="btn btn-success"><i class="fas fa-search"></i></button>
+        <input type='search' name="search" class="form-control" value="{$search}" placeholder="Rechercher">*
+        </div>
         <br>
         {foreach from=$promos item=$promo}
             <div class="card" id="promo{$promo['id_promo']}">

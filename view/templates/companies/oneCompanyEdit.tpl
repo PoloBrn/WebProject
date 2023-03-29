@@ -195,9 +195,4 @@
     transition: all 1s ease-in-out !important;
 }
 
-.companyType:hover {
-    
-    width: 60%;
-    left: 20%;
-}   
 </style>
