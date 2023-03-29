@@ -1,7 +1,5 @@
 
 <a href="offerActions.php#{$offer['id_offer']}" class="btn btn-primary">back</a>
-<img alt="logo" class="card-img-left example-card-img-responsive logo_company"
-    src="../assets/company-logos/{$offer['logo']}" />
 <div class="container">
     <h1>{$offer['company_name']}</h1>
     <h4>Description de l'entreprise :</h4>
