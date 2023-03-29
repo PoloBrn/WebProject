@@ -1,5 +1,6 @@
 
 
+
   <!-- jQuery CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <!-- jQuery local fallback -->
@@ -27,9 +28,9 @@
 
 <script src="../assets/cities.js"></script>
 <script>
-        window.addEventListener("load",()=> {
-           if ('serviceWorker' in navigator) {
+    window.addEventListener("load", () => {
+        if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('../view/serviceWorker.js');
-        } 
-        });
-    </script>
+        }
+    });
+</script>

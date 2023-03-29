@@ -3,6 +3,7 @@ const CACHED_FILES = [
     '../assets/CSS/style.css',
     '../assets/images/chips.png',
     '../assets/images/background.webp',
+    '../manifest.json'
 ];
 
 self.addEventListener("install", (event) => {
@@ -10,7 +11,7 @@ self.addEventListener("install", (event) => {
     event.waitUntil(
         (async () => {
             const cache = await caches.open(PREFIX);
-            await Promise.all([...CACHED_FILES, './view/offline.html'].map((path) => {
+            await Promise.all([...CACHED_FILES, '../view/offline.html'].map((path) => {
                 return cache.add(new Request(path));
             }))
             /*cache.add(new Request('offline.html'));
@@ -39,28 +40,4 @@ self.addEventListener("activate", (event) => {
         })()
     );
     console.log(`${PREFIX} Active`);
-});
-
-self.addEventListener('fetch', (event) => {
-    console.log(`Fetching : ${event.request.url}, Mode : ${event.request.mode}`
-    );
-    if (event.request.mode == 'navigate') {
-        event.respondWith(
-            (async () => {
-                try {
-                    const preloadResponse = await event.preloadResponse;
-                    if (preloadResponse) {
-                        return preloadResponse;
-                    }
-
-                    return await fetch(event.request);
-                } catch (e) {
-                    const cache = await caches.open(PREFIX);
-                    return await cache.match('offline.html');
-                }
-            })()
-        );
-    } else if (CACHED_FILES.includes(event.request.url)) {
-        event.respondWith(caches.match(event.request));
-    }
 });

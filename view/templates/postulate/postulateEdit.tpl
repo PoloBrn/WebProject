@@ -20,24 +20,28 @@
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" name="offer_id" value="{$offer['id_offer']}">
         <input type="hidden" name="user_id" value="{$user['id_user']}">
-<h1>Postuler {if $smarty.session.id_role == 1} en tant que {$user['first_name']} {$user['last_name']}{/if} :</h1>
+        <h1>Etat de la candidature {if $smarty.session.id_role == 1} de {$user['first_name']} {$user['last_name']}{/if} :
+        </h1>
         <div class="mb-3">
             <label for="cv" class="form-label">CV :</label>
-            <input type="file" accept=".pdf" class="form-control" name="file[]">
+            <label for="cv" class="form-label"><a href="../assets/users/cv/{$postulate['cv']}" target="_blank" rel="noopener noreferrer">CV</a></label>
         </div>
         <div class="mb-3">
             <label for="lm" class="form-label">Lettre de motivation :</label>
-            <input type="file" accept=".pdf, .doc, .docx, .odt" class="form-control" name="file[]">
+            <label for="lm" class="form-label"><a href="../assets/users/lm/{$postulate['lm']}" target="_blank" rel="noopener noreferrer">Lettre de motivation</a></label>
         </div>
         <div class="mb-3">
             <label for="lm" class="form-label">Informations complémentaires :</label>
-            <textarea class="form-control" name="infos"></textarea>
+            <p>{$postulate['infos']}</p>
+        </div>
+        <div class="mb-3">
+            <label for="progress" class="form-label">Etat de la candidature :</label>
+            <textarea class="form-control" name="progress">{$postulate['progress']}</textarea>
         </div>
         <div class="mb-3">
             <a href="offerActions.php" class="btn btn-danger">Annuler</a>
-            <button type="submit" class="btn btn-primary" name="create">Postuler</button>
+            <button type="submit" class="btn btn-primary" name="update">Enregistrer</button>
         </div>
-        
 </div>
 </form>
 </div>

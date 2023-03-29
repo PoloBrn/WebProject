@@ -151,6 +151,27 @@ class ControlCompanies
         $this->CRUD_address->delete(array($address_id));
     }
 
+    function addFeedback() {
+        $rate = $_POST['rate'];
+        $comment = htmlspecialchars($_POST['comment']);
+        if (count($this->CRUD_company->getFBfromIDs($_SESSION['id_user'], $_GET['id'])) == 0) {
+            $this->CRUD_company->addFeedback($_SESSION['id_user'], $_GET['id'], $rate, $comment);
+        }
+        header('Location: companiesActions.php?id='.$_GET['id'].'#'.$_SESSION['id_user']);     
+    }
+
+    function editFeedback() {
+        $rate = $_POST['rate'];
+        $comment = htmlspecialchars($_POST['comment']);
+        
+        $this->CRUD_company->editFeedback($_SESSION['id_user'], $_GET['id'], $rate, $comment);
+        
+        header('Location: companiesActions.php?id='.$_GET['id'].'#'.$_SESSION['id_user']);     
+    }
+
+    function deleteFeedback() {
+        $this->CRUD_company->deleteFeedback($_POST['id_user'], $_GET['id']);
+    }
 
 
     function addActivity()
@@ -184,13 +205,20 @@ class ControlCompanies
         } else {
             $addresses = $this->CRUD_localities->get(array($_GET['id']));
 
+            $company['feedbacks'] = $this->CRUD_company->getFeedback($_GET['id']);
+
             $activities = $this->CRUD_activity->get(0);
 
             $company_activities = $this->CRUD_activity->getCompanyActivities($_GET['id']);
 
             $edit = isset($_GET['edit']) && ($_SESSION['id_user'] == $company['id_user'] || $_SESSION['id_role'] == 1);
 
-            $this->display->displayCompany($this->errorMsg, $company, $addresses, $company_activities, $activities, $edit);
+            if ($company['active'] == 'on' || ($_SESSION['id_user'] == $company['id_user'] || $_SESSION['id_role'] == 1)) {
+                $this->display->displayCompany($this->errorMsg, $company, $addresses, $company_activities, $activities, $edit);
+            } else {
+                echo '<h1>Entreprise inexistante</h1>';
+            }
+            
         }
     }
 
@@ -307,6 +335,17 @@ if (isset($_GET['id'])) {
 
     if (isset($_POST['createAddress'])) {
         $companies->createAddress();
+    }
+
+    if (isset($_POST['addFeedback'])) {
+        $companies->addFeedback();
+    }
+    if (isset($_POST['editFeedback'])) {
+        $companies->editFeedback();
+    }
+
+    if (isset($_POST['deleteFeedback'])) {
+        $companies->deleteFeedback();
     }
 
     if (isset($_POST['deleteAddress'])) {
