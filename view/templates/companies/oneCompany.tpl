@@ -120,9 +120,12 @@
 
 
 
+
 <a href="companiesActions.php#{$company['id_company']}" class="btn btn-primary">back</a>
+
+<div class="container companyCard">
 <img alt="logo" class="card-img-left example-card-img-responsive logo_company"
-    src="../assets/company-logos/{$company['logo']}" />
+    src="../assets/company-logos/{$company['logo']}" width="200px" />
 <div class="container">
     <h1>{$company['company_name']}</h1>
     <p>{$company['company_description']}</p>
@@ -145,9 +148,9 @@
     </ul>
     <p>Contact : <a href="mailto:{$company['email']}">{$company['email'] }</a></p>
 </div>
-
+</div>
 <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
-    data-bs-target="#newFeedbackModal">
+    data-bs-target="#newFeedbackModal" style="margin-bottom: 20px">
     Evaluer l'entreprise
 </button>
 
@@ -160,7 +163,15 @@
                 <p class="card-text">Note de {$feedback['rate']}/5</p>
                 <p class="card-text">Commentaire : {$feedback['comment']}</p>
 
+                {if $smarty.session.id_user == $feedback['id_user']}
+                    <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
+                        data-bs-target="#editFeedbackModal" style="margin-bottom: 20px">
+                        Modifier
+                    </button>
+
+                {/if}
                 {if $smarty.session.id_user == $feedback['id_user'] || $smarty.session.id_role == 1}
+                    <br>
                     <button type="button" class="btn btn-danger" data-backdrop="static" data-bs-toggle="modal"
                         data-bs-target="#deleteFeedbackModal{$feedback['id_user']}">
                         Supprimer
@@ -168,13 +179,7 @@
 
                 {/if}
 
-                {if $smarty.session.id_user == $feedback['id_user']}
-                    <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
-                        data-bs-target="#editFeedbackModal">
-                        Modifier
-                    </button>
 
-                {/if}
             </div>
         </form>
 
@@ -187,3 +192,21 @@
 {if $smarty.session.id_user == $company['id_user'] || $smarty.session.id_role == 1}
     <a href="companiesActions.php?id={$company['id_company']}&edit" class="btn btn-primary">Modifier</a>
 {/if}
+
+<style>
+
+.companyCard{
+    background: rgba( 255, 255, 255, 0.05 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 7.5px );
+    -webkit-backdrop-filter: blur( 7.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+    width: 40%;
+    color: white;
+}
+</style>
+
+
+<script src="../assets/js/card.js"></script>
