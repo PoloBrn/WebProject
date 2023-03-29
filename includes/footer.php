@@ -6,3 +6,5 @@
     <br>
     <a class="legal" href="../view/legal.php">Mentions Légales</a>
 </footer>
+
+</html>

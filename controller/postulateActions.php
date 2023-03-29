@@ -1,13 +1,7 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <?php require '../includes/head.php'; ?>
-</head>
-<?php
+require '../includes/head.php'; 
 require('../controller/securityAction.php');
 require_once '../model/CRUD_postulate.php';
 require_once '../model/CRUD_user.php';

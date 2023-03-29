@@ -1,13 +1,9 @@
 <?php
 
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php require_once('../includes/head.php'); ?>
-</head>
-<?php
+
+
+require_once('../includes/head.php'); 
 require('../controller/securityAction.php');
 
 require '../model/CRUD_skills.php';
@@ -151,3 +147,6 @@ if (isset($_POST['delete_skill'])) {
 }
 
 $controlSkills->displayAll();
+
+
+include '../includes/footer.php';
