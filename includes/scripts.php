@@ -17,14 +17,6 @@
     }
 </script>
 
-<script>
-    /*if (window.bootstrap === 'undefined' ) {
-        console.log("test");
-        document.write('<link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">');
-        document.write( '<script src="../assets/bootstrap/js/bootstrap.min.js"><\/script>')
-    }*/
-</script>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <script src="../assets/cities.js"></script>
