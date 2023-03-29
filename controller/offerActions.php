@@ -186,8 +186,6 @@ class ControlOffers
             $offer['promotypes'] = $this->CRUD_promotype->getFromOffer($offer['id_offer']);
             $offer['skills'] = $this->CRUD_skills->getFromOffer($offer['id_offer']);
 
-            //$offer['company'] = $this->CRUD_company->getById($offer['id_company']);
-            var_dump($offer);
             $promotypes = $this->CRUD_promotype->get(0);
             $skills = $this->CRUD_skills->get(0);
 

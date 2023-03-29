@@ -57,7 +57,7 @@ class ControlUsers
 
                 //Rediriger l'utilisateur sur la page d'accueil
                 $this->errorMsg = "L'utilisateur a bien été créé avec l'id : " . $user_id;
-                header('Location: users.php');
+                header('Location: usersActions.php?id='.$user_id);
             } else {
                 $this->errorMsg = "L'adresse email est déjà utilisée";
             }
@@ -95,7 +95,7 @@ class ControlUsers
     function delete()
     {
         $this->user->delete(array($_GET['id']));
-        header('Location: users.php');
+        header('Location: usersActions.php');
     }
 
     function displayOne()

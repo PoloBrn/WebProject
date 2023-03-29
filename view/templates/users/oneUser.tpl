@@ -14,86 +14,53 @@
                 {/if}
 
                 <div class=" container informations">
-                <h5 class="color-white">Informations :</h5>
+                    <h5 class="color-white">Informations :</h5>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Prénom :</label>
+                        <label for="first_name" class="form-label">Prénom :</label>
                         <input type="text" class="form-control" name="first_name" value="{$oneUser["first_name"]}">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Nom :</label>
+                        <label for="last_name" class="form-label">Nom :</label>
                         <input type="text" class="form-control" name="last_name" value="{$oneUser["last_name"]}">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Adresse e-mail :</label>
+                        <label for="email" class="form-label">Adresse e-mail :</label>
                         <input type="email" class="form-control" name="email" value="{$oneUser["email"]}">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Changer le mot de passe :</label>
+                        <label for="first_password" class="form-label">Changer le mot de passe :</label>
                         <input type="password" class="form-control" name="first_password">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Répéter le mot de passe :</label>
-                       <input type="password" class="form-control" name="second_password">
+                        <label for="second_password" class="form-label">Répéter le mot de passe :</label>
+                        <input type="password" class="form-control" name="second_password">
+                    </div>
                 </div>
-            </div>
-            <br>
-            <hr>
-            <h5 class="color-white">Adresse :</h5>
-            <div class="container">
-                <div class="mb-3">
-                    <label class="form-label">Libellé :</label>
-                    <input type="text" class="form-control" name="label" id="label" value="{$oneUser["label"]}">
-
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Code postal :</label>
-                    <input type="number" class="form-control" name="postal_code" id="postal_code"
-                        value={$oneUser["postal_code"]}>
-                </div>
-                <label class="form-label">Ville :</label>
-                <select name="city" id="city" class="mb-3 form-select">
-                    <option value="{$oneUser["city_name"]}">{$oneUser["city_name"]}</option>
-                </select>
-                <input type="hidden" name="address_id" value="{$oneUser["id_address"]}">
-                <button type="submit" class="btn btn-primary" name="update">Enregistrer</button>
-                
-                <a href="offerActions.php?wishlist={$oneUser['id_user']}" class="btn btn-danger">Wishlist</a>
-                <a href="postulateActions.php?user={$oneUser['id_user']}" class="btn btn-danger">Candidatures</a>
-                
-                {if $smarty.session.id_user != $smarty.get.id}
-                    <button type="button" class="btn btn-danger" data-backdrop="static" data-bs-toggle="modal"
-                    data-bs-target="#deleteUserModal">
-                    Supprimer l'utilisateur
-                    </button>
-                {/if}
-                <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer un utilisateur</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" style="text-align: center;">
-                                <p>Souhaitez vous vraiment supprimer un utilisateur ?</p>
-                                <p>Supprimer un utilisateur entraînera la suppression de toutes ses données</p>
-                            </div>
-                            </div>
+                <br>
+                <hr>
+                <h5 class="color-white">Adresse :</h5>
+                <div class="container">
+                    <div class="mb-3">
+                        <label class="form-label" for="label">Libellé :</label>
+                        <input type="text" class="form-control" name="label" id="label" value="{$oneUser["label"]}">
 
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Code postal :</label>
+                        <label class="form-label" for="postal_code">Code postal :</label>
                         <input type="number" class="form-control" name="postal_code" id="postal_code"
                             value={$oneUser["postal_code"]}>
                     </div>
-                    <label class="form-label">Ville :</label>
-                    <select name="city" id="city" class="mb-3 form-select">
-                        <option value="{$oneUser["city_name"]}">{$oneUser["city_name"]}</option>
-                    </select>
+                    <div class="mb-3">
+                        <label class="form-label" for="city">Ville :</label>
+                        <select name="city" id="city" class="mb-3 form-select">
+                            <option value="{$oneUser["city_name"]}">{$oneUser["city_name"]}</option>
+                        </select>
+                    </div>
                     <input type="hidden" name="address_id" value="{$oneUser["id_address"]}">
                     <button type="submit" class="btn btn-primary" name="update">Enregistrer</button>
-                    {if $smarty.session.id_role != 2}
+                    {if $oneUser['id_role'] == 3}
                         <a href="offerActions.php?wishlist={$oneUser['id_user']}" class="btn btn-danger">Wishlist</a>
+                        <a href="postulateActions.php?user={$oneUser['id_user']}" class="btn btn-danger">Candidatures</a>
                     {/if}
                     {if $smarty.session.id_user != $smarty.get.id}
                         <button type="button" class="btn btn-danger" data-backdrop="static" data-bs-toggle="modal"
@@ -130,5 +97,3 @@
 
 
 </body>
-
-</html>

@@ -14,11 +14,6 @@ self.addEventListener("install", (event) => {
             await Promise.all([...CACHED_FILES, 'offline.html'].map((path) => {
                 return cache.add(new Request(path));
             }))
-            /*cache.add(new Request('offline.html'));
-            cache.add(new Request('../assets/CSS/style.css'));
-            cache.add(new Request('../assets/images/chips.png'));
-            cache.add(new Request('../assets/images/background.png'));
-            cache.add(new Request('../manifest.json'));*/
         })()
     );
     console.log(`${PREFIX} Install`);

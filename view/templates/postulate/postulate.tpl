@@ -30,7 +30,7 @@
             <input type="file" accept=".pdf, .doc, .docx, .odt" class="form-control" name="file[]">
         </div>
         <div class="mb-3">
-            <label for="lm" class="form-label">Informations complémentaires :</label>
+            <label for="infos" class="form-label">Informations complémentaires :</label>
             <textarea class="form-control" name="infos"></textarea>
         </div>
         <div class="mb-3">
