@@ -309,11 +309,11 @@
             </option>
             {/foreach}
         </select><br>
-        <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
+        <button type="button" class="btn btn-info offerType" data-backdrop="static" data-bs-toggle="modal"
             data-bs-target="#addTypeModal">
             Ajouter un type de promo
         </button>
-        <button type="submit" class="btn btn-danger" name="removeType">
+        <button type="submit" class="btn btn-danger offerType" name="removeType">
             Supprimer un type de promo
         </button>
     </form>
@@ -337,12 +337,37 @@
             {/foreach}
         </select>
         <br>
-        <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
+        <button type="button" class="btn btn-info offerType" data-backdrop="static" data-bs-toggle="modal"
             data-bs-target="#addSkillModal">
             Ajouter une compétence
         </button>
-        <button type="submit" class="btn btn-danger" name="removeSkill">
+        <button type="submit" class="btn btn-danger offerType" name="removeSkill">
             Retirer une compétence
         </button>
     </form>
 </div>
+
+
+<style>
+.offerType {
+    margin-top: 20px;
+    position: relative;
+    width: 50%;
+    left: 25%;
+    transition: all 1s ease-in-out !important;
+}
+
+.offerType:hover {
+    
+    width: 60%;
+    left: 20%;
+}
+
+.form-check-input, .form-check-label {
+    margin-top: 25px;
+    margin-right: 25px;
+    position: relative;
+    left: 40%;
+    font-size: larger;
+}
+</style>

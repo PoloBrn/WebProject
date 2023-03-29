@@ -32,6 +32,8 @@
         data-bs-target="#newTypeModal">
         Ajouter un type de promo
     </button>
+    <style>
+    </style>
     <br><br>
     <div class="search">  
         <button class="btn btn-success"><i class="fas fa-search"></i></button>

@@ -106,13 +106,23 @@
             <p class="errorMsg">{$errorMsg}</p>
         {/if}
         {if $smarty.session.id_role != 3 && $wishlist == 0}
-            <div style="display: flex; gap: 10px; justify-content: center;">
-                <button type="button" class="btn btn-info" data-backdrop="static" data-bs-toggle="modal"
+            <div style="gap: 10px; justify-content: center;">
+                <button type="button" class="btn btn-info offersType" data-backdrop="static" data-bs-toggle="modal"
                     data-bs-target="#newOfferModal">
                     Ajouter une offre
                 </button>
-                <a href="skillsActions.php" class="btn btn-primary">Gérer les compétences</a>
-            </div>
+                <a href="skillsActions.php" class="btn btn-primary offersType">Gérer les compétences</a>
+            </div>    
+            <style>
+                .offersType {
+                    margin-top: 20px;
+                    position: relative;
+                    width: 50%;
+                    left: 25%;
+                    transition: all 1s ease-in-out !important;
+                }
+
+            </style>
         {/if}        
         <br>
 
@@ -191,7 +201,7 @@
             </nav>
         </form>
         {foreach from=$offers item=$offer}
-            <form method="post" class="card flex-row card_company" style="height:135px;" id="{$offer['id_offer']}">
+            <form method="post" class="card flex-row card_company" id="{$offer['id_offer']}">
                 <img alt="logo" class="card-img-left example-card-img-responsive logo_company"
                     src="../assets/company-logos/{$offer['logo']}" />
                 <div class="card-body">
