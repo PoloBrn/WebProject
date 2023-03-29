@@ -1,11 +1,7 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-?>
 
-<head>
-    <?php require_once('../includes/head.php'); ?>
-</head>
-<?php
+require_once('../includes/head.php');
 require('../controller/securityAction.php');
 require_once '../model/CRUD_user.php';
 require_once '../model/CRUD_address.php';

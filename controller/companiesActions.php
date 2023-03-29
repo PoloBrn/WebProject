@@ -1,11 +1,10 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-?>
 
-<head>
-    <?php require '../includes/head.php'; ?>
-</head>
-<?php
+
+require '../includes/head.php';
+
+
 require('../controller/securityAction.php');
 
 require '../model/CRUD_company.php';

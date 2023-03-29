@@ -1,18 +1,18 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-?>
 
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <?php include '../includes/head.php';    
+include '../includes/head.php';   
+?><link rel="stylesheet" href="../assets/CSS/index.css"> <?php
+
+
+
         include '../includes/scripts.php';
         require('../controller/securityAction.php');  
         include '../includes/background.php'; ?>
-    <link rel="stylesheet" href="../assets/CSS/index.css">
-</head>
+    
+
 
 <body>
     <?php 
