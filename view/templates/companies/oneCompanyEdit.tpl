@@ -8,16 +8,18 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Libellé :</label>
+                        <label for="label" class="form-label">Libellé :</label>
                         <input type="text" class="form-control" name="label" id="label" value>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Code postal :</label>
+                        <label for="postal_code" class="form-label">Code postal :</label>
                         <input type="text" class="form-control" name="postal_code" id="postal_code">
                     </div>
-                    <label class="form-label">Ville :</label>
-                    <select name="city" id="city" class="mb-3 form-select">
-                    </select><br>
+                    <div class="mb-3">
+                        <label for="city" class="form-label">Ville :</label>
+                        <select name="city" id="city" class="mb-3 form-select">
+                        </select>
+                    </div><br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -38,8 +40,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Secteur d'activité :</label>
-                        <select name="activity" class="mb-3 form-select">
+                        <label for="activity" class="form-label">Secteur d'activité :</label>
+                        <select name="activity" id="activity" class="mb-3 form-select">
                             {foreach from=$activities item=$activity}
                                 <option value="{$activity['id_activity']}">{$activity['activity_name']}
                                 </option>
@@ -67,7 +69,8 @@
     <h5>Informations :</h5>
     <form class="container" method="POST" enctype="multipart/form-data">
         <div class="form-check form-switch">
-<input class="form-check-input" type="checkbox" name="active[]" role="switch" id="flexSwitchCheckDefault" {if ($company['active'] == 'on')}checked{/if}>
+            <input class="form-check-input" type="checkbox" name="active[]" role="switch" id="flexSwitchCheckDefault"
+                {if ($company['active'] == 'on')}checked{/if}>
             <label class="form-check-label" for="flexSwitchCheckDefault">Entreprise active</label>
         </div>
         <div class="mb-3">
@@ -76,20 +79,20 @@
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Adresse e-mail de contact :</label>
+            <label for="email" class="form-label">Adresse e-mail de contact :</label>
             <input type="email" class="form-control" name="email" value="{$company['email']}">
         </div>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Nombre d'étudiants CESI déjà acceptés en stage :
+            <label for="nb_student" class="form-label">Nombre d'étudiants CESI déjà acceptés en stage :
             </label>
             <input type="number" class="form-control" name="nb_student" value="{$company['nb_student']}">
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Logo :</label>
+            <label for="logo" class="form-label">Logo :</label>
             <input type="file" accept="image/png, image/gif, image/jpeg" multiple class="form-control" name="logo">
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Description :</label>
+            <label for="description" class="form-label">Description :</label>
             <textarea class='form-control' name="description">{$company['company_description']}</textarea>
         </div>
 
@@ -187,12 +190,11 @@
 
 
 <style>
-.companyType {
-    margin-top: 20px;
-    position: relative;
-    width: 50%;
-    left: 25%;
-    transition: all 1s ease-in-out !important;
-}
-
+    .companyType {
+        margin-top: 20px;
+        position: relative;
+        width: 50%;
+        left: 25%;
+        transition: all 1s ease-in-out !important;
+    }
 </style>
