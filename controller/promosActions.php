@@ -1,12 +1,7 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
-?>
-
-<head>
-    <?php require_once('../includes/head.php'); ?>
-</head>
-<?php
+require_once('../includes/head.php');
 require('../controller/securityAction.php');
 require_once '../model/CRUD_promo.php';
 require_once '../model/CRUD_promotype.php';
@@ -111,3 +106,6 @@ if (isset($_POST['delete'])) {
 }
 
 $controlPromos->displayOne();
+
+
+include '../includes/footer.php';
